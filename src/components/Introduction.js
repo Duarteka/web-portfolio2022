@@ -106,20 +106,9 @@ export default function Introduction() {
         </Scroll>
       </Borderline>
 
-      <div className="containerAboutProfesional" style={{ height: '100vh' }}>
-        <Slide>
-          <h3>
-            Junior Frontend Developer, graduated in Graphic Design. Master in
-            web design and development Specialized in UX-UI, I’m teamwork to
-            obtain the best result in usability and aesthetics by implementing
-            micro animations that interact with the user in a simple and direct
-            environment.
-          </h3>
-        </Slide>
-      </div>
       <Slide>
         <div className="containerToolsIcons">
-          <div>
+          <div style={{ width: '100vh' }}>
             <JavaScriptLogo /> <ReactLogoLogo /> <FigmaLogo /> <ReduxLogo />{' '}
             <NotionLogo />
           </div>
@@ -140,11 +129,9 @@ to {
 }
 `;
 const Borderline = styled.div`
-  margin-top: 5%;
   width: 100vw;
   border: 1px solid ${backgroundColor};
   border-radius: 15px 15px 15px 15px;
-  background-color: green;
 `;
 
 const Scroll = styled.div`

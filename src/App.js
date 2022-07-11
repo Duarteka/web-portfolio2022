@@ -118,7 +118,7 @@ function App() {
       <DarkThemeProvider>
         <Wrapper>
           <Parallax pages={8.8}>
-            <ParallaxLayer pages={5}>
+            <ParallaxLayer pages={3}>
               <LightTheme />
               <Slide>
                 <div>
@@ -133,12 +133,21 @@ function App() {
                   <RectangleLightMode />
                 )}
               </div>
+              <ParallaxLayer
+                offset={0}
+                speed={0.5}
+                style={{ justifyContent: 'center' }}
+              >
+                <HeaderContent />
 
-              <HeaderContent />
-
-              <Introduction />
-              <SelectedWork />
+                <Introduction />
+                <SelectedWork />
+              </ParallaxLayer>
+            </ParallaxLayer>
+            <ParallaxLayer sticky={{ start: 1, end: 3 }} horizontal>
               <Proyects />
+            </ParallaxLayer>
+            <ParallaxLayer pages={4.8} offset={4}>
               <About />
               <AboutPage />
               <Contact />

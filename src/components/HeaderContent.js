@@ -148,6 +148,7 @@ const Containerheader = styled.div`
   align-content: center;
   text-transform: uppercase;
   margin-top: 3rem;
+  height: 100vh;
 
   @media (max-width: 768px) {
     display: flex;
