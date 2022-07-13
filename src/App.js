@@ -2,7 +2,7 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, createGlobalStyle } from 'styled-components';
 import {
   Provider as ReduxProvider,
   useSelector,
@@ -12,6 +12,8 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import theme from 'styled-theming';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Moon } from '@styled-icons/entypo/Moon';
+import { Route, Routes } from 'react-router-dom';
+import BackgroundTexture from './assets/backgroundTexture.png';
 
 import { store } from './components/redux/store';
 
@@ -32,11 +34,12 @@ import RectangleDarkMode, {
 import DarkThemeProvider from './components/redux/DarkThemeProvider';
 import { TOGGLE_DARKTHEME } from './components/redux/actions';
 import { Slide } from './components/slideAnimation/Slide';
+import Prueba from './components/Prueba';
 
 const MoonLight = styled(Moon)`
   height: 30px;
 
-  position: 'relative';
+  position: relative;
   margin-left: '30px';
 `;
 
@@ -48,6 +51,7 @@ export const textColor = theme('theme', {
   light: '#373737',
   dark: '#F9F5E7'
 });
+
 const noise = keyframes`
 0%, 100% { transform:translate(0, 0); }
 10% { transform:translate(-5%, -10%); }
@@ -60,19 +64,16 @@ const noise = keyframes`
 80% { transform:translate(3%, 35%); }
 90% { transform:translate(-10%, 10%);
 `;
-
-const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
-  display: flex;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  transition: ease 1.5s;
-  color: ${textColor};
-
-  background-color: ${backgroundColor};
+function BackgroundNoise() {
+  return (
+    <TextureBackground>
+      <img src={BackgroundTexture} alt="" />
+    </TextureBackground>
+  );
+}
+const TextureBackground = styled.div`
+  position: relative;
+  z-indez: 10000;
 
   img {
     z-index: -1;
@@ -80,7 +81,7 @@ const Wrapper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 80vh;
+    height: 100%;
     opacity: 0.95;
   }
 
@@ -98,6 +99,13 @@ const Wrapper = styled.div`
     animation: ${noise} 8s steps(10) infinite;
   }
 `;
+const Wrapper = styled.div`
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
+  transition: ease 1.9s;
+  color: ${textColor};
+  background-color: ${backgroundColor};
+`;
 export function LightTheme() {
   const dispatch = useDispatch();
   const toggledarktheme = () => dispatch({ type: TOGGLE_DARKTHEME });
@@ -105,6 +113,16 @@ export function LightTheme() {
     <ContainerToggleTheme>
       <MoonLight onClick={toggledarktheme} />
     </ContainerToggleTheme>
+  );
+}
+function Blurcircles() {
+  return (
+    <Slide>
+      <div>
+        <div className="blur1" />
+        <div className="blur2" />
+      </div>
+    </Slide>
   );
 }
 
@@ -117,46 +135,27 @@ function App() {
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
-          <Parallax pages={8.8}>
-            <ParallaxLayer pages={3}>
-              <LightTheme />
-              <Slide>
-                <div>
-                  <div className="blur1" />
-                  <div className="blur2" />
-                </div>
-              </Slide>
-              <div>
-                {darkThemeEnabled ? (
-                  <RectangleDarkMode />
-                ) : (
-                  <RectangleLightMode />
-                )}
-              </div>
-              <ParallaxLayer
-                offset={0}
-                speed={0.5}
-                style={{ justifyContent: 'center' }}
-              >
-                <HeaderContent />
-
-                <Introduction />
-                <SelectedWork />
-              </ParallaxLayer>
-            </ParallaxLayer>
-            <ParallaxLayer sticky={{ start: 1, end: 3 }} horizontal>
-              <Proyects />
-            </ParallaxLayer>
-            <ParallaxLayer pages={4.8} offset={4}>
-              <About />
-              <AboutPage />
-              <Contact />
-              <ContactPage />
-              <Footer />
-            </ParallaxLayer>
-          </Parallax>
+          <div>
+            {darkThemeEnabled ? <RectangleDarkMode /> : <RectangleLightMode />}
+          </div>
+          <BackgroundNoise />
+          <Burguer />
+          <Blurcircles />
+          <HeaderContent />
+          <LightTheme />
+          <Introduction />
+          <SelectedWork />
+          <Proyects />
+          {/* <About /> */}
+          {/* <AboutPage />  */}
+          {/* <Contact />
+          <ContactPage />
+          <Footer /> */}
         </Wrapper>
       </DarkThemeProvider>
+      <Routes>
+        <Route path="about" element={<AboutPage />} />
+      </Routes>
     </ReduxProvider>
   );
 }
@@ -169,5 +168,6 @@ const ContainerToggleTheme = styled.div`
   margin-top: 1rem;
   cursor: pointer;
   position: relative;
+  height: 100vh;
 `;
 export default App;

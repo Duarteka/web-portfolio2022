@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import theme from 'styled-theming';
 
 export const textColor = theme('theme', {
@@ -45,49 +45,20 @@ function Burger() {
 }
 
 export function RightNav(props) {
-  // const [navLogo, setNavLogo] = useState(false);
-  // const [setonScroll] = useState(0);
-
-  // const listenerScrollEvent = () => {
-  //   if (window.scrollY > 10) {
-  //     setNavLogo(true);
-
-  //     // eslint-disable-next-line no-unused-expressions
-  //     window.scrollY < 0 ? setonScroll(1) : setNavLogo('KD');
-  //   } else {
-  //     setNavLogo(false);
-  //   }
-  // };
-
-  // window.addEventListener('scroll', listenerScrollEvent);
-  // useEffect(() => {
-  //   window.addEventListener('scroll', listenerScrollEvent);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', listenerScrollEvent);
-  //   };
-  // }, [setonScroll]);
-
   return (
-    <Router>
+    <Nav style={({ isActive }) => (isActive ? {} : {})}>
       <Ul open={props.open}>
         <Logo>
           <LogoUl>Karen Duarte</LogoUl>
         </Logo>
 
         {navLinks.map((item) => (
-          <NavLink
-            style={({ isActive }) => (isActive ? {} : {})}
-            key={item.id}
-            to={item.path}
-          >
-            <Li>
-              <a href={item.path}>{item.text}</a>
-            </Li>
-          </NavLink>
+          <Li key={item.id}>
+            <Link to={item.path}>{item.text}</Link>
+          </Li>
         ))}
       </Ul>
-    </Router>
+    </Nav>
   );
 }
 export default Burger;
@@ -96,7 +67,7 @@ export const StyledBurger = styled.div`
   width: 2rem;
   height: 2rem;
   position: fixed;
-  top: 15px;
+  top: 10px;
   right: 20px;
   z-index: 20;
   display: none;
@@ -134,7 +105,7 @@ export const Menus = styled.div`
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
-
+ 
   align-items: center;
   position: relative;
 
@@ -150,7 +121,7 @@ export const Ul = styled.ul`
   align-content: center;
   margin-top: 0px;
   min-width: 100vw;
-  height: 30px;
+  height: 10px;
   margin-left: -5rem;
   margin-top: -2rem;
 
@@ -184,7 +155,7 @@ export const Ul = styled.ul`
 export const Li = styled.li`
   outline: none;
   position: relative;
-  margin: 10px 50px 0;
+  margin: 100px 50px 0;
   padding: 5px;
   align-content: flex-end;
   textDecoration: "none",
@@ -211,17 +182,17 @@ export const Li = styled.li`
   }
 `;
 
-export const Logo = styled.p`
+export const Logo = styled.div`
   width: 100%;
-  height: 70px;
-  object-fit: contain;
+  height: 0px;
+  margin-top: 1%;
 
   @media (max-width: 1250px) {
     margin: 20px 150px 20px 5%;
   }
 `;
 
-export const LogoUl = styled.p`
+export const LogoUl = styled.div`
   margin: 30px 600px 20px 15%;
   color: ${textColor};
   width: 100%;

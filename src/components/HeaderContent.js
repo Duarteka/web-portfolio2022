@@ -66,80 +66,35 @@ function HeaderContent() {
     <>
       <Burguer />
       <Containerheader onClick={() => set((state) => !state)}>
-        <Trail open={open}>
-          <Slide>
-            <h1>
-              Front
-              <span>end </span>
-              <br /> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Developer
-            </h1>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                marginTop: '-8rem'
-              }}
-            >
-              <h4>
-                <span>and</span>
-                graphic Designer
-              </h4>
-            </div>
-            <AboutmeContent>
-              <p>
-                JUNIOR FULLSTACK DEVELOPER ESPECIALIZED IN FRONTEND &
-                MULTIDISCIPLINARY DESIGNER UI & UX
-              </p>
-              <p>Based in Madrid</p>
-            </AboutmeContent>
-          </Slide>
-        </Trail>
-
-        {/* <ContainerLine>
-          <span />
-        </ContainerLine> */}
-        {/* <Slide>
-          <ContainerSocialmidia>
-            <div>
-              <Router>
-                <ul>
-                  {socialMidia.map((item) => (
-                    <NavLink key={item.id} to={item.path}>
-                      <li>
-                        <a
-                          style={{ color: `${[backgroundColor]}` }}
-                          href={item.path}
-                        >
-                          {item.text}
-                        </a>
-                      </li>
-                    </NavLink>
-                  ))}
-                </ul>
-              </Router>
-            </div>
-          </ContainerSocialmidia>
-        </Slide> */}
+        <h1>
+          Front
+          <span>end </span>
+          <br /> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Developer
+        </h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '-8rem'
+          }}
+        >
+          <h4>
+            <span>and</span>
+            graphic Designer
+          </h4>
+        </div>
+        <AboutmeContent>
+          <p>
+            JUNIOR FULLSTACK DEVELOPER ESPECIALIZED IN FRONTEND &
+            MULTIDISCIPLINARY DESIGNER UI & UX
+          </p>
+          <p>Based in Madrid</p>
+        </AboutmeContent>
       </Containerheader>
     </>
   );
 }
 
-// const ContainerLine = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   align-content: center;
-//   margin-top: 5rem;
-
-//   span {
-//     width: 0.2px;
-//     margin-top: -5rem;
-//     height: 5rem;
-//     border: 0.5px solid;
-//     position: absolute;
-//   }
-// `;
 const Containerheader = styled.div`
   display: flex;
   align-items: center;
@@ -149,6 +104,7 @@ const Containerheader = styled.div`
   text-transform: uppercase;
   margin-top: 3rem;
   height: 100vh;
+  position: absolute;
 
   @media (max-width: 768px) {
     display: flex;

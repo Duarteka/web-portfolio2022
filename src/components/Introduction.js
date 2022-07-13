@@ -61,46 +61,46 @@ export default function Introduction() {
         <Scroll>
           <ScrollM>
             <div>
-              <h1>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
-              <h1>
+              </h3>
+              <h3>
                 <span>&nbsp;AVAILABLE </span>
                 <span>TO </span>
                 <span> WORK&nbsp; </span>
-              </h1>
+              </h3>
             </div>
           </ScrollM>
         </Scroll>
@@ -166,7 +166,7 @@ const ScrollM = styled.div`
     width: 200vw;
     margin-top: 0.3%;
   }
-  h1 {
+  h3 {
     padding: 0;
 
     color: ${textColor};

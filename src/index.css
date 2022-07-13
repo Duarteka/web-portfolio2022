@@ -3,12 +3,16 @@
 body {
   margin: 0;
   padding: 0;
-
   box-sizing: border-box;
-
   font-family: 'Lato', 'Lemonada';
 }
-
+h1 {
+  align-self: center;
+  font-size: 11rem;
+  line-height: 130px;
+  letter-spacing: -0.1em;
+  text-transform: uppercase;
+}
 h2 {
   font-size: 1.5rem;
   font-weight: 400;
@@ -37,7 +41,7 @@ h2 {
   background-color: tan;
 }
 
-.trailsText {
+/* .trailsText {
   display: flex;
   align-items: center;
   align-content: center;
@@ -202,77 +206,4 @@ h2 {
 .image:hover .details p {
   opacity: 1;
   transform: translateY(-40px);
-}
-
-.subPicture {
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 100vh;
-  width: 100%;
-  height: 100vh;
-  outline: none;
-}
-
-.scrollArea {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-}
-
-.scrollArea div {
-  height: 400vh;
-  width: 100vw;
-}
-
-.img-fluid {
-  width: 100%;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.justify-around {
-  justify-content: space-around;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.align-end {
-  align-items: flex-end;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-end {
-  text-align: end;
-}
-
-.leftSide {
-  grid-column: span 6;
-}
+} */
