@@ -10,7 +10,7 @@ export function Heading({ children, as }) {
     to: {
       opacity: entry.intersectionRatio > 0.9 ? 1 : 0,
       transform:
-        entry.intersectionRatio > 0.9 ? 'translateX(0%)' : 'translateX(30px)'
+        entry.intersectionRatio > 0.9 ? 'translateX(0%)' : 'translateX(80px)'
     },
     from: { opacity: 0, transform: 'translateX(30px)' }
   });

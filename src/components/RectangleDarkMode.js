@@ -14,8 +14,10 @@ function RectangleDarkMode() {
           alignSelf: 'center',
           justifySelf: 'center',
           alignContent: 'center',
-          width: '97vw',
-          height: '100vh',
+          marginLeft: '1rem',
+          width: '98vw',
+          marginTop: '1%',
+          height: '97vh',
           position: 'absolute'
         }}
         src={rectangleDarkMode}
@@ -34,8 +36,10 @@ export function RectangleLightMode() {
           alignSelf: 'center',
           justifySelf: 'center',
           alignContent: 'center',
-          width: '97vw',
-          height: '100vh',
+          marginLeft: '1rem',
+          width: '98vw',
+          marginTop: '1%',
+          height: '97vh',
           position: 'absolute'
         }}
         src={rectangleLightMode}

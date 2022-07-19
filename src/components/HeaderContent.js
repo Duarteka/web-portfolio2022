@@ -2,15 +2,20 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import theme from 'styled-theming';
 import '../index.css';
 import { useTrail, a } from 'react-spring';
-import Burguer from './Navbar';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import ScrollTo from 'gsap/ScrollToPlugin';
 import { Slide } from './slideAnimation/Slide';
+import Burguer from './Navbar';
+
+gsap.registerPlugin(ScrollTrigger, ScrollTo);
 
 export const backgroundColor = theme('theme', {
   dark: '#F9F5E7',
@@ -61,16 +66,20 @@ function Trail({ open, children }) {
 }
 
 function HeaderContent() {
-  const [open, set] = useState(true);
+  // const [open, set] = useState(true);
+  const [state, setState] = useState(true);
+  const text = useRef({ value: 1 });
+
   return (
     <>
       <Burguer />
-      <Containerheader onClick={() => set((state) => !state)}>
+      <Containerheader>
         <h1>
           Front
           <span>end </span>
           <br /> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Developer
         </h1>
+
         <div
           style={{
             display: 'flex',
@@ -83,10 +92,11 @@ function HeaderContent() {
             graphic Designer
           </h4>
         </div>
+
         <AboutmeContent>
           <p>
             JUNIOR FULLSTACK DEVELOPER ESPECIALIZED IN FRONTEND &
-            MULTIDISCIPLINARY DESIGNER UI & UX
+            MULTIDISCIPLINARY DESIGNER <br /> UI & UX
           </p>
           <p>Based in Madrid</p>
         </AboutmeContent>
@@ -104,7 +114,9 @@ const Containerheader = styled.div`
   text-transform: uppercase;
   margin-top: 3rem;
   height: 100vh;
+  width: 100vw;
   position: absolute;
+  top: 0;
 
   @media (max-width: 768px) {
     display: flex;
@@ -119,6 +131,7 @@ const Containerheader = styled.div`
     font-size: 11rem;
     line-height: 130px;
     letter-spacing: -0.1em;
+    margin-top: -1%;
 
     @media (max-width: 768px) {
       font-size: 4.5rem;
@@ -153,10 +166,9 @@ const Containerheader = styled.div`
 const AboutmeContent = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 5rem;
 
   p {
-    max-width: 24%;
+    max-width: 35%;
     font-size: 0.8rem;
   }
   @media (max-width: 768px) {

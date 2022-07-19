@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import theme from 'styled-theming';
 import { JsSquare } from '@styled-icons/fa-brands/JsSquare';
@@ -8,7 +8,11 @@ import { Figma } from '@styled-icons/simple-icons/Figma';
 import { Redux } from '@styled-icons/boxicons-logos/Redux';
 import { Notion } from '@styled-icons/simple-icons/Notion';
 
-import { Slide } from './slideAnimation/Slide';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import ScrollTo from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollTrigger, ScrollTo);
 
 export const backgroundColor = theme('theme', {
   light: '#373737',
@@ -19,7 +23,7 @@ export const textColor = theme('theme', {
   dark: '#373737'
 });
 const JavaScriptLogo = styled(JsSquare)`
-  height: 50px;
+  height: 100px;
   border-radius: 10px 10px 10px 10px;
   border: 1px solid;
   padding: 0.3%;
@@ -27,34 +31,57 @@ const JavaScriptLogo = styled(JsSquare)`
 `;
 
 const ReactLogoLogo = styled(ReactLogo)`
-  height: 50px;
+  height: 100px;
   border-radius: 10px 10px 10px 10px;
   border: 1px solid;
   padding: 0.3%;
   margin: 0.2%;
 `;
 const FigmaLogo = styled(Figma)`
-  height: 50px;
+  height: 100px;
   border-radius: 10px 10px 10px 10px;
   border: 1px solid;
   padding: 0.3%;
   margin: 0.2%;
 `;
 const ReduxLogo = styled(Redux)`
-  height: 50px;
+  height: 100px;
   border-radius: 10px 10px 10px 10px;
   border: 1px solid;
   padding: 0.3%;
   margin: 0.2%;
 `;
 const NotionLogo = styled(Notion)`
-  height: 50px;
+  height: 100px;
   border-radius: 10px 10px 10px 10px;
   border: 1px solid;
   padding: 0.3%;
   margin: 0.2%;
 `;
 export default function Introduction() {
+  const text = useRef({ value: 1 });
+  useEffect(() => {
+    gsap
+      .timeline({
+        defaults: {
+          scrollTrigger: {
+            trigger: '#section1',
+            scrub: 1,
+            onUpdate: (self) => {
+              const clamp = gsap.utils.clamp(-20, 20);
+              const skew = clamp(self.getVelocity() / -150);
+              gsap.set('#section1 div', {
+                skewX: skew
+              });
+            }
+          }
+        }
+      })
+
+      .from('#section1 div', {
+        y: 1600
+      });
+  }, [text]);
   return (
     <>
       <Borderline>
@@ -106,17 +133,25 @@ export default function Introduction() {
         </Scroll>
       </Borderline>
 
-      <Slide>
-        <div className="containerToolsIcons">
-          <div style={{ width: '100vh' }}>
-            <JavaScriptLogo /> <ReactLogoLogo /> <FigmaLogo /> <ReduxLogo />{' '}
-            <NotionLogo />
-          </div>
-          <div className="containerTextTools">
-            <h4>SIMPLE AND POWERFULL TOLLS TO BUILD AMAZING WEB’S</h4>
-          </div>
+      <div className="containerToolsIcons">
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+
+            justifyContent: 'center'
+          }}
+        >
+          <JavaScriptLogo /> <ReactLogoLogo /> <FigmaLogo /> <ReduxLogo />{' '}
+          <NotionLogo />
         </div>
-      </Slide>
+        <div className="containerTextTools">
+          <h4>
+            SIMPLE AND POWERFULL TOLLS
+            <br /> TO BUILD AMAZING WEB’S
+          </h4>
+        </div>
+      </div>
     </>
   );
 }
@@ -130,8 +165,9 @@ to {
 `;
 const Borderline = styled.div`
   width: 100vw;
-  border: 1px solid ${backgroundColor};
-  border-radius: 15px 15px 15px 15px;
+
+  position: absolute;
+  top: 100%;
 `;
 
 const Scroll = styled.div`
@@ -140,8 +176,6 @@ const Scroll = styled.div`
   min-height: 80px;
   overflow: hidden;
   padding: 0.4%;
-
-  border-radius: 15px 15px 15px 15px;
 `;
 const ScrollM = styled.div`
   display: flex;

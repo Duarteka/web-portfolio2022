@@ -107,7 +107,8 @@ export const Nav = styled.nav`
   justify-content: space-between;
  
   align-items: center;
-  position: relative;
+  position: absolute;
+  top: 0;
 
   @media (max-width: 678px) {
     width: 100vw;
@@ -123,7 +124,7 @@ export const Ul = styled.ul`
   min-width: 100vw;
   height: 10px;
   margin-left: -5rem;
-  margin-top: -2rem;
+  margin-top: -1rem;
 
   text-transform: uppercase;
 

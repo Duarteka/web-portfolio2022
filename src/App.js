@@ -35,12 +35,14 @@ import DarkThemeProvider from './components/redux/DarkThemeProvider';
 import { TOGGLE_DARKTHEME } from './components/redux/actions';
 import { Slide } from './components/slideAnimation/Slide';
 import Prueba from './components/Prueba';
+import { Prueba2 } from './components/Prueba2';
+import Work from './components/Work';
 
 const MoonLight = styled(Moon)`
   height: 30px;
+  margin-top: 2%;
 
-  position: relative;
-  margin-left: '30px';
+  transform: translate(45rem, 1rem);
 `;
 
 export const backgroundColor = theme('theme', {
@@ -67,13 +69,13 @@ const noise = keyframes`
 function BackgroundNoise() {
   return (
     <TextureBackground>
+      <Prueba2 />
       <img src={BackgroundTexture} alt="" />
     </TextureBackground>
   );
 }
 const TextureBackground = styled.div`
   position: relative;
-  z-indez: 10000;
 
   img {
     z-index: -1;
@@ -115,16 +117,16 @@ export function LightTheme() {
     </ContainerToggleTheme>
   );
 }
-function Blurcircles() {
-  return (
-    <Slide>
-      <div>
-        <div className="blur1" />
-        <div className="blur2" />
-      </div>
-    </Slide>
-  );
-}
+// function Blurcircles() {
+//   return (
+//     <Slide>
+//       <div>
+//         <div className="blur1" />
+//         <div className="blur2" />
+//       </div>
+//     </Slide>
+//   );
+// }
 
 function App() {
   const darkThemeEnabled = useSelector(
@@ -139,23 +141,22 @@ function App() {
             {darkThemeEnabled ? <RectangleDarkMode /> : <RectangleLightMode />}
           </div>
           <BackgroundNoise />
-          <Burguer />
-          <Blurcircles />
-          <HeaderContent />
           <LightTheme />
+          <HeaderContent />
           <Introduction />
           <SelectedWork />
           <Proyects />
-          {/* <About /> */}
-          {/* <AboutPage />  */}
-          {/* <Contact />
+          {/* <Prueba /> */}
+          <Work />
+          <About />
+          <Contact />
           <ContactPage />
-          <Footer /> */}
+          <Footer />
+          <Routes>
+            <Route path="about" element={<AboutPage />} />
+          </Routes>{' '}
         </Wrapper>
       </DarkThemeProvider>
-      <Routes>
-        <Route path="about" element={<AboutPage />} />
-      </Routes>
     </ReduxProvider>
   );
 }
@@ -164,10 +165,8 @@ const ContainerToggleTheme = styled.div`
   align-self: center;
   justify-self: center;
   justify-content: center;
-  width: 100%;
-  margin-top: 1rem;
   cursor: pointer;
-  position: relative;
-  height: 100vh;
+  top: 0;
+  position: absolute;
 `;
 export default App;

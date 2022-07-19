@@ -25,56 +25,68 @@ const proyects = [
     title: 'Project One',
     rol: 'Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/20dd57147138749.62bcc052b0b20.png'
   },
   {
     id: 2,
     title: 'Project Two',
     rol: 'UI, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/fs/d56dfe112501169.602019e77be29.jpg'
   },
   {
     id: 3,
     title: 'Project Three',
     rol: 'UX, Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/99664f118547609.608b089d9b007.png'
   },
   {
     id: 4,
     title: 'Project Three',
     rol: 'UX, Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/45afc895638623.5e9c5a9301956.jpg'
   },
   {
     id: 5,
     title: 'Project Three',
     rol: 'UX, Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2872d9140523787.6243359a27a38.gif'
   },
   {
     id: 6,
     title: 'Project Three',
     rol: 'UX, Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/61ef05146722353.62b52a6eeefa9.jpg'
   },
   {
     id: 7,
     title: 'Project Three',
     rol: 'UX, Design, Development',
     textButton: 'See more',
-    path: '/#'
+    path: '/#',
+    image:
+      'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/85926a140365439.62409e834808e.png'
   }
 ];
 
 const SampleCards = React.memo(() =>
-  Array(6)
-    .fill(0)
-    .map((_e, i) => <SampleCard key={`sampleCard-${i}`} />)
+  proyects.map((_e, i) => <SampleCard src={_e.image} key={`sampleCard-${i}`} />)
 );
 
 export default function Proyects() {
@@ -86,7 +98,16 @@ export default function Proyects() {
             <h2> Proyects </h2>
             <SampleCards />
           </CardsContainer>
-        </HorizontalScroll>
+        </HorizontalScroll>{' '}
+        <h2
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginRight: '11%'
+          }}
+        >
+          view alls
+        </h2>
       </HorizontalSection>
 
       {/* <div className="containerProjects">
@@ -135,10 +156,10 @@ const CardsContainer = styled.div`
   align-items: center;
 `;
 
-const SampleCard = styled.div`
+const SampleCard = styled.img`
   position: relative;
-  height: 400px;
-  width: 800px;
+  height: 700px;
+  width: 870px;
   background-color: blue;
   margin-right: 8px;
   margin-left: 8px;
