@@ -1,9 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 import styled, { createGlobalStyle } from 'styled-components';
+import {
+  PageTransition,
+  TransitionState
+} from '@steveeeie/react-page-transition';
+import { Link, NavLink } from 'react-router-dom';
 import HorizontalScroll from './horizontalscroll';
 
 const GlobalStyle = createGlobalStyle`
@@ -99,15 +104,16 @@ export default function Proyects() {
             <SampleCards />
           </CardsContainer>
         </HorizontalScroll>{' '}
-        <h2
+        <Link
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
             marginRight: '11%'
           }}
+          to="/seemore"
         >
           view alls
-        </h2>
+        </Link>
       </HorizontalSection>
 
       {/* <div className="containerProjects">

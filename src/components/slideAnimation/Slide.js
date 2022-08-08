@@ -13,7 +13,7 @@ export function Slide({ children }) {
         entry.intersectionRatio > 0.24 ? 'translateX(0%)' : 'translateX(50px)'
     },
     from: { opacity: 0, transform: 'translateX(30px)' },
-    config: { mass: 1, tension: 180, friction: 20 }
+    config: { mass: 1, tension: 280, friction: 50 }
   });
 
   return (

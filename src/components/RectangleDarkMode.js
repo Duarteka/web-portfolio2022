@@ -16,8 +16,8 @@ function RectangleDarkMode() {
           alignContent: 'center',
           marginLeft: '1rem',
           width: '98vw',
-          marginTop: '1%',
-          height: '97vh',
+          marginTop: '-3.5%',
+          height: '98vh',
           position: 'absolute'
         }}
         src={rectangleDarkMode}
@@ -38,8 +38,8 @@ export function RectangleLightMode() {
           alignContent: 'center',
           marginLeft: '1rem',
           width: '98vw',
-          marginTop: '1%',
-          height: '97vh',
+          marginTop: '-3.5%',
+          height: '98vh',
           position: 'absolute'
         }}
         src={rectangleLightMode}

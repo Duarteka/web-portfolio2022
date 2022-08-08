@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Prueba2() {
+export function AnimatedBackground() {
   return (
     <div style={{ position: 'static' }}>
       <div id="bg-wrap">

@@ -138,7 +138,7 @@ export default function Introduction() {
           style={{
             width: '100%',
             display: 'flex',
-
+            maxHeight: '100vh',
             justifyContent: 'center'
           }}
         >

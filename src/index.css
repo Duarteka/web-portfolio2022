@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;500&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
@@ -209,13 +215,9 @@ h2 {
   opacity: 1;
   transform: translateY(-40px);
 }
-*/ .largeContent {
+.largeContent {
   overflow: hidden;
   height: 100vh;
-}
-
-.green {
-  background-color: greenyellow;
 }
 
 #section1 {
@@ -400,12 +402,26 @@ h2 {
   margin: 0;
   clip-path: inset(100% 0 0 0);
 }
-
-.buttonWrapper {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
+.transition-effect {
+  position: absolute;
+  background: rgb(238, 174, 202);
+  background: linear-gradient(
+    0deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   top: 0;
-  left: 0;
-  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  transition: 0.4s ease;
+  overflow: hidden;
+}
+.line-wrap {
+  overflow: hidden;
+  height: 66px;
+  position: absolute;
+}
+.inner {
+  display: flex;
+  justify-content: center;
 }

@@ -83,7 +83,13 @@ export default function SelectedWork() {
         <h1>Selected </h1> <h1> Projects</h1>
       </div>
       <div className="containerDescriptionProjects">
-        <p>
+        <p
+          style={{
+            fontSize: '1.1rem',
+
+            textTransform: 'uppercase'
+          }}
+        >
           Think twice, design once. I work with you to make a design that not
           only looks impressive but performs. I will spend as much time as
           needed to refine a concept to ensure it s just right. My mission is to
