@@ -40,7 +40,9 @@ export function RightNav(props) {
         <Nav>
           <LogoContainer>
             <Logo>
-              <Link to="/">Karen Duarte </Link>
+              <Link onClick={props.hide} to="/">
+                Karen Duarte{' '}
+              </Link>
             </Logo>
           </LogoContainer>
           <Link to="/" onClick={toggledarktheme}>
@@ -49,9 +51,7 @@ export function RightNav(props) {
 
           <Ul open={props.open}>
             <Li onClick={props.hide}>
-              <Link onClick={props.hide} to="/seemore">
-                Projects
-              </Link>
+              <Link to="/seemore">Projects</Link>
               <Link to="/about">About</Link>
               <Link to="/contact">Contact</Link>
             </Li>
@@ -79,8 +79,8 @@ const Nav = styled.nav`
   align-content:center;
   z-index: 20;
   align-items: center;
- justify-content: space-between;
- text-transform: uppercase;
+  justify-content: space-between;
+  text-transform: uppercase;
  
 
    a {
@@ -105,6 +105,9 @@ const Nav = styled.nav`
 
 @media (max-width: 668px) {
     width: 100vw;
+    display:flex;
+    background-color: blue;
+
 `;
 
 const Ul = styled.ul`
@@ -124,16 +127,19 @@ const Ul = styled.ul`
   }
   @media (max-width: 668px) {
     flex-flow: column nowrap;
+    position: fixed !important;
     align-items: center;
-    position: absolute;
+
     z-index: 10;
     transform: ${(props) =>
       props.open ? 'translateX(0)' : 'translateX(110%)'};
     top: -16px;
     overflow-y: hidden;
-    height: 110vh;
-    width: 115vw;
+    margin: 0;
+    height: 230vh;
+    width: 110vw;
     transition: transform 0.3s ease-in-out;
+    font-size: 3rem;
 
     justify-content: center;
     &:after {
@@ -144,10 +150,10 @@ const Ul = styled.ul`
       right: 0;
       position: absolute;
       z-index: 0;
-      backdrop-filter: blur(30px);
+      backdrop-filter: blur(70px);
     }
     a {
-      font-size: 5rem;
+      font-size: 3rem;
       z-index: 30;
     }
   }
@@ -182,10 +188,13 @@ const MoonLight = styled(Moon)`
   z-index: 30;
   cursor: pointer;
   color: ${textColor};
-  margin-right: -9rem;
+  position: fixed;
+  
 
   @media (max-width: 668px) {
-    margin: 0;
+    width: 2.5rem;
+  transform: translate(0px, -4px);
+
   }
 ¡
 `;
@@ -194,7 +203,7 @@ export default Burger;
 
 const StyledBurger = styled.div`
   position: fixed;
-  top: 17px;
+  top: 2.1rem;
   right: 70px;
   z-index: 200;
   cursor: pointer;
@@ -203,8 +212,15 @@ const StyledBurger = styled.div`
 
   @media (max-width: 668px) {
     display: flex;
+    justify-self: center;
     justify-content: space-around;
     flex-flow: column nowrap;
+    min-height: 3vh;
+    top: 2.3rem;
+
+    margin: 0;
+
+    right: 70px;
   }
 `;
 
