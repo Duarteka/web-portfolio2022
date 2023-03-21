@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 
-import { useIntersection } from '../useIntersection';
+import { useIntersection } from '../utils/useIntersection';
 
 export function Slide({ children }) {
   const [ref, entry] = useIntersection({ threshold: [0, 0.25, 0.5, 0.75, 1] });

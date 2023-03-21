@@ -1,23 +1,17 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Moon } from '@styled-icons/entypo/Moon';
-import { Provider as ReduxProvider, useDispatch } from 'react-redux';
-import { navLinks } from '../../dataInfo';
-import { backgroundColor, textColor, textColorBringUp } from '../../styles';
-import { TOGGLE_DARKTHEME } from '../redux/actions';
+import { useDispatch } from 'react-redux';
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
+import { TOGGLE_DARKTHEME } from '../utils/redux/actions';
+import { MoonLight } from '../icons/Icons';
 
 function Burger() {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
   const hide = () => setOpen(false);
-  const show = () => setOpen(open);
 
   return (
     <>
@@ -50,9 +44,14 @@ export function RightNav(props) {
           </Link>
 
           <Ul open={props.open}>
-            <Li onClick={props.hide}>
+            <Li onClick={props.hide}> </Li>
+            <Li>
               <Link to="/seemore">Projects</Link>
+            </Li>
+            <Li>
               <Link to="/about">About</Link>
+            </Li>
+            <Li>
               <Link to="/contact">Contact</Link>
             </Li>
           </Ul>
@@ -61,65 +60,53 @@ export function RightNav(props) {
     </div>
   );
 }
-
-const HeaderContainer = styled.div`
-  display: flex;
-
-  width: 100vw;
-
-  background-color: pink;
-`;
+export default Burger;
 
 const Nav = styled.nav`
-  display: flex; 
+  display: flex;
   align-content: center;
-  width: 100vw;
-  height: 10vh;
-  top:0;
-  align-content:center;
+  max-width: 95vw;
+  height: 14vh;
+  top: 0;
+  align-content: center;
   z-index: 20;
   align-items: center;
   justify-content: space-between;
   text-transform: uppercase;
- 
+  padding: 2rem;
 
-   a {
-      cursor: pointer;
-      text-decoration: none;
-      color: ${backgroundColor};
-      padding: 0 15px;
-      white-space: nowrap;
-      line-height: 1;
-      height: 3rem;
-      display: inline-flex;
-      padding: 0 1rem;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      position: relative;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: ${textColor};
+    padding: 0 15px;
+    white-space: nowrap;
+    line-height: 1;
+    height: 3rem;
+    display: inline-flex;
+    padding: 0 1rem;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
   }
 
-
-@media (max-width: 668px) {
-    width: 100vw;
-    display:flex;
-    background-color: blue;
-
+  @media (max-width: 668px) {
+    max-width: 100vw;
+    display: flex;
+  }
 `;
 
 const Ul = styled.ul`
-  //width: 100vw;
-  // display: flex;
   list-style: none;
-
   text-transform: uppercase;
-  //-ms-flex-align: center;
-  // margin: 0;
-  // padding: 1rem 0;
-  // justify-content: flex-end;
+  -ms-flex-align: center;
+  margin: 0;
+  padding: 1rem 0;
+  justify-content: flex-end;
 
   img,
   svg {
@@ -162,15 +149,15 @@ const Li = styled.li`
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
-  // display: inline-block;
+  display: inline-block;
 }
   &:after {
-    // display:block;
-    // content: '';
-    // border-bottom: solid 1.5px ${textColorBringUp};  
-    // transform: scaleX(0);  
-    // transition: transform 250ms ease-in-out;
-    // margin-right: 5%;
+    display:block;
+    content: '';
+    border-bottom: solid 1.5px ${textColorBringUp};  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+    margin-right: 5%;
   }
   &:hover:after {
     transform: scaleX(1);
@@ -183,28 +170,10 @@ const Li = styled.li`
   }
 `;
 
-const MoonLight = styled(Moon)`
-  width: 2rem;
-  z-index: 30;
-  cursor: pointer;
-  color: ${textColor};
-  position: fixed;
-  
-
-  @media (max-width: 668px) {
-    width: 2.5rem;
-  transform: translate(0px, -4px);
-
-  }
-¡
-`;
-
-export default Burger;
-
 const StyledBurger = styled.div`
   position: fixed;
   top: 2.1rem;
-  right: 70px;
+  transform: translate(1rem, 0px);
   z-index: 200;
   cursor: pointer;
   min-height: 4.8vh;
@@ -217,9 +186,7 @@ const StyledBurger = styled.div`
     flex-flow: column nowrap;
     min-height: 3vh;
     top: 2.3rem;
-
     margin: 0;
-
     right: 70px;
   }
 `;
@@ -228,8 +195,9 @@ const Menus = styled.div`
   min-width: 2rem;
   min-height: 0.25rem;
   margin: 2%;
-  background-color: ${backgroundColor};
+  background-color: ${textColor};
   border-radius: 10px;
+
   transform-origin: 1px;
   transition: all 0.3s linear;
   cursor: pointer;
@@ -251,7 +219,6 @@ const Menus = styled.div`
 `;
 
 const Logo = styled.div`
-
   letter-spacing: -0.09em;
 }
 
@@ -261,7 +228,6 @@ const Logo = styled.div`
 const LogoContainer = styled.div`
   z-index: 9999;
   display: inline-flex;
-
   widht: auto;
   @media (max-width: 768px) {
   }
