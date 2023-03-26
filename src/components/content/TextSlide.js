@@ -4,29 +4,28 @@ import React, { useEffect } from 'react';
 import gsap from 'gsap';
 import styled from 'styled-components';
 
-const animateTextSlide = () => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.text-slide-container',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1
-    }
-  });
-
-  tl.to('.text-slide-one', {
-    xPercent: -100
-  }).to(
-    '.text-slide-two',
-    {
-      xPercent: 100
-    },
-    0
-  );
-};
-
-export function TextSlide() {
+export default function TextSlide() {
   useEffect(() => {
+    const animateTextSlide = () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.text-slide-container',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+
+      tl.to('.text-slide-one', {
+        xPercent: -100
+      }).to(
+        '.text-slide-two',
+        {
+          xPercent: 100
+        },
+        0
+      );
+    };
     animateTextSlide();
   }, []);
 

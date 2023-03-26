@@ -1,39 +1,50 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TextSlide } from '../content/TextSlide';
-
+import TextSlide from '../content/TextSlide';
 import ContactPage from '../pages/ContactPage';
 import AboutMeHome from '../content/AboutMeHome';
 import Footer from '../footer/Footer';
-import { textColor, textColorBringUp } from '../../styled';
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { TextAppears } from '../content/Presentation';
-import Process from '../content/Process';
-import { ArrowdownHeader, ArrowDownIcon } from '../icons/Icons';
 import ProjectList from '../main/ProjectsList';
-import Modal from '../pruebas/Modal';
-import ArrowIconAnimation from './ArrowIconAnimation';
-
-const ListStyled = styled.div`
-  overflow: hidden;
-  .devs2 {
-    perspective: 5000px;
-    position: relative;
-  }
-`;
+import { ArrowdownHeader } from '../icons/Icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function HeaderContent() {
-  const devs2Ref = React.useRef(null);
+function ArrowAnimationHeader() {
+  const arrowRef = useRef(null);
+  const circleRef = useRef(null);
 
   useEffect(() => {
-    const devs2 = devs2Ref.current.querySelectorAll('span');
+    gsap.to(arrowRef.current, {
+      duration: 1,
+      repeat: -1,
+      y: '+=20',
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+  }, []);
+
+  return (
+    <ContainerArrow>
+      <div ref={circleRef}>
+        <ArrowdownHeader ref={arrowRef} />
+      </div>
+    </ContainerArrow>
+  );
+}
+function HeaderContent() {
+  const refs = {
+    devs2: useRef(null),
+    buttonDownload: useRef(null),
+    arrowIcon: useRef(null)
+  };
+
+  useEffect(() => {
+    const devs2 = refs.devs2.current.querySelectorAll('span');
 
     gsap.fromTo(
       devs2,
@@ -48,82 +59,97 @@ function HeaderContent() {
         stagger: 0.4,
         ease: 'back.out(1)',
         scrollTrigger: {
-          trigger: devs2Ref.current,
+          trigger: refs.devs2.current,
           start: 'top 80%',
           marks: true
         }
       }
     );
-  }, []);
+
+    gsap.fromTo(
+      refs.buttonDownload.current,
+      {
+        opacity: 0,
+        x: -50
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'back.out(1)',
+        scrollTrigger: {
+          trigger: refs.buttonDownload.current,
+          start: 'top 80%'
+        }
+      }
+    );
+
+    gsap.fromTo(
+      refs.arrowIcon.current,
+      {
+        opacity: 0,
+        y: 50
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'back.out(1)',
+        scrollTrigger: {
+          trigger: refs.arrowIcon.current,
+          start: 'top 85%'
+        }
+      }
+    );
+  }, [refs.arrowIcon, refs.buttonDownload, refs.devs2]);
 
   return (
-    <>
-      <Containerheader>
-        <ListStyled>
-          <div className="section" />
-          <div className="devs2" ref={devs2Ref}>
-            <h1>
-              <span>HELLO,</span> <br />
-              <span> I &nbsp;DESIGN&nbsp; </span>
-              <span>AND&nbsp; &nbsp;</span>
-              <span>DEVELOP</span>
-              <br />
-              <span>WEB&nbsp; </span> <span>PAGES</span>
-            </h1>
-            <span className="based-in">
-              <h4>Based in Madrid</h4>
-            </span>
-          </div>
-        </ListStyled>
-        {/* <h1>
-          Front
-          <span>end</span>
-          <br /> &nbsp; &nbsp;Developer
-        </h1> */}
-
-        {/* <ContainerGraphicDes>
-        <h4>
-          <span>and</span>
-          graphic Designer
-        </h4>
-      </ContainerGraphicDes> 
-        <SkillsInfo>
-          <p>web designer</p>
-          <p>ESPECIALIZED IN FRONTEND</p>
-          <p> & </p>
-          <p>UI / UX</p>
-         
-        </SkillsInfo> */}
-      </Containerheader>
-
-      {/* <BorderLine>
-        <div className="line" />
-      </BorderLine> */}
-      {/* <BasedOn>
-        <p>based on madrid</p>
-        <ArrowdownHeader />
-      </BasedOn> */}
-    </>
+    <Containerheader>
+      <ListStyled>
+        <div className="devs2" ref={refs.devs2}>
+          <h1>
+            <span>HELLO,</span>
+            <span> I &nbsp;DESIGN&nbsp; </span>
+            <span>AND&nbsp; &nbsp;</span>
+            <span>DEVELOP</span>
+            <br />
+            <span>WEB&nbsp; </span> <span>PAGES</span>
+          </h1>
+          <span className="based-in">
+            <h4>Based in Madrid</h4>
+          </span>
+        </div>
+        <div>
+          <ButtonWrapper ref={refs.buttonDownload}>
+            <ButtonDownloadContainer href="#" target="_blank">
+              <span>DOWNLOAD CV</span>
+              <span>DOWNLOAD CV</span>
+            </ButtonDownloadContainer>
+          </ButtonWrapper>
+          <ArrowAnimationHeader ref={refs.arrowIcon} />
+        </div>
+      </ListStyled>
+    </Containerheader>
   );
 }
 
-const ContainerGraphicDes = styled.div`
-  width: 100vw;
-  display: flex;
-  padding: 1.2rem 0;
-  justify-content: center;
+function Home() {
+  return (
+    <>
+      <HeaderContent />
+      {/* <Modal /> */}
+      <ProjectList />
+      <AboutMeHome />
+      <TextAppears />
 
-  span {
-    color: ${textColorBringUp};
-  }
+      <TextSlide />
+      <ContactPage />
+      <Footer />
+    </>
+  );
+}
+export default Home;
 
-  @media (max-width: 668px) {
-    padding: 0;
-    display: flex;
-    width: 95vw;
-    height: 10vh;
-  }
-`;
 const Containerheader = styled.header`
   color: ${textColor};
   display: flex;
@@ -243,56 +269,137 @@ export const SkillsInfo = styled.div`
     }
   }
 `;
+const ListStyled = styled.div`
+  overflow: hidden;
+  .devs2 {
+    perspective: 5000px;
+    position: relative;
+  }
+`;
 
-const BorderLine = styled.div`
-  width: 100vw;
+const ButtonWrapper = styled.div`
   display: flex;
-  margin-top: -7rem;
-  justify-content: center;
+  margin-top: 2rem;
+  width: 100vw;
+`;
+const ButtonDownloadContainer = styled.a`
   position: relative;
 
-  @media (max-width: 668px) {
-    top: 11.5rem;
+  width: 100%;
+  max-width: 260px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(0px, 0%, 0px);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  transition-delay: 0.6s;
+  overflow: hidden;
+  border-radius: 25px;
+  border: solid 2px ${textColor};
+  margin: 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${textColor};
+    border-radius: 50% 50% 0 0;
+    transform: translateY(100%) scaleY(0.5);
+    transition: all 0.6s ease;
+    border: solid 2px ${textColor};
   }
 
-  .line {
-    background: ${textColor};
-    height: 1.1px;
-    width: 30rem;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${backgroundColor};
+    border-radius: 0;
+    transform: translateY(0) scaleY(1);
+    transition: all 0.6s ease;
+  }
 
-    @media (max-width: 668px) {
-      top: 15rem;
+  div {
+    position: relative;
+    top: 6px;
+    width: 100%;
+    height: 26px;
+    text-transform: uppercase;
+    overflow: hidden;
+    border: solid 2px ${backgroundColor};
+  }
+
+  span {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s ease;
+
+    &:first-child {
+      color: ${backgroundColor};
+      transform: translateY(60px);
+    }
+
+    &:last-child {
+      transform: translateY(-20px);
+
+      color: ${textColor};
+      transform: translateY(0);
+    }
+  }
+
+  &:hover {
+    background: ${backgroundColor};
+    transition: background 0.2s linear;
+    transition-delay: 0.6s;
+
+    &:after {
+      border-radius: 0 0 50% 50%;
+      transform: translateY(-100%) scaleY(0.5);
+      transition-delay: 0;
+    }
+
+    &:before {
+      border-radius: 0;
+      transform: translateY(0) scaleY(1);
+      transition-delay: 0.6;
+    }
+
+    span {
+      &:first-child {
+        transform: translateY(0);
+      }
+
+      &:last-child {
+        transform: translateY(20px);
+        opacity: 0;
+      }
     }
   }
 `;
-
-const BasedOn = styled.div`
+const ContainerArrow = styled.div`
+  width: 100vw;
   display: flex;
-  height: 50vh;
+  top: -5rem;
   justify-content: center;
+  positin: relative;
   align-items: center;
-  flex-direction: column;
-  position: relative;
-
-  p {
-    font-size: 1.3rem;
-  }
+  align-items: flex-start;
+  margin: 0;
 `;
-
-function Home() {
-  return (
-    <>
-      <HeaderContent />
-      <ArrowIconAnimation />
-      {/* <Modal /> */}
-      <ProjectList />
-      <AboutMeHome />
-      <TextAppears />
-      {/* <Process /> */}
-      <TextSlide />
-      <ContactPage />
-      <Footer />
-    </>
-  );
-}
-export default Home;
