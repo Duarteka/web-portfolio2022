@@ -16,6 +16,7 @@ import Home from './components/header/Home';
 import { backgroundColor, textColor, TextureBackground } from './styled';
 import Burger from './components/navigation/Navbar';
 import ProjectsCar from './components/projectsPage/Home';
+import TextFill from './components/content/Ideate';
 
 function BackgroundNoise() {
   return (

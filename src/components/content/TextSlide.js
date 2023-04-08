@@ -49,7 +49,7 @@ function MiddleText() {
   return (
     <SectionTextSlide
       className="text-slide text-slide-two"
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', height: '100%' }}
     >
       <h2 className="text-slide" style={{ borderBottom: '1px solid' }}>
         ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio 2022 ✵ &#32; Karen

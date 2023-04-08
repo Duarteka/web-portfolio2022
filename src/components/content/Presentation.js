@@ -14,37 +14,16 @@ import styled from 'styled-components';
 import WomanFace from '../../assets/womanFace.jpg';
 import CloudNoise from '../../assets/geo.jpg';
 
-import {
-  backgroundColor,
-  textColor,
-  textColorBringUp,
-  textColorBringUpReverse
-} from '../../styled';
+import { backgroundColor, textColorBringUp } from '../../styled';
 import '../utils/imageFadeMaterial';
 
 import SmileFacePng from '../../assets/iconsmileyLight.png';
 import SmileFacePngDark from '../../assets/iconSmileyDark.png';
 import { useSelector } from 'react-redux';
+import { TextureLoader, MathUtils } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SmileContainer = styled.div`
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: flex-start;
-  widht: 100vw;
-  height: 100rem;
-
-  canvas img {
-    border: solid red;
-  }
-
-  #circle img {
-    position: fixed;
-    top: 15rem;
-  }
-`;
 export const textColorProcess = theme('theme', {
   light: '#F9F5E7',
   dark: '#373737'
@@ -63,6 +42,7 @@ function Building() {
   const meshref = useRef();
   const [scrolled, setScrolled] = useState(false);
   const camera = useThree((state) => state.camera);
+
   const exitTimeline = () => {
     setScrolled(true);
   };
@@ -72,18 +52,18 @@ function Building() {
   };
 
   useEffect(() => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          id: 'box2',
-          trigger: '#box',
-          pin: true,
-          scrub: 0.2,
-          start: 'top top',
-          end: '+=1001',
-          markers: false
-        }
-      })
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        id: 'box2',
+        trigger: '#box',
+        pin: true,
+        scrub: 0.2,
+        start: 'top top',
+        end: '+=1001',
+        markers: false
+      }
+    });
+    timeline
       .to(meshref.current.scale, {
         duration: 1,
         x: 1.4,
@@ -94,35 +74,86 @@ function Building() {
         x: 1.0,
         y: 1.0
       })
-      .to(meshref.current.scale, {
-        duration: 0.01,
-        x: 2.5,
-        y: 1.6,
-        top: 10
-      });
-    gsap
-      .timeline({
-        scrollTrigger: {
-          id: 'box2',
-          trigger: '#box',
-          pin: true,
-          scrub: 0.2,
-          start: 'top top',
-          end: '+=1000',
-          markers: false,
+      .to(
+        meshref.current.scale,
+        {
+          duration: 0.01,
+          x: 2.5,
+          y: 1.6,
+          top: 10
+        },
+        '+=0.2'
+      );
 
-          onLeave: exitTimeline,
-          onEnter: enterTimeline,
-          onEnterBack: enterTimeline
-        }
-      })
-      .to(camera.rotation, {
+    const timeline2 = gsap.timeline({
+      scrollTrigger: {
+        id: 'box2',
+        trigger: '#box',
+        pin: true,
+        scrub: 0.2,
+        start: 'bottom bottom',
+        end: '+=1001',
+        markers: false,
+        onLeave: exitTimeline,
+        onEnter: enterTimeline,
+        onEnterBack: enterTimeline
+      }
+    });
+    timeline2
+      .to(
+        meshref.current.scale,
+        {
+          duration: 1,
+          x: 1.4,
+          y: 1.4
+        },
+        '+=0.2'
+      )
+      .to(
+        meshref.current.scale,
+        {
+          duration: 1,
+          x: 1.0,
+          y: 1.0
+        },
+        '+=0.2'
+      )
+      .to(
+        meshref.current.scale,
+        {
+          duration: 0.01,
+          x: 2.5,
+          y: 1.6,
+          top: 10
+        },
+        '+=0.2'
+      );
+
+    const timeline3 = gsap.timeline({
+      scrollTrigger: {
+        id: 'box3',
+        trigger: '#box',
+        pin: true,
+        scrub: 0.2,
+        start: 'bottom bottom',
+        end: '+=1001',
+        markers: false,
+        onLeave: exitTimeline,
+        onEnter: enterTimeline,
+        onEnterBack: enterTimeline
+      }
+    });
+    timeline3.to(
+      camera.rotation,
+      {
         duration: 2.01,
         z: 2 * Math.PI
-      });
-  }, [camera, camera.rotation]);
+      },
+      '+=0.2'
+    );
+  }, [camera.rotation]);
 
-  const [texture, texture2, displacement] = useLoader(THREE.TextureLoader, [
+  const [texture, texture2, displacement] = useLoader(TextureLoader, [
     darkThemeEnabled ? SmileFacePngDark : SmileFacePng,
     WomanFace,
     CloudNoise
@@ -130,7 +161,7 @@ function Building() {
 
   useFrame(() => {
     building.current.time += 0.1;
-    building.current.displaceFactor = THREE.MathUtils.lerp(
+    building.current.displaceFactor = MathUtils.lerp(
       building.current.displaceFactor,
       scrolled ? 1 : 0,
       0.1
@@ -166,48 +197,63 @@ export function TextAppears() {
   const ref1 = useRef(null);
   const itemsRef = useRef([]);
   itemsRef.current = [];
-
   useEffect(() => {
-    gsap.fromTo(
-      ref1.current,
-      {
-        opacity: 0,
-        // y: 50,
-        ease: Power2,
+    gsap.registerPlugin(ScrollTrigger);
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 0.7,
+        ease: 'Power2.inOut',
         clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0 100%)'
       },
-      {
-        opacity: 1,
-        // y: 0,
-        duration: 0.7,
-        delay: 1.5,
-        ease: Power2,
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+      scrollTrigger: {
+        trigger: ref1.current,
+        end: '+=100%',
+        scrub: true,
+        start: 'top 80%'
       }
-    );
+    });
+
+    timeline
+      .fromTo(
+        ref1.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          delay: 1.5,
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+        }
+      )
+      .fromTo(
+        itemsRef.current,
+        { opacity: 0, scale: 1.5 },
+        {
+          opacity: 1,
+          scale: 1,
+          stagger: 0.2,
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+        }
+      );
 
     itemsRef.current.map((item) => {
       gsap.fromTo(
         item,
         {
-          autoAlpha: 0,
-          // y: 20,
+          opacity: 0,
           scale: 1.5,
-          ease: Power2,
+          ease: 'Power2.inOut',
           clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0 100%)'
         },
         {
-          // y: 0,
-          duration: 0.7,
-          autoAlpha: 1,
+          opacity: 1,
           scale: 1,
-          ease: Power2,
+          duration: 0.7,
+          ease: 'Power2.inOut',
           clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
           scrollTrigger: {
             trigger: item,
             start: 'top center+=100',
-
-            markers: false
+            scrub: true
           }
         }
       );
@@ -236,6 +282,23 @@ export function TextAppears() {
   );
 }
 
+const SmileContainer = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100rem;
+
+  canvas img {
+    border: solid red;
+  }
+
+  #circle img {
+    position: fixed;
+    top: 10rem;
+  }
+`;
 const ContainerImagesFade = styled.div`
   width: 100%;
   height: 50%;
@@ -257,7 +320,7 @@ const BrandKa = styled.div`
   width: 100vw;
   color: ${backgroundColor};
  
-  margin-top: -20rem;
+ 
 
   @media (max-width: 668px) {
     padding: 0 3rem;

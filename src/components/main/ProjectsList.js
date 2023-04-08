@@ -1,16 +1,19 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef, useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useInView } from 'react-intersection-observer';
 import { textColor, backgroundColor, textColorBringUp } from '../../styled';
 
 import project1 from '../../assets/project1.jpg';
 import project3 from '../../assets/project3.jpg';
 import project5 from '../../assets/project5.png';
 import { TextHeaderSection } from '../slideAnimation/TextHeaderSection';
+import BorderAnimation from '../pruebas/Modal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,9 +25,11 @@ const ProyectListContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    justify-content: flex-start;
+
+    flex-wrap: wrap;
   }
 `;
+
 const ProjectListHome = styled.div`
   min-height: 30vh;
   display: flex;
@@ -33,28 +38,15 @@ const ProjectListHome = styled.div`
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  justify-content: flex-end;
   align-items: center;
   flex-direction: row;
   border-bottom: solid 2px ${textColor};
+
   @media (max-width: 668px) {
-    margin-top: 13rem;
-    height: 100vh;
+    max-height: 30vh;
   }
- 
   &:first-child {
     border-top: solid 2px ${textColor};
-  }
-  h2 {
-    @media (max-width: 668px) {
-      line-height: 80%;
-      letter-spacing: -0.1em;
-      font-size: 2.5rem;
-    }
-    p {
-      @media (max-width: 668px) {
-        font-size: 0.5rem;
-      }
   }
 `;
 const SelectedProjectContainer = styled.div`
@@ -71,16 +63,6 @@ const SelectedProjectContainer = styled.div`
   overflow: hidden;
   transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
 `;
-const Title = styled.h2`
-  position: relative;
-
-  height: 100%;
-
-  text-align: center;
-  font-size: 5rem;
-  font-weight: 500;
-  color: ${textColor};
-`;
 
 const Image = styled.img`
   width: 100%;
@@ -88,6 +70,7 @@ const Image = styled.img`
   object-fit: cover;
   opacity: 0;
   filter: grayscale(100%);
+
   position: absolute;
   min-height: 40vh;
 `;
@@ -102,7 +85,6 @@ const ModalBackground = styled.div`
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
-  background-color: pink;
 `;
 
 const CloseButton = styled.div`
@@ -112,7 +94,7 @@ const CloseButton = styled.div`
   background-color: transparent;
   color: white;
   border: none;
-  font-size: 2rem;
+  font-size: 2em;
   cursor: pointer;
   color: ${textColor};
 `;
@@ -121,17 +103,33 @@ const TextsContainer = styled.div`
   flex-direction: row;
   position: absolute;
   width: 100vw;
-  justify-content: flex-start;
+  padding: 0 3rem;
   align-items: center;
   height: 100%;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
-  h2 {
-    font-size: 3.5rem;
-    font-weight: 500;
-    text-align: center;
+  p:last-child {
+  }
+  p:first-child {
+    border-bottom: 2px solid ${textColorBringUp};
+  }
+  .projectName {
+    display: flex;
+    align-items: center;
+  }
+  .projDescriptionHome {
+    margin-bottom: -3vw;
+    font-weight: 400;
+    max-width: 10%;
+
+    @media (max-width: 668px) and (max-width: 992px) {
+      max-width: 25%;
+    }
+  }
+  @media (max-width: 668px) and (max-width: 992px) {
+    padding: 0 1rem;
+    width: 100vw;
   }
 `;
 
@@ -146,7 +144,7 @@ const projects = [
   },
   {
     id: 2,
-    title: 'Mediterranean food',
+    title: 'Mediterranean',
     image: project3,
     link: '/project2',
     description: ' design development, ux',
@@ -176,6 +174,8 @@ function ProjectList() {
   const [currentProject, setCurrentProject] = useState(null);
   const [bodyOverflow, setBodyOverflow] = useState(null);
   const modalcontainerRef = useRef(null);
+  const projectListRef = useRef(null);
+  const splitTextRef = useRef(null);
 
   useEffect(() => {
     if (showModal) {
@@ -252,45 +252,63 @@ function ProjectList() {
   };
 
   return (
-    <ProyectListContainer>
-      {projects.map((project, index) => (
-        <ProjectListHome
-          className="project-list modal-background"
-          onClick={() => handleProjectClick(project)}
-          key={project.id}
-          ref={(el) => (projectsRef.current[index] = el)}
-          onMouseEnter={() =>
-            handleMouseEnter(index, `textInside-${project.id}`)
-          }
-          onMouseLeave={() =>
-            handleMouseLeave(index, `textInside-${project.id}`)
-          }
-        >
-          <Image
-            src={project.image}
-            alt={project.title}
-            className="modal-image"
-          />
-          <TextsContainer id={`textInside-${project.id}`}>
-            <div>
-              <p>{project.number}</p>
-              <h2>{project.title}</h2>
-            </div>
-            <p>{project.description} </p>
-          </TextsContainer>
-        </ProjectListHome>
-      ))}
+    <>
+      <div
+        style={{
+          display: 'flex',
+          borderTop: '2px solid',
+          position: 'relative',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '1rem'
+        }}
+      >
+        <h3>Work</h3>
+        <h4 style={{ fontWeight: '200', opacity: '0.8' }}>See all</h4>
+      </div>
+      <ProyectListContainer ref={projectListRef}>
+        {projects.map((project, index) => (
+          <ProjectListHome
+            className="project-list modal-background"
+            onClick={() => handleProjectClick(project)}
+            key={project.id}
+            ref={(el) => {
+              projectsRef.current[index] = el;
+            }}
+            onMouseEnter={() =>
+              handleMouseEnter(index, `textInside-${project.id}`)
+            }
+            onMouseLeave={() =>
+              handleMouseLeave(index, `textInside-${project.id}`)
+            }
+          >
+            <Image
+              src={project.image}
+              alt={project.title}
+              className="modal-image"
+            />
+            <TextsContainer id={`textInside-${project.id}`}>
+              <div className="projectName">
+                <p>{project.number}</p>
+                <h2>{project.title}</h2>
+              </div>
 
-      {currentProject ? (
-        <SelectedProjectContainer ref={modalcontainerRef}>
-          <ModalBackground>
-            <CloseButton onClick={handleCloseModal}>X</CloseButton>
-            <img src={currentProject.img} alt={currentProject.title} />
-            <p>{currentProject.title}</p>
-          </ModalBackground>
-        </SelectedProjectContainer>
-      ) : null}
-    </ProyectListContainer>
+              <p className="projDescriptionHome">{project.description} </p>
+            </TextsContainer>
+          </ProjectListHome>
+        ))}
+
+        {currentProject ? (
+          <SelectedProjectContainer ref={modalcontainerRef}>
+            <ModalBackground>
+              <CloseButton onClick={handleCloseModal}>X</CloseButton>
+              <img src={currentProject.img} alt={currentProject.title} />
+              <p>{currentProject.title}</p>
+            </ModalBackground>
+          </SelectedProjectContainer>
+        ) : null}
+      </ProyectListContainer>
+    </>
   );
 }
 

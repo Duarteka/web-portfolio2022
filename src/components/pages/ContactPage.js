@@ -39,8 +39,6 @@ const ContactContainer = styled.div`
   heigth: 100vh;
   position: relative;
 
-  margin-bottom: 5rem;
-
   @media (max-width: 668px) {
     max-width: 100vw;
     overflow: hidden;
@@ -51,6 +49,7 @@ const ContactEmail = styled.div`
   display: flex;
   width: 100vw;
   padding: 5rem 0;
+  top: 0;
 
   align-items: center;
 

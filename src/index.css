@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;500&family=Oswald:wght@200;300;600&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+}
 body {
   overflow-x: hidden;
   display: flex;
   box-sizing: border-box;
-  font-family: 'Lato', 'Lemonada';
+  font-family: 'Oswald', 'Lemonada';
   min-width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -13,32 +15,54 @@ body {
   cursor: none;
   max-width: 100vw !important;
 }
-@media (width: 575px) {
-  * {
+h1 {
+  align-self: right;
+  line-height: 90%;
+  letter-spacing: -0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Oswald';
+  font-size: 13rem;
+}
+h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 80%;
+  padding-left: 15px;
+  position: relative;
+  transition: color 0.375s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -1.1px;
+  font-weight: 300;
+  /* font-size: clamp(16px, 10.7vw, 56px); */
+  white-space: nowrap;
+}
+h3 {
+  text-transform: uppercase;
+}
+h4 {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+}
+
+p {
+  font-size: 1rem;
+  max-width: 90%;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+@media (max-width: 668px) and (max-width: 992px) {
+  h2 {
+    line-height: 80%;
+    letter-spacing: -0.1em;
+    font-size: 1.5rem !important;
+  }
+  p {
+    font-size: 0.5rem;
+    word-wrap: break-word;
   }
 }
 
-h1 {
-  align-self: center;
-  line-height: 0.01%;
-  letter-spacing: -0.1em;
-  text-transform: uppercase;
-  font-size: 25rem;
-  font-weight: 800;
-}
-h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-p {
-  font-size: 2rem;
-  max-width: 90%;
-
-  font-weight: 200;
-
-  text-transform: uppercase;
-}
 a {
   text-decoration: none;
 }
@@ -59,15 +83,9 @@ a {
 
 .text-slide-container {
   display: grid;
-  margin: 10rem 0;
+  margin: -10rem 0;
   border-top: 1px solid;
   overflow-x: hidden;
-}
-
-.headline-container {
-  margin: 4rem 0;
-  font-size: 4rem;
-  font-weight: 100;
 }
 
 @media screen and (max-width: 414) {
@@ -77,57 +95,6 @@ a {
   }
 }
 /* --------------------------PROJECTS CARRUSSEL--------------------------------------- */
-.box {
-  height: 100px;
-  width: 100vw;
-  position: relative;
-}
-.app {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-
-  flex-shrink: 0;
-}
-
-.canvas {
-  position: relative;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
-}
-
-.slideContent {
-  padding-top: calc(100vh - 270px);
-  padding-left: calc(100vw - 80vw);
-  left: 10%;
-  z-index: 2;
-}
-.projects h1,
-.projects h2,
-.projects p {
-  color: white;
-}
-.projects {
-  position: relative;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-}
-
-.borderola {
-  height: 2px;
-  width: 50px;
-  position: relative;
-}
 
 .slideTitle {
   font-weight: bold;
@@ -188,171 +155,24 @@ a {
   /* Estilos a aplicar en pantallas en orientación horizontal */
 }
 
-#circle-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  white-space: nowrap;
-  margin: 2rem 2rem 15rem 0;
-}
-
-.circle {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 60%;
-  border: solid 1px;
-  overflow: hidden;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(-180deg);
-}
-.circle h2 {
-  margin-right: 35%;
-}
-
-.marqueeStyle {
-  display: inline-block;
-
-  -webkit-animation: scrolling-left1 20s linear infinite;
-  animation: scrolling-left1 20s linear infinite;
-}
-
-.marqueeStyle2 {
-  display: inline-block;
-
-  -webkit-animation: scrolling-left2 20s linear infinite;
-  animation: scrolling-left2 20s linear infinite;
-  animation-delay: 10s;
-}
-
-@keyframes scrolling-left1 {
-  0% {
-    transform: translateY(100%);
-    -webkit-transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(-100%);
-    -webkit-transform: translateY(-100%);
-  }
-}
-@keyframes scrolling-left2 {
-  0% {
-    transform: translateY(0%);
-    -webkit-transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(-200%);
-    -webkit-transform: translateY(-200%);
-  }
-}
-
-@-webkit-keyframes scrolling-left1 {
-  0% {
-    -webkit-transform: translateY(100%);
-  }
-  100% {
-    -webkit-transform: translateY(-100%);
-  }
-}
-@-webkit-keyframes scrolling-left2 {
-  0% {
-    -webkit-transform: translateY(0%);
-  }
-  100% {
-    -webkit-transform: translateY(-200%);
-  }
-}
-
-#GScroll {
-  padding: 0 20px 100px;
-}
-.elmt img {
-  width: 50%;
-  display: block;
-  margin: 80px 0;
-  transform: translateX(100%) rotate(20deg);
-  opacity: 0;
-}
-
-.work-svg {
-  width: 150px;
-  height: 50px;
-  font-size: 50px;
-  font-weight: 700;
-  fill: none;
-  stroke: white;
-  stroke-width: 2px;
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  background-color: #add8e6;
-  background-color: lightblue;
-}
-
-.extra {
-  display: grid;
-  place-items: center;
-  background-color: white;
-  height: 50vh;
-}
-
-.panel {
-  position: relative;
-  color: black;
-}
-
-.text-section {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  padding-bottom: 10%;
-}
-
-.text-hidden {
-  display: none;
-}
-
-.text-reveal {
-  line-height: 1.5;
-  font-size: 2rem;
-  width: 80vw;
-}
-
-.text-wrapper {
+/* .fill {
+  text-align: center;
+  background-color: transparent;
+  width: fit-content;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #333;
   position: relative;
 }
-
-.text-wrapper span {
-  display: block;
-}
-
-.text {
-  opacity: 0.3;
-}
-
-.text-mask {
+.fill::after {
+  content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
-  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  -webkit-text-fill-color: #ff5722;
+  width: 0;
+  overflow: hidden;
+  transition: 0.2s;
 }
-
-.text-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  max-height: 100%;
+.fill:hover::after {
   width: 100%;
-  background-color: #373733; /* establece el color de fondo que deseas */
-  opacity: 1; /* inicialmente lo hacemos invisible */
-  z-index: 0; /* para que el fondo aparezca detrás del texto */
-}
+} */

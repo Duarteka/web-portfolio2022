@@ -11,8 +11,8 @@ import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { TextAppears } from '../content/Presentation';
 import ProjectList from '../main/ProjectsList';
 import { ArrowdownHeader } from '../icons/Icons';
-
-gsap.registerPlugin(ScrollTrigger);
+import TextFill from '../content/Ideate';
+import Modal from '../pruebas/Modal';
 
 function ArrowAnimationHeader() {
   const arrowRef = useRef(null);
@@ -110,10 +110,10 @@ function HeaderContent() {
           <h1>
             <span>HELLO,</span>
             <span> I &nbsp;DESIGN&nbsp; </span>
-            <span>AND&nbsp; &nbsp;</span>
+            <span>AND &nbsp;</span>
             <span>DEVELOP</span>
             <br />
-            <span>WEB&nbsp; </span> <span>PAGES</span>
+            <span>WEB </span> <span>PAGES</span>
           </h1>
           <span className="based-in">
             <h4>Based in Madrid</h4>
@@ -126,29 +126,12 @@ function HeaderContent() {
               <span>DOWNLOAD CV</span>
             </ButtonDownloadContainer>
           </ButtonWrapper>
-          <ArrowAnimationHeader ref={refs.arrowIcon} />
+          <ArrowAnimationHeader />
         </div>
       </ListStyled>
     </Containerheader>
   );
 }
-
-function Home() {
-  return (
-    <>
-      <HeaderContent />
-      {/* <Modal /> */}
-      <ProjectList />
-      <AboutMeHome />
-      <TextAppears />
-
-      <TextSlide />
-      <ContactPage />
-      <Footer />
-    </>
-  );
-}
-export default Home;
 
 const Containerheader = styled.header`
   color: ${textColor};
@@ -165,15 +148,16 @@ const Containerheader = styled.header`
   overflow: none;
   min-height: 100vh;
   flex: 0 0 auto;
+ 
 
   .based-in{
     color: ${textColorBringUp};
     display: flex;
-    widht: 100vw;
+    width: 80vw;
     justify-content: flex-end;
-    transform-translate: (2rem, 3rem);
-    margin-top: -2rem;
+    margin-top: 2rem;
     margin-right: 8rem;
+ 
   }
   @media (max-width: 668px) {
    padding: 2rem;
@@ -186,44 +170,16 @@ const Containerheader = styled.header`
     }
   }
   h1 {
-    align-self: center;
-    font-size: 12rem;
-    line-height: 165px;
-    letter-spacing: -0.10em;
-    font-weight: 700;
-  
     @media screen and (max-width: 767px) {
       font-size: 6rem;
       line-height: 82.5px;
       letter-spacing: -0.05em;
+      top: 0;
     }
   
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
-      font-size: 8rem;
-      line-height: 110px;
-      letter-spacing: -0.075em;
-    }
   
-    @media screen and (min-width: 1024px) and (max-width: 1279px) {
-      font-size: 10rem;
-      line-height: 137.5px;
-      letter-spacing: -0.085em;
-    }
-  
-    @media screen and (min-width: 1280px) {
-      font-size: 12rem;
-      line-height: 165px;
-      letter-spacing: -0.10em;
-    }
   }
-  // h1 span {
-  //   font-family: 'Lemonada';
-  //   font-weight: 100;
-  //   margin-left: -3%;
-  //   text-transform: lowercase;
-
-  //   color: ${textColorBringUp}
-  // }
+ 
 }
   h4 span {
     font-family: 'Lemonada';
@@ -271,20 +227,26 @@ export const SkillsInfo = styled.div`
 `;
 const ListStyled = styled.div`
   overflow: hidden;
+
   .devs2 {
     perspective: 5000px;
     position: relative;
+    max-width: 100vw;
+
+    padding: 0 4rem;
+  }
+  @media (max-width: 668px) and (max-width: 992px) {
+    height: 50vh;
   }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
-  margin-top: 2rem;
+  margin-top: -2.5rem;
   width: 100vw;
 `;
 const ButtonDownloadContainer = styled.a`
   position: relative;
-
   width: 100%;
   max-width: 260px;
   height: 52px;
@@ -403,3 +365,22 @@ const ContainerArrow = styled.div`
   align-items: flex-start;
   margin: 0;
 `;
+
+function Home() {
+  return (
+    <>
+      <HeaderContent />
+
+      {/* <Modal /> */}
+      <ProjectList />
+      <TextFill />
+      <AboutMeHome />
+      {/* <TextAppears /> */}
+
+      {/* <TextSlide /> */}
+      {/* <ContactPage /> */}
+      <Footer />
+    </>
+  );
+}
+export default Home;

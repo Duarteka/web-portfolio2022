@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-return-assign */
 /* eslint-disable react/no-array-index-key */
@@ -804,43 +805,41 @@
 
 // export default List;
 
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import React, { useEffect, useRef, useState } from 'react';
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import useWindowSize from '../utils/useREsize';
-import TextKaraoke from '../utils/SplitTextKaraoke';
+// import useWindowSize from '../utils/useREsize';
+// import TextKaraoke from '../utils/SplitTextKaraoke';
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
-function ColorChange() {
-  const sectionRef = useRef(null);
+// export default function BorderAnimation() {
+//   const [inViewport, setInViewport] = useState(false);
+//   const refLista = useRef(null);
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       const { top, bottom } = refLista.current.getBoundingClientRect();
+//       const isVisible = top >= 0 && bottom <= window.innerHeight;
+//       if (isVisible) {
+//         setInViewport(true);
+//         window.removeEventListener('scroll', handleScroll);
+//       }
+//     };
 
-  useEffect(() => {
-    const section = sectionRef.current;
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+//   return (
+//     <span
+//       ref={refLista}
+//       className={inViewport ? 'border-animada in-viewport' : 'border-animada'}
+//     />
+//   );
+// }
 
-    const colorTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        scrub: 1,
-        start: 'top 10%',
-        end: 'top 30%'
-      }
-    });
-
-    colorTl.to(section, { opacity: 0, duration: 6 });
-    colorTl.to(section, { opacity: 1, backgroundColor: '#373737' });
-  }, []);
-
-  return (
-    <section ref={sectionRef} style={{ height: '130vh', position: 'relative' }}>
-      <p>Hello World</p>
-    </section>
-  );
-}
-
-export default function TestKaraoke() {
-  return (
-    <TextKaraoke textLineSplit="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lacinia dui. Nullam pretium nunc et tellus feugiat, ut aliquam lacus consectetur. Vivamus in leo ut quam tincidunt lobortis. Nulla ut eros nec turpis dictum auctor vitae ac lectus. Pellentesque scelerisque nec ante eu interdum. Donec elementum dolor id mi ultrices, in scelerisque turpis aliquet. Fusce sollicitudin mollis elit, non suscipit nibh elementum in. Ut ac urna dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla eget odio odio. Donec malesuada ultrices dolor vel pretium." />
-  );
-}
+// function TestKaraoke() {
+//   return (
+//     <TextKaraoke textLineSplit="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lacinia dui. Nullam pretium nunc et tellus feugiat, ut aliquam lacus consectetur. Vivamus in leo ut quam tincidunt lobortis. Nulla ut eros nec turpis dictum auctor vitae ac lectus. Pellentesque scelerisque nec ante eu interdum. Donec elementum dolor id mi ultrices, in scelerisque turpis aliquet. Fusce sollicitudin mollis elit, non suscipit nibh elementum in. Ut ac urna dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla eget odio odio. Donec malesuada ultrices dolor vel pretium." />
+//   );
+// }
