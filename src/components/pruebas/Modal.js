@@ -843,3 +843,107 @@
 //     <TextKaraoke textLineSplit="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lacinia dui. Nullam pretium nunc et tellus feugiat, ut aliquam lacus consectetur. Vivamus in leo ut quam tincidunt lobortis. Nulla ut eros nec turpis dictum auctor vitae ac lectus. Pellentesque scelerisque nec ante eu interdum. Donec elementum dolor id mi ultrices, in scelerisque turpis aliquet. Fusce sollicitudin mollis elit, non suscipit nibh elementum in. Ut ac urna dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla eget odio odio. Donec malesuada ultrices dolor vel pretium." />
 //   );
 // }
+
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useInView } from 'react-intersection-observer';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const LineClass = styled.div`
+  overflow: hidden;
+`;
+
+const AnimJS = styled.div`
+  overflow: hidden;
+  height: 100vh;
+
+  span {
+    margin-top: 30rem;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    opacity: 0;
+    transition: all ease 0.4s;
+    clip-path: ease cubic-bezier(0.71, -0.77, 0.43, 1.67);
+  }
+`;
+
+function AnimatedText({ text, tag }) {
+  const ref = useRef();
+  const [words, setWords] = useState([]);
+
+  useEffect(() => {
+    const wordsTab = text.split(' ');
+    setWords(wordsTab);
+  }, [text]);
+
+  useEffect(() => {
+    if (ref.current) {
+      const animateWords = () => {
+        ref.current.querySelectorAll('span').forEach((blocSpan, index) => {
+          gsap.to(
+            blocSpan,
+            {
+              y: 50,
+              rotation: 45,
+              opacity: 0
+            },
+            {
+              scrollTrigger: {
+                trigger: ref.current,
+                start: 'top 50%',
+                end: 'bottom 20%',
+                scrub: true
+              },
+              y: 0,
+              rotation: 0,
+              opacity: 1,
+              duration: 0.2,
+              delay: 0.1 * index,
+              ease: 'power1.out'
+            }
+          );
+        });
+      };
+
+      if (typeof window !== 'undefined') {
+        if (document.readyState === 'complete') {
+          animateWords();
+        } else {
+          window.addEventListener('load', animateWords);
+        }
+      }
+    }
+  }, [ref]);
+
+  return (
+    <LineClass>
+      <AnimJS ref={ref} as={tag}>
+        {words.map((word, index) => (
+          <span key={index} data-text={word}>
+            {word}
+          </span>
+        ))}
+      </AnimJS>
+    </LineClass>
+  );
+}
+
+export default function Spliter() {
+  return (
+    <>
+      <AnimatedText text="JS Vanilla" tag="h1" />
+      <AnimatedText
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        tag="h2"
+      />
+      <AnimatedText
+        text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        tag="p"
+      />
+    </>
+  );
+}

@@ -14,6 +14,7 @@ import project3 from '../../assets/project3.jpg';
 import project5 from '../../assets/project5.png';
 import { TextHeaderSection } from '../slideAnimation/TextHeaderSection';
 import BorderAnimation from '../pruebas/Modal';
+import SplitScrollText from '../utils/SplitScrollText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,6 +40,7 @@ const ProjectListHome = styled.div`
   cursor: pointer;
   overflow: hidden;
   align-items: center;
+  justify-content: space-between;
   flex-direction: row;
   border-bottom: solid 2px ${textColor};
 
@@ -109,7 +111,14 @@ const TextsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  h2 {
+    padding: 5rem 2rem;
+  }
+
   p:last-child {
+    overflow: hidden;
+    text-align: justify;
+    width: 100%;
   }
   p:first-child {
     border-bottom: 2px solid ${textColorBringUp};
@@ -290,7 +299,7 @@ function ProjectList() {
             <TextsContainer id={`textInside-${project.id}`}>
               <div className="projectName">
                 <p>{project.number}</p>
-                <h2>{project.title}</h2>
+                <SplitScrollText text={project.title} />
               </div>
 
               <p className="projDescriptionHome">{project.description} </p>

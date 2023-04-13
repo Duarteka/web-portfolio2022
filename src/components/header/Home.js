@@ -378,7 +378,7 @@ function Home() {
       {/* <TextAppears /> */}
 
       {/* <TextSlide /> */}
-      {/* <ContactPage /> */}
+      <ContactPage />
       <Footer />
     </>
   );

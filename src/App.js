@@ -68,21 +68,21 @@ function App() {
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
-          <div {...mouseMove()}>
-            <a.div className="cursor" style={cursorStyles} />
-            <BackgroundNoise />
-            <Burger />
-            <ShapesAnimation>
-              <ShapeOne />
-            </ShapesAnimation>
+          {/* <div {...mouseMove()}>
+            <a.div className="cursor" style={cursorStyles} /> */}
+          <BackgroundNoise />
+          <Burger />
+          <ShapesAnimation>
+            <ShapeOne />
+          </ShapesAnimation>
 
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/seemore" element={<ProjectsCar />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/seemore" element={<ProjectsCar />} />
+          </Routes>
+          {/* </div> */}
         </Wrapper>
       </DarkThemeProvider>
     </ReduxProvider>
