@@ -25,16 +25,39 @@ export const textColor = theme('theme', {
 
 // ---------- BACKGROUND NOISE ---------- //
 const noise = keyframes`
-0%, 100% { transform:translate(0, 0); }
-10% { transform:translate(-5%, -10%); }
-20% { transform:translate(-15%, 5%); }
-30% { transform:translate(7%, -25%); }
-40% { transform:translate(-5%, 25%); }
-50% { transform:translate(-15%, 10%); }
-60% { transform:translate(15%, 0%); }
-70% { transform:translate(0%, 15%); }
-80% { transform:translate(3%, 35%); }
-90% { transform:translate(-10%, 10%);
+0% {
+  transform: translate(0%, -50%);
+}
+10% {
+  transform: translate(-5%, 5%);
+}
+20% {
+  transform: translate(-15%, -15%);
+}
+30% {
+  transform: translate(7%, 2%);
+}
+40% {
+  transform: translate(-5%, -5%);
+}
+50% {
+  transform: translate(-15%, 15%);
+}
+60% {
+  transform: translate(3%, -7%);
+}
+70% {
+  transform: translate(5%, 5%);
+}
+80% {
+  transform: translate(-15%, -15%);
+}
+90% {
+  transform: translate(-10%, 10%);
+}
+100% {
+  transform: translate(0%, -50%);
+}
 `;
 export const TextureBackground = styled.div`
   position: relative;
@@ -58,7 +81,7 @@ export const TextureBackground = styled.div`
     left: -50%;
     pointer-events: none;
     user-select: none;
-    background-image: url('https://i.ibb.co/TPYtxRs/texture.png');
+    background-image: url('https://i.ibb.co/p3nbZvS/background-Texture.jpg');
     opacity: 0.05;
     animation: ${noise} 8s steps(10) infinite;
   }

@@ -12,7 +12,6 @@ body {
   max-width: 100vw;
   margin: 0;
   padding: 0;
-
   max-width: 100vw !important;
 }
 h1 {
@@ -23,6 +22,10 @@ h1 {
   font-weight: 600;
   font-family: 'Oswald';
   font-size: 13rem;
+}
+img {
+  aspect-ratio: attr(width) / attr(height);
+  height: auto;
 }
 h2 {
   font-size: 4rem;
@@ -66,20 +69,6 @@ p {
 a {
   text-decoration: none;
 }
-/* .cursor {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(2px);
-  position: fixed;
-  transform: translate(-50%, -50%);
-  box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  z-index: 9999999;
-  mix-blend-mode: lighten;
-} */
 
 .text-slide-container {
   display: grid;
@@ -133,10 +122,65 @@ a {
 /* Pantallas pequeñas */
 @media (max-width: 576px) {
   /* Estilos a aplicar en pantallas pequeñas */
+
+  h1 {
+    font-size: 5rem;
+  }
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  .containerHeader {
+    height: 30vh;
+    margin: 0 !important;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 5rem;
+  }
+  .based-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .containerArrow {
+    margin-top: 2em !important;
+  }
+  .list h1 {
+    font-size: 8rem !important;
+    letter-spacing: -3px !important;
+  }
+  .imageContainer.firstImage img {
+    transform: translate(34%, 67%) !important;
+    width: 64% !important;
+    max-width: 80% !important;
+  }
+
+  .imageContainer.secondImage img {
+    transform: translate(3%, 65%) !important;
+    max-width: 100% !important;
+  }
+  .imageContainer.thirdImage img {
+    transform: translate(38%, 70%) !important;
+    max-width: 90% !important;
+    width: 64% !important;
+  }
 }
 
 /* Pantallas medianas */
-@media (min-width: 577px) and (max-width: 992px) {
+@media (max-width: 843px) {
+  .containerHeader h1 {
+    font-size: 5rem !important;
+    letter-spacing: -3px !important;
+  }
+  .list h1 {
+    letter-spacing: 3px !important;
+  }
   /* Estilos a aplicar en pantallas medianas */
 }
 
@@ -175,4 +219,24 @@ a {
 }
 .fill:hover::after {
   width: 100%;
+} */
+
+/* cursor animation */
+/* 
+.hiddenSection {
+  height: 100vh;
+  border-top: solid 1px black;
+  overflow: hidden;
+  cursor: none;
+}
+.cursor {
+  position: fixed;
+  background-color: #e6a1af;
+  opacity: 90%;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
 } */

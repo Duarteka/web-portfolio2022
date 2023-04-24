@@ -21,7 +21,9 @@ gsap.registerPlugin(ScrollTrigger);
 const ProyectListContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  max-width: 100vw;
+  height: 100%;
+  margin-bottom: 10em;
   .project-list {
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +107,7 @@ const TextsContainer = styled.div`
   flex-direction: row;
   position: absolute;
   width: 100vw;
-  padding: 0 3rem;
+  //padding: 0 3rem;
   align-items: center;
   height: 100%;
   align-items: center;
@@ -139,6 +141,17 @@ const TextsContainer = styled.div`
   @media (max-width: 668px) and (max-width: 992px) {
     padding: 0 1rem;
     width: 100vw;
+  }
+`;
+export const AfewWordsContainer = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  h4 {
+    font-weight: 200;
+    opacity: 0.8;
   }
 `;
 
@@ -262,19 +275,11 @@ function ProjectList() {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          borderTop: '2px solid',
-          position: 'relative',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '1rem'
-        }}
-      >
+      <AfewWordsContainer>
         <h3>Work</h3>
-        <h4 style={{ fontWeight: '200', opacity: '0.8' }}>See all</h4>
-      </div>
+        <h4>See all</h4>
+      </AfewWordsContainer>
+
       <ProyectListContainer ref={projectListRef}>
         {projects.map((project, index) => (
           <ProjectListHome

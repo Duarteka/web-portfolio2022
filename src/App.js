@@ -1,22 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import { useMove } from '@use-gesture/react';
-// import { gsap } from 'gsap';
+import React from 'react';
 import styled from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
-import { a, useSpring, config } from '@react-spring/web';
 import { Route, Routes } from 'react-router-dom';
 import { store } from './components/utils/redux/store';
 import ContactPage from './components/pages/ContactPage';
 import About from './components/pages/AboutPage';
-import BackgroundTexture from './assets/backgroundTexture.png';
+import BackgroundTexture from './assets/backgroundTexture.jpg';
 import DarkThemeProvider from './components/utils/redux/DarkThemeProvider';
 import Home from './components/header/Home';
 import { backgroundColor, textColor, TextureBackground } from './styled';
 import Burger from './components/navigation/Navbar';
 import ProjectsCar from './components/projectsPage/Home';
-import TextFill from './components/content/Ideate';
+
+import Form1 from './assets/form1.webp';
+import Form2 from './assets/form2.webp';
+import Form3 from './assets/form3.webp';
 
 function BackgroundNoise() {
   return (
@@ -25,51 +25,11 @@ function BackgroundNoise() {
     </TextureBackground>
   );
 }
-
 function App() {
-  // useEffect(() => {
-  //   gsap
-  //     .timeline({
-  //       defaults: {
-  //         scrollTrigger: {
-  //           trigger: '#section1',
-  //           scrub: 1,
-  //           onUpdate: (self) => {
-  //             const clamp = gsap.utils.clamp(-20, 20);
-  //             const skew = clamp(self.getVelocity() / -150);
-  //             gsap.set('#section1 h1', {
-  //               skewX: skew
-  //             });
-  //           }
-  //         }
-  //       }
-  //     })
-  //     .from('#section1 svg', {
-  //       y: 200
-  //     })
-  //     .from('#section1 h1', {
-  //       y: 1200
-  //     });
-  // }, []);
-  const [cursorStyles, cursorApi] = useSpring(() => ({
-    left: 0,
-    top: 0,
-    config: config.stiff
-  }));
-  const mouseMove = useMove(({ values: [left, top], down }) => {
-    cursorApi.start({
-      left: left - 25,
-      top: top - 25,
-      scale: down ? 1.4 : 1
-    });
-  });
-
   return (
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
-          {/* <div {...mouseMove()}>
-            <a.div className="cursor" style={cursorStyles} /> */}
           <BackgroundNoise />
           <Burger />
           <ShapesAnimation>
@@ -82,7 +42,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/seemore" element={<ProjectsCar />} />
           </Routes>
-          {/* </div> */}
         </Wrapper>
       </DarkThemeProvider>
     </ReduxProvider>
@@ -91,7 +50,10 @@ function App() {
 function ShapeOne() {
   return (
     <LargeContent id="section1">
-      <svg
+      <img src={Form1} alt="form1" />
+      <img src={Form2} alt="form2" />
+      <img src={Form3} alt="form3" />
+      {/* <svg
         width="1379"
         height="1020"
         viewBox="0 0 1379 1020"
@@ -201,7 +163,7 @@ function ShapeOne() {
             />
           </filter>
         </defs>
-      </svg>
+      </svg> */}
     </LargeContent>
   );
 }
@@ -209,7 +171,6 @@ function ShapeOne() {
 export default App;
 
 const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
   transition: ease 1.9s;
   color: ${textColor};
@@ -218,17 +179,18 @@ const Wrapper = styled.div`
 
   @media (max-width: 668px) {
     max-width: 100vw;
+    overflow-x: hidden;
   }
 `;
 const ShapesAnimation = styled.div`
   position: absolute;
   z-index: 0;
-  svg {
+  img {
     position: fixed;
     height: 100vh;
+    opacity: 50%;
   }
 `;
-
 const LargeContent = styled.div`
   overflow: hidden;
   height: 100vh;

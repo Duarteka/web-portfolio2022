@@ -13,70 +13,103 @@ import {
   textColorBringUpReverse
 } from '../../styled';
 
+import Apple01 from '../../assets/ap01.png';
+
 import GifDanceImage from '../../assets/dancegif.gif';
+import AnimationApple from '../utils/AnimationApple';
+import { AfewWordsContainer } from '../main/ProjectsList';
+
+const EmailContact = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  justify-content: center;
+
+  @media (max-width: 576px) {
+    margin-top: 15vw;
+  }
+
+  span {
+    border-bottom: solid 0.1em ${textColorBringUp};
+  }
+`;
 
 export const ContainerDescriptionAbout = styled.div`
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  height: 100%;
   position: relative;
+  width: 100%;
+  margin: 10rem 0 10rem 0;
 
-  .containertextinner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  justify-content: center;
 
-    position: relative;
-    color: ${textColor};
-  }
-  .textaboutMe {
-    margin-left: 25%;
-    width: 100%;
+  p {
+    font-size: 2vw;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    padding: 0 10vw;
 
-    p {
-      font-size: 1.5rem;
-      line-height: 1.5;
-      letter-spacing: 0.05em;
-      font-weight: 400;
+    @media (max-width: 576px) {
+      padding: 0;
+      font-size: 4vw;
     }
   }
 
   .fonthightlight {
     font-family: 'Lemonada';
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     text-transform: lowercase;
     color: ${textColorBringUp};
   }
   .borderHightlight {
-    border: solid 2px;
-    font-size: 1.4rem;
+    border: solid 0.1em;
+    font-size: 1.4vw;
+    padding: 0 0.5vw;
   }
   .borderBottonhightlight {
     text-decoration: underline;
-    font-size: 1.9rem;
+    font-size: 1.9vw;
   }
   .fonthighlight {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.4vw;
   }
 
   span {
     color: ${textColor};
 
     img {
-      max-width: 10%;
-      max-height: 5%;
-      margin-top: -1.5rem;
+      max-width: 10vw;
+      max-height: 5vh;
+      margin-top: -1vw;
     }
   }
 `;
 
 const HeaderAbout = styled.div`
   display: flex;
+  position: relative;
+  // padding: 15vw 15vw 4vw 15vw;
   justify-content: space-between;
-  padding: 10rem 5rem 1rem 1rem;
-  border-bottom: solid 1px;
+  border-bottom: solid 0.1em;
+
   width: 100%;
 
-  span {
+  h3 {
+    font-weight: 600 !important;
+    font-size: 1.5vw !important;
+  }
+
+  @media (max-width: 576px) {
+    padding: 10vw 10vw 2vw 10vw;
+
+    h3 {
+      font-size: 3vw !important;
+    }
   }
 `;
 gsap.registerPlugin(ScrollTrigger);
@@ -114,56 +147,61 @@ function SmoothScroll() {
   // }, [bgColor.from, bgColor.to, sectionRef]);
 
   return (
-    <ContainerDescriptionAbout>
-      <HeaderAbout>
-        <h3>lets talk</h3>
-        <h3>&</h3>
-        <h3>a fell words</h3>
-        <span />
-      </HeaderAbout>
+    <>
+      <ContainerDescriptionAbout>
+        <AfewWordsContainer className="header-about">
+          {/* <h3>lets talk</h3>
+        <h3>&</h3> */}
+          <h2>a fell words</h2>
+        </AfewWordsContainer>
+        <p>
+          <span className="fonthightlight">Hey there!</span> I&apos;m Karen, a
+          web designer, currently settled in Madrid. I have a a passion for
+          creating user-friendly websites
+          <span className="fonthightlight">♥</span>, with a focus on&nbsp;
+          <span className="borderHightlight">
+            frontend <span className="fonthighlight">&</span> UX/UI design.
+          </span>
+          &nbsp; SO, &nbsp;
+          <span className="borderBottonhightlight">
+            how I can help your team?
+          </span>{' '}
+          <span className="fonthightlight">Why me?</span> Well, let&apos;s just
+          say I&apos;m like a{' '}
+          <span className="fonthighlight">
+            <i>chameleon</i>
+          </span>
+          - I CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
+          CREATE DESIGNS THAT WILL MAKE YOU SAY{' '}
+          <span className="fonthightlight">
+            &quot;WOW, THAT&apos;S EXACTLY WHAT I WAS THINKING!&quot;
+          </span>
+          <br />
+          (And let&apos;s be honest, I&apos;ll probably do a little happy dance
+          when that happens
+          <span>
+            {' '}
+            <img src={GifDanceImage} alt="happy-dance" autoPlay loop />
+          </span>
+          ).
+        </p>
 
-      <div className="containertextinner">
-        <h3>duarte.karen21@gmail.com</h3>
-        <div className="textaboutMe">
-          <p>
-            <span className="fonthightlight">Hey there!</span> I&apos;m Karen, a
-            web designer, currently settled in Madrid. I have a a passion for
-            creating user-friendly websites
-            <span className="fonthightlight">♥</span>, with a focus on{' '}
-            <span className="borderHightlight">
-              frontend <span className="fonthighlight">&</span> UX/UI design.
-            </span>
-            <br />
-            SO,{' '}
-            <span className="borderBottonhightlight">
-              how I can help your team?
-            </span>{' '}
-            <span className="fonthightlight">Why me?</span> Well, let&apos;s
-            just say I&apos;m like a{' '}
-            <span className="fonthighlight">
-              <i>chameleon</i>
-            </span>
-            - I CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
-            CREATE DESIGNS THAT WILL MAKE YOU SAY{' '}
-            <span className="fonthightlight">
-              &quot;WOW, THAT&apos;S EXACTLY WHAT I WAS THINKING!&quot;
-            </span>
-            (And let&apos;s be honest, I&apos;ll probably do a little happy
-            dance when that happens
-            <span>
-              {' '}
-              <img src={GifDanceImage} alt="happy dance" autoPlay loop />
-            </span>
-            ).
-          </p>
-        </div>
-      </div>
-
-      {/* <p>
-          So go ahead and hire me, and let&apos;s work together to create
-          something great!
-        </p> */}
-    </ContainerDescriptionAbout>
+        {/* <p>
+        So go ahead and hire me, and let&apos;s work together to create
+        something great!
+      </p> */}
+      </ContainerDescriptionAbout>
+      <AfewWordsContainer>
+        <h2>lets talk</h2>
+      </AfewWordsContainer>
+      <EmailContact>
+        <h3 className="email">
+          <span>duarte.karen21@gmail.com</span>
+        </h3>
+        {/* <img src={Apple01} alt="manzana" /> */}
+        <AnimationApple />
+      </EmailContact>
+    </>
   );
 }
 

@@ -6,14 +6,9 @@ export default function Footer() {
   return (
     <footer>
       <ContainerFooter>
-        <p>Design by</p>
-        <p>Karen Duarte </p>
-        <p>
-          Web Developer
-          <br /> UX Designer <br />
-          Graphic Designer
-        </p>
-        <p>© 2022 Privacy policy</p>
+        <p>Design by Karen Duarte</p>
+        <p> </p>
+        <p>© 2023 </p>
       </ContainerFooter>
     </footer>
   );
@@ -22,10 +17,17 @@ export default function Footer() {
 const ContainerFooter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  height: 20vh;
   width: 100%;
+  height: 100%;
+  font-weight: 600 !important;
+  position: relative;
+
+  p {
+    margin: 0 5rem;
+    margin-bottom: 5%;
+  }
   @media (max-width: 668px) {
     max-width: 100vw;
     flex-direction: column;
@@ -34,7 +36,7 @@ const ContainerFooter = styled.div`
     height: 50vh;
   }
 
-  footer {
+   {
     display: inline;
     background-color: blue;
     width: 100%;

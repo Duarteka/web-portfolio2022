@@ -8,9 +8,9 @@ import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 import Marquee from 'react-fast-marquee';
 import { textColor, textColorBringUp } from '../../styled';
-import Ideate from '../../assets/ideate.png';
-import Design from '../../assets/design.png';
-import Develop from '../../assets/develop.png';
+import Ideate from '../../assets/ideate.webp';
+import Design from '../../assets/design.webp';
+import Develop from '../../assets/develop.webp';
 import InfiniteTextFrame from '../utils/InfiniteTextFrame';
 
 const TextWrapper = styled.div`
@@ -20,6 +20,7 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 100vw;
 
   .hiddenSection {
     height: 100vh;
@@ -46,7 +47,9 @@ const TextWrapper = styled.div`
 
   .imageContainer.firstImage img {
     transform: translate(79%, -4%);
+    width: 50%;
     max-width: 30%;
+    height: auto;
   }
 
   .imageContainer.secondImage img {
@@ -55,7 +58,9 @@ const TextWrapper = styled.div`
   }
   .imageContainer.thirdImage img {
     transform: translate(23%, 0%);
+    width: 50%;
     max-width: 30%;
+    height: auto;
   }
 
   img {
@@ -126,30 +131,6 @@ const TextWrapper = styled.div`
     [data-animation='to-top'] .outer {
       transform: translateY(100%);
     }
-
-    @media only screen and (max-width: 768px) {
-      h1 {
-        font-size: 12rem;
-      }
-
-      .imageContainer.firstImage img {
-        transform: translate(40%, -6%);
-        max-width: 80%;
-      }
-
-      .imageContainer.secondImage img {
-        transform: translate(100%, 12%);
-        max-width: 70%;
-      }
-      .imageContainer.thirdImage img {
-        transform: translate(23%, 0%);
-        max-width: 80%;
-      }
-
-      img {
-        max-width: 80%;
-      }
-    }
   }
 `;
 
@@ -162,9 +143,6 @@ const TextLoop = styled.div`
   margin-top: -3rem;
   overflow-y: hidden;
  
-
-  
-
   h2{
     margin: 0 5rem;
     padding: 2rem 9;

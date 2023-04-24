@@ -39,12 +39,7 @@ export const SmileFace = styled(EmojiSmileUpsideDown)`
 `;
 
 export const ArrowdownHeader = styled(ArrowDown)`
-  width: 4rem;
-
+  width: 5rem;
   color: ${textColor};
-  // position: relative;
-
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
 `;

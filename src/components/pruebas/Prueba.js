@@ -423,3 +423,46 @@ export default function App() {
 //   margin: 0;
 //   clip-path: inset(100% 0 0 0);
 // }
+
+// const LargeContent = styled.div`
+//   overflow: hidden;
+//   height: 100vh;
+//   width: 100vw;
+
+//   #section1 {
+//     position: relative;
+//     overflow: hidden;
+//     height: auto;
+//   }
+//   @media (max-width: 668px) {
+//     max-width: 100vw;
+
+//     overflow: hidden;
+//   }
+//   div {
+//     z-index: 2;
+//     left: 70%;
+//     top: 20%;
+//     transform: translate(-50%, -50%);
+//   }
+//   #section1 h1:first-of-type {
+//     left: 20%;
+//     top: 40%;
+//   }
+//   svg {
+//     opacity: 0.4;
+//   }
+//   .shape-two {
+//     transform: translate(50rem, -66rem);
+//   }
+
+//   .shape-three {
+//     transform: translate(13rem, -104rem);
+//   }
+
+//   #section1 img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//   }
+// `;

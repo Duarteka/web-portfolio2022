@@ -11,40 +11,24 @@ import {
 
 export default function ContactPage() {
   return (
-    <ContactContainer>
-      <TextHeaderSection title="contact" id="contact" />
-      <ContactEmail>
-        <SubtitleHeaderSection subtitle="BY NOW I KNOW YOU WANNA MEET ME, DON’T BE SHY, SEND ME A MESSAGE." />
-        <h3>duarte.karen21@gmail.com</h3>
-      </ContactEmail>
-      {/* <Slide>
-        <p>BY NOW I KNOW YOU WANNA MEET ME, DON’T BE SHY, SEND ME A MESSAGE.</p>
-      </Slide> */}
-
-      <ContainerContact>
+    <ContainerContact>
+      <div className="containerSocialmidia">
         {socialMidiaContact.map((item) => (
-          <div key={item.id}>
-            <h2>{item.contact}</h2>
-            <h2>
-              <a href={item.route}>{item.socialMidiaName}</a>
-            </h2>
-          </div>
+          <h2 key={item.id} className="socialNameTitle">
+            {item.contact}
+          </h2>
         ))}
-      </ContainerContact>
-    </ContactContainer>
+        <span />
+        {socialMidiaContact.map((item) => (
+          <p className="subTitle" key={item.id}>
+            {item.socialMidiaName}
+          </p>
+        ))}
+      </div>
+    </ContainerContact>
   );
 }
 
-const ContactContainer = styled.div`
-  heigth: 100vh;
-  position: relative;
-
-  @media (max-width: 668px) {
-    max-width: 100vw;
-    overflow: hidden;
-    font-size: 1rem !important;
-  }
-`;
 const ContactEmail = styled.div`
   display: flex;
   width: 100vw;
@@ -61,33 +45,44 @@ const ContactEmail = styled.div`
   }
 `;
 const ContainerContact = styled.div`
+  height: 100%;
+  width: 100vw;
   display: flex;
+  background-color: blue;
+  position: relative;
+  padding: 0 2rem;
 
-  flex-direction: column;
-  padding: 0 5%;
+  .containerSocialmidia {
+    display: flex;
+    flex-direction: column;
+    background-color: pink;
+    width: 100vw;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  span {
+    height: 2px;
+    width: 100%;
+    color: ${textColor};
+    border-bottom: solid 2px;
+  }
+  .socialNameTitle {
+    margin: 0 2rem;
+  }
+
+  .subTitle {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 5rem;
+    justify-content: flex-start;
+  }
 
   a {
-    max-width: 40%;
     text-decoration: none;
     color: ${textColor};
-  }
-
-  h2 {
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    color: ${textColorBringUp};
-    margin-top: 2rem;
-  }
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem;
-    align-items: center;
-    border-top: 1px solid;
-  }
-  div:last-child {
-    border-bottom: 1px solid;
-    padding-bottom: 2rem;
   }
 `;
