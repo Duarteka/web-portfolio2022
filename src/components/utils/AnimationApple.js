@@ -32,7 +32,7 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  max-height: 80vh;
+  max-height: 60vh;
   overflow: hidden;
   margin-top: 5rem;
   margin-right: 5em;

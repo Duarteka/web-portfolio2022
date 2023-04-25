@@ -20,9 +20,11 @@ export default function ContactPage() {
         ))}
         <span />
         {socialMidiaContact.map((item) => (
-          <p className="subTitle" key={item.id}>
-            {item.socialMidiaName}
-          </p>
+          <div>
+            <p className="subTitle" key={item.id}>
+              {item.socialMidiaName}
+            </p>
+          </div>
         ))}
       </div>
     </ContainerContact>
@@ -47,19 +49,13 @@ const ContactEmail = styled.div`
 const ContainerContact = styled.div`
   height: 100%;
   width: 100vw;
-  display: flex;
-  background-color: blue;
   position: relative;
   padding: 0 2rem;
+  margin-top: -5rem;
 
   .containerSocialmidia {
     display: flex;
-    flex-direction: column;
-    background-color: pink;
-    width: 100vw;
     justify-content: center;
-    align-self: center;
-    justify-self: center;
     flex-wrap: wrap;
     flex-direction: row;
   }
@@ -71,18 +67,34 @@ const ContainerContact = styled.div`
     border-bottom: solid 2px;
   }
   .socialNameTitle {
-    margin: 0 2rem;
+    margin: 2rem 2rem;
   }
 
   .subTitle {
-    flex-direction: column;
     align-items: center;
-    margin: 0 5rem;
+    margin: 2rem 5rem;
     justify-content: flex-start;
   }
 
   a {
     text-decoration: none;
     color: ${textColor};
+  }
+
+  @media (max-width: 576px) {
+    margin-top: -10rem;
+    padding; 0;
+   
+    h2{
+      font-size: 2.5rem;
+    }
+
+    .socialNameTitle {
+      margin: 0;
+    }
+    .subTitle {
+      margin: 0 1rem;
+      width: 100%;
+    }
   }
 `;

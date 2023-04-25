@@ -23,7 +23,7 @@ function ArrowAnimationHeader() {
 
   return (
     <ContainerArrow className="containerArrow">
-      <ArrowdownHeader ref={arrowRef} />
+      <ArrowdownHeader ref={arrowRef} className="arrow" />
     </ContainerArrow>
   );
 }
@@ -115,7 +115,7 @@ function HeaderContent() {
           <div />
         </div>
         <ButtonWrapper ref={refs.buttonDownload} className="buttonWrapper">
-          <ButtonDownloadContainer href="#" target="_blank">
+          <ButtonDownloadContainer href="#" target="_blank" className="boton">
             <span>DOWNLOAD CV</span>
             <span>DOWNLOAD CV</span>
           </ButtonDownloadContainer>
@@ -308,6 +308,12 @@ const ContainerArrow = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  margin-top: -2rem;
+  margin-top: 3rem;
+
+  @media (max-width: 576px) {
+    .arrow {
+      margin-top: 2rem;
+    }
+  }
 `;
 export default HeaderContent;

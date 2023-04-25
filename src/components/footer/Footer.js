@@ -6,7 +6,9 @@ export default function Footer() {
   return (
     <footer>
       <ContainerFooter>
-        <p>Design by Karen Duarte</p>
+        <p>
+          Design by <strong>Karen Duarte</strong>
+        </p>
         <p> </p>
         <p>© 2023 </p>
       </ContainerFooter>
@@ -16,17 +18,30 @@ export default function Footer() {
 
 const ContainerFooter = styled.div`
   display: flex;
-  flex-direction: row;
+  height: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
+  align-content: flex-end;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   font-weight: 600 !important;
   position: relative;
+  height: 20vh;
+
+  @media (max-width: 576px) {
+
+    max-height: 15vh;
+
+    p {
+      font-size: 0.7rem;
+    }
+  
+  }
+
 
   p {
     margin: 0 5rem;
-    margin-bottom: 5%;
   }
   @media (max-width: 668px) {
     max-width: 100vw;
@@ -36,10 +51,8 @@ const ContainerFooter = styled.div`
     height: 50vh;
   }
 
-   {
-    display: inline;
-    background-color: blue;
-    width: 100%;
+   
+    
 
     @media (max-width: 668px) {
       max-width: 100vw;

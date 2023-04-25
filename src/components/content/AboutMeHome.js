@@ -26,9 +26,9 @@ const EmailContact = styled.div`
   height: 100%;
   position: relative;
   justify-content: center;
+  margin-top: 5rem;
 
   @media (max-width: 576px) {
-    margin-top: 15vw;
   }
 
   span {
@@ -39,11 +39,11 @@ const EmailContact = styled.div`
 export const ContainerDescriptionAbout = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
   height: 100%;
   position: relative;
   width: 100%;
-  margin: 10rem 0 10rem 0;
-
+  margin: 7rem 0 7rem 0;
   justify-content: center;
 
   p {
@@ -91,27 +91,25 @@ export const ContainerDescriptionAbout = styled.div`
 `;
 
 const HeaderAbout = styled.div`
-  display: flex;
-  position: relative;
-  // padding: 15vw 15vw 4vw 15vw;
-  justify-content: space-between;
-  border-bottom: solid 0.1em;
-
   width: 100%;
+  display: flex;
+  flex-direction: inline;
+  padding: 0 10rem;
+  position: relative;
 
-  h3 {
-    font-weight: 600 !important;
-    font-size: 1.5vw !important;
+  h4 {
+    font-weight: 600;
+    width: 100%;
   }
-
   @media (max-width: 576px) {
-    padding: 10vw 10vw 2vw 10vw;
-
-    h3 {
-      font-size: 3vw !important;
+    padding: 0;
+    margin: 0;
+    h4 {
+      margin-left: 5rem;
     }
   }
 `;
+
 gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScroll() {
@@ -148,12 +146,10 @@ function SmoothScroll() {
 
   return (
     <>
+      <HeaderAbout>
+        <h4>a fell words</h4>
+      </HeaderAbout>
       <ContainerDescriptionAbout>
-        <AfewWordsContainer className="header-about">
-          {/* <h3>lets talk</h3>
-        <h3>&</h3> */}
-          <h2>a fell words</h2>
-        </AfewWordsContainer>
         <p>
           <span className="fonthightlight">Hey there!</span> I&apos;m Karen, a
           web designer, currently settled in Madrid. I have a a passion for
@@ -165,14 +161,14 @@ function SmoothScroll() {
           &nbsp; SO, &nbsp;
           <span className="borderBottonhightlight">
             how I can help your team?
-          </span>{' '}
+          </span>
           <span className="fonthightlight">Why me?</span> Well, let&apos;s just
-          say I&apos;m like a{' '}
+          say I&apos;m like a
           <span className="fonthighlight">
             <i>chameleon</i>
           </span>
           - I CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
-          CREATE DESIGNS THAT WILL MAKE YOU SAY{' '}
+          CREATE DESIGNS THAT WILL MAKE YOU SAY
           <span className="fonthightlight">
             &quot;WOW, THAT&apos;S EXACTLY WHAT I WAS THINKING!&quot;
           </span>
@@ -180,7 +176,6 @@ function SmoothScroll() {
           (And let&apos;s be honest, I&apos;ll probably do a little happy dance
           when that happens
           <span>
-            {' '}
             <img src={GifDanceImage} alt="happy-dance" autoPlay loop />
           </span>
           ).
@@ -191,9 +186,11 @@ function SmoothScroll() {
         something great!
       </p> */}
       </ContainerDescriptionAbout>
-      <AfewWordsContainer>
-        <h2>lets talk</h2>
-      </AfewWordsContainer>
+
+      <HeaderAbout>
+        <h4>lets talk</h4>
+      </HeaderAbout>
+
       <EmailContact>
         <h3 className="email">
           <span>duarte.karen21@gmail.com</span>

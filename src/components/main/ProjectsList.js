@@ -107,7 +107,7 @@ const TextsContainer = styled.div`
   flex-direction: row;
   position: absolute;
   width: 100vw;
-  //padding: 0 3rem;
+  padding: 0 3rem;
   align-items: center;
   height: 100%;
   align-items: center;
@@ -148,10 +148,15 @@ export const AfewWordsContainer = styled.div`
   position: relative;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3rem;
+  padding: 3rem 5rem 1rem;
+
   h4 {
     font-weight: 200;
     opacity: 0.8;
+  }
+  @media (max-width: 576px) {
+    padding: 0;
+    margin-top: 10rem;
   }
 `;
 

@@ -132,6 +132,13 @@ const TextWrapper = styled.div`
       transform: translateY(100%);
     }
   }
+
+  @media (max-width: 843px) {
+    .list h1 {
+      letter-spacing: 3px;
+      font-size: 15rem;
+    }
+  }
 `;
 
 const TextLoop = styled.div`  
