@@ -22,7 +22,7 @@ export const MoonLight = styled(Moon)`
   @media (max-width: 668px) {
     width: 2.5rem;
 
-    transform: translate(-7rem, -4px);
+    transform: translate(0rem, 0px);
   }
 `;
 export const SmileFace = styled(EmojiSmileUpsideDown)`
@@ -34,7 +34,7 @@ export const SmileFace = styled(EmojiSmileUpsideDown)`
   @media (max-width: 668px) {
     width: 2.5rem;
 
-    transform: translate(-7rem, -4px);
+    transform: translate(-10rem, -4px);
   }
 `;
 

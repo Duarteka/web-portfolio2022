@@ -200,7 +200,7 @@ const sections = [
       { id: 4, text: 'ADOBE XD' },
       { id: 5, text: 'ILLUSTRATOR' },
       { id: 6, text: 'WEBFLOW' },
-      { id: 7, text: 'CSS ' },
+      { id: 7, text: 'CSS/BEM ' },
       { id: 8, text: 'STYLED ' }
     ]
   },
@@ -325,6 +325,7 @@ export default function TextFill() {
 
   return (
     <div className="hiddenSection">
+      <HeaderTextForSection text1="Process" text2="&" text3="skills" />
       <div ref={wrapperRef}>
         <TextWrapper>
           {sections.map((section, index) => (
@@ -392,5 +393,24 @@ export default function TextFill() {
         </TextWrapper>
       </div>
     </div>
+  );
+}
+const ContainerHeaderTextForSection = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  height: 45vh;
+  align-items: center;
+
+  h3 {
+  }
+`;
+export function HeaderTextForSection({ text1, text2, text3 }) {
+  return (
+    <ContainerHeaderTextForSection>
+      <h3>{text1}</h3>
+      <h3>{text2}</h3>
+      <h3>{text3}</h3>
+    </ContainerHeaderTextForSection>
   );
 }

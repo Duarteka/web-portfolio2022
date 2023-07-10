@@ -2,12 +2,16 @@ import Ideate from '../../assets/ideate.webp';
 import Design from '../../assets/design.webp';
 import Develop from '../../assets/develop.webp';
 
+import project1 from '../../assets/project1.jpg';
+import project3 from '../../assets/project3.jpg';
+import project5 from '../../assets/project5.png';
+
 export const socialMidiaContact = [
   {
     id: 1,
     contact: 'Discord',
     socialMidiaName: 'Kapi#8423',
-    route: '#'
+    route: 'https://discord.gg/tP3mH56w'
   },
   {
     id: 3,
@@ -19,7 +23,7 @@ export const socialMidiaContact = [
     id: 4,
     contact: 'Github',
     socialMidiaName: 'DuarteKa',
-    route: '#'
+    route: 'https://github.com/Duarteka'
   }
   // {
   //   id: 5,
@@ -44,6 +48,49 @@ export const navLinks = [
     id: 3,
     text: 'Contact',
     path: '/contact'
+  }
+];
+
+export const projects = [
+  {
+    id: 1,
+    title: 'Chaos cosmos',
+    image: project1,
+    link: '/project1',
+    rol: 'development, ux',
+    number: '01',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.'
+  },
+  {
+    id: 2,
+    title: 'Mediterranean',
+    image: project3,
+    link: '/project2',
+    rol: ' design development, ux',
+    number: '02',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.'
+  },
+  {
+    id: 3,
+    title: 'Coffe Shop',
+    image: project5,
+    link: '/project3',
+    rol: 'development, ux',
+    number: '03',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.'
+  },
+  {
+    id: 4,
+    title: 'Design Portfolio',
+    image: 'https://picsum.photos/id/40/1920/1080',
+    link: '/project4',
+    rol: 'development, ux',
+    number: '04',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.'
   }
 ];
 

@@ -3,206 +3,33 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef, useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useInView } from 'react-intersection-observer';
-import { textColor, backgroundColor, textColorBringUp } from '../../styled';
+import { Link } from 'react-router-dom';
 
-import project1 from '../../assets/project1.jpg';
-import project3 from '../../assets/project3.jpg';
-import project5 from '../../assets/project5.png';
-import { TextHeaderSection } from '../slideAnimation/TextHeaderSection';
-import BorderAnimation from '../pruebas/Modal';
 import SplitScrollText from '../utils/SplitScrollText';
+import { projects } from '../utils/dataInfo';
+import {
+  AfewWordsContainer,
+  CloseButton,
+  ImageList,
+  ModalBackground,
+  ProjectListHome,
+  ProyectListContainer,
+  SelectedProjectContainer,
+  TextsContainer
+} from './stylesProjectList';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ProyectListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 100vw;
-  height: 100%;
-  margin-bottom: 10em;
-  .project-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-
-    flex-wrap: wrap;
-  }
-`;
-
-const ProjectListHome = styled.div`
-  min-height: 30vh;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-  border-bottom: solid 2px ${textColor};
-
-  @media (max-width: 668px) {
-    max-height: 30vh;
-  }
-  &:first-child {
-    border-top: solid 2px ${textColor};
-  }
-`;
-const SelectedProjectContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  overflow: hidden;
-  transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  filter: grayscale(100%);
-
-  position: absolute;
-  min-height: 40vh;
-`;
-
-const Link = styled.a`
-  text-decoration: none;
-  color: ${textColor};
-`;
-
-const ModalBackground = styled.div`
-  background-color: ${backgroundColor};
-  height: 100vh;
-  width: 100vw;
-  overflow-y: auto;
-`;
-
-const CloseButton = styled.div`
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 2em;
-  cursor: pointer;
-  color: ${textColor};
-`;
-const TextsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: absolute;
-  width: 100vw;
-  padding: 0 3rem;
-  align-items: center;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
-
-  h2 {
-    padding: 5rem 2rem;
-  }
-
-  p:last-child {
-    overflow: hidden;
-    text-align: justify;
-    width: 100%;
-  }
-  p:first-child {
-    border-bottom: 2px solid ${textColorBringUp};
-  }
-  .projectName {
-    display: flex;
-    align-items: center;
-  }
-  .projDescriptionHome {
-    margin-bottom: -3vw;
-    font-weight: 400;
-    max-width: 10%;
-
-    @media (max-width: 668px) and (max-width: 992px) {
-      max-width: 25%;
-    }
-  }
-  @media (max-width: 668px) and (max-width: 992px) {
-    padding: 0 1rem;
-    width: 100vw;
-  }
-`;
-export const AfewWordsContainer = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3rem 5rem 1rem;
-
-  h4 {
-    font-weight: 200;
-    opacity: 0.8;
-  }
-  @media (max-width: 576px) {
-    padding: 0;
-    margin-top: 10rem;
-  }
-`;
-
-const projects = [
-  {
-    id: 1,
-    title: 'Chaos cosmos',
-    image: project1,
-    link: '/project1',
-    description: 'development, ux',
-    number: '01'
-  },
-  {
-    id: 2,
-    title: 'Mediterranean',
-    image: project3,
-    link: '/project2',
-    description: ' design development, ux',
-    number: '02'
-  },
-  {
-    id: 3,
-    title: 'Coffe Shop',
-    image: project5,
-    link: '/project3',
-    description: 'development, ux',
-    number: '03'
-  },
-  {
-    id: 4,
-    title: 'Design Portfolio',
-    image: 'https://picsum.photos/id/40/1920/1080',
-    link: '/project4',
-    description: 'development, ux',
-    number: '04'
-  }
-];
-
-function ProjectList() {
+function ProjectList({ children }) {
   const projectsRef = useRef([]);
   const [showModal, setShowModal] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
   const [bodyOverflow, setBodyOverflow] = useState(null);
   const modalcontainerRef = useRef(null);
   const projectListRef = useRef(null);
-  const splitTextRef = useRef(null);
 
   useEffect(() => {
     if (showModal) {
@@ -280,12 +107,17 @@ function ProjectList() {
 
   return (
     <>
-      <AfewWordsContainer>
+      <AfewWordsContainer id="work">
         <h3>Work</h3>
-        <h4>See all</h4>
+        <h4>
+          <Link to="/seemore"> See all</Link>
+        </h4>
       </AfewWordsContainer>
 
-      <ProyectListContainer ref={projectListRef}>
+      <ProyectListContainer
+        ref={projectListRef}
+        className="projectListContainer"
+      >
         {projects.map((project, index) => (
           <ProjectListHome
             className="project-list modal-background"
@@ -301,7 +133,7 @@ function ProjectList() {
               handleMouseLeave(index, `textInside-${project.id}`)
             }
           >
-            <Image
+            <ImageList
               src={project.image}
               alt={project.title}
               className="modal-image"
@@ -312,7 +144,8 @@ function ProjectList() {
                 <SplitScrollText text={project.title} />
               </div>
 
-              <p className="projDescriptionHome">{project.description} </p>
+              <p className="projDescriptionHome">{project.rol} </p>
+              <p className="description">{project.description}</p>
             </TextsContainer>
           </ProjectListHome>
         ))}

@@ -95,7 +95,7 @@ function HeaderContent() {
   }, [refs.arrowIcon, refs.buttonDownload, refs.devs2]);
 
   return (
-    <Containerheader className="containerHeader">
+    <Containerheader className="containerHeader" id="header">
       <ListStyled>
         <div className="devs2" ref={refs.devs2}>
           <h1>
@@ -133,12 +133,14 @@ const Containerheader = styled.header`
   flex-direction: column;
   align-content: center;
   text-transform: uppercase;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   position: relative;
   overflow: none;
   flex: 0 0 auto;
   margin-bottom: 5em;
+  padding-top: 10vh;
+
   
  
   .based-in {

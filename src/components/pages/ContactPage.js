@@ -21,9 +21,11 @@ export default function ContactPage() {
         <span />
         {socialMidiaContact.map((item) => (
           <div>
-            <p className="subTitle" key={item.id}>
-              {item.socialMidiaName}
-            </p>
+            <a href={item.route} target="_blank" rel="noreferrer">
+              <p className="subTitle" key={item.id}>
+                {item.socialMidiaName}
+              </p>
+            </a>
           </div>
         ))}
       </div>
@@ -52,6 +54,7 @@ const ContainerContact = styled.div`
   position: relative;
   padding: 0 2rem;
   margin-top: -5rem;
+  
 
   .containerSocialmidia {
     display: flex;

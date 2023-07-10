@@ -78,11 +78,11 @@ export default function About() {
   return (
     <>
       <Slide>
-        <div className="aboutHeader">
+        <AboutContainer className="aboutHeader">
           <h1>
             About<span>me</span>
           </h1>
-        </div>
+        </AboutContainer>
       </Slide>
       <section className="headings-section">
         <Headline className="heading heading-two" />

@@ -17,16 +17,28 @@ import Apple01 from '../../assets/ap01.png';
 
 import GifDanceImage from '../../assets/dancegif.gif';
 import AnimationApple from '../utils/AnimationApple';
-import { AfewWordsContainer } from '../main/ProjectsList';
 
+import { HeaderTextForSection } from './Ideate';
+
+const EmailContactContainer = styled.div`
+  display: 100vh;
+  margin-top 15% ;
+ 
+  position: relative;
+`;
 const EmailContact = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
+
   position: relative;
   justify-content: center;
-  margin-top: 5rem;
+  /margin-top: 5rem;
+
+  a {
+    color: ${textColor};
+  }
 
   @media (max-width: 576px) {
   }
@@ -43,7 +55,7 @@ export const ContainerDescriptionAbout = styled.div`
   height: 100%;
   position: relative;
   width: 100%;
-  margin: 7rem 0 7rem 0;
+  //margin: 7rem 0 7rem 0;
   justify-content: center;
 
   p {
@@ -113,47 +125,18 @@ const HeaderAbout = styled.div`
 gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScroll() {
-  // const sectionRef = useRef(null);
-  // const bgColor = {
-  //   from: '#373737',
-  //   to: '#373737'
-  // };
-
-  // useEffect(() => {
-  //   const section = sectionRef.current;
-
-  //   if (section) {
-  //     const colorTl = gsap.timeline({
-  //       scrollTrigger: {
-  //         trigger: section,
-  //         scrub: 1,
-  //         start: 'top 10%',
-  //         end: 'top 20%',
-  //         pin: true,
-  //         pinSpacing: false
-  //       }
-  //     });
-  //     colorTl.to(section, {
-  //       opacity: 1,
-  //       backgroundColor: gsap.utils.interpolate(bgColor.from, bgColor.to),
-  //       duration: 1,
-  //       pin: true,
-  //       pinSpacing: false
-  //     });
-  //     colorTl.to('p', { opacity: 1 });
-  //   }
-  // }, [bgColor.from, bgColor.to, sectionRef]);
-
   return (
-    <>
-      <HeaderAbout>
-        <h4>a fell words</h4>
-      </HeaderAbout>
+    <div id="about">
+      <HeaderTextForSection
+        text1="A FELL WORDS ABOUT"
+        text2="&"
+        text3="LET’S TALK"
+      />
       <ContainerDescriptionAbout>
         <p>
-          <span className="fonthightlight">Hey there!</span> I&apos;m Karen, a
-          web designer, currently settled in Madrid. I have a a passion for
-          creating user-friendly websites
+          <span className="fonthightlight">Hey there!</span>
+          <br /> I&apos;m Karen, a web designer, currently settled in Madrid. I
+          have a passion for creating user-friendly websites
           <span className="fonthightlight">♥</span>, with a focus on&nbsp;
           <span className="borderHightlight">
             frontend <span className="fonthighlight">&</span> UX/UI design.
@@ -162,13 +145,15 @@ function SmoothScroll() {
           <span className="borderBottonhightlight">
             how I can help your team?
           </span>
-          <span className="fonthightlight">Why me?</span> Well, let&apos;s just
-          say I&apos;m like a
+          <br />
+          <span className="fonthightlight">Why me?</span> <br /> Well,
+          let&apos;s just say I&apos;m like a
           <span className="fonthighlight">
             <i>chameleon</i>
           </span>
           - I CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
           CREATE DESIGNS THAT WILL MAKE YOU SAY
+          <br />
           <span className="fonthightlight">
             &quot;WOW, THAT&apos;S EXACTLY WHAT I WAS THINKING!&quot;
           </span>
@@ -187,18 +172,27 @@ function SmoothScroll() {
       </p> */}
       </ContainerDescriptionAbout>
 
-      <HeaderAbout>
-        <h4>lets talk</h4>
-      </HeaderAbout>
-
-      <EmailContact>
-        <h3 className="email">
-          <span>duarte.karen21@gmail.com</span>
-        </h3>
-        {/* <img src={Apple01} alt="manzana" /> */}
-        <AnimationApple />
-      </EmailContact>
-    </>
+      <EmailContactContainer>
+        <EmailContact id="contact">
+          <p>
+            So don&rsquo;t be shy and contact me and let&rsquo;s do something
+            great!
+          </p>
+          <h3 className="email">
+            <span>
+              <a
+                style={{ color: textColor }}
+                href="mailto: duarte.karen21@gmail.com"
+              >
+                duarte.karen21@gmail.com
+              </a>
+            </span>
+          </h3>
+          {/* <img src={Apple01} alt="manzana" /> */}
+          <AnimationApple />
+        </EmailContact>
+      </EmailContactContainer>
+    </div>
   );
 }
 
