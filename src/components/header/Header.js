@@ -191,7 +191,7 @@ const ListStyled = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-
+  margin-left: 15%;
   width: 100%;
 `;
 const ButtonDownloadContainer = styled.a`

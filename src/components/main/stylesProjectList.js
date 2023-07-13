@@ -41,6 +41,7 @@ export const ProjectListHome = styled.div`
 `;
 export const SelectedProjectContainer = styled.div`
   position: fixed;
+  opacity: 0;
   top: 0;
   left: 0;
   width: 100vw;

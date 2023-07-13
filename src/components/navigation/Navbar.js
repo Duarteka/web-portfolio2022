@@ -37,17 +37,32 @@ function Navbar(props) {
   // const prevScrollY = useRef(0);
 
   const [showNav, setShowNav] = useState(true);
+  const scrollY = useRef(window.pageYOffset);
 
   useEffect(() => {
-    let prevScrollY = window.pageYOffset;
+    const prevScrollY = window.pageYOffset;
 
     const handleScroll = () => {
       const currentScrollY = window.pageYOffset;
-      const isScrollingUp = currentScrollY < prevScrollY;
+      const isScrollingUp = currentScrollY < scrollY.current;
 
       setShowNav(isScrollingUp || currentScrollY === 0);
 
-      prevScrollY = currentScrollY;
+      scrollY.current = currentScrollY;
+
+      const navElement = navRef.current;
+
+      if (showNav) {
+        gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
+      } else {
+        gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
+      }
+
+      if (currentScrollY > 0) {
+        gsap.to(navRef.current, { backdropFilter: 'blur(5px)', duration: 0.2 });
+      } else {
+        gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -55,23 +70,33 @@ function Navbar(props) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const navElement = navRef.current;
-
-    const handleAnimation = () => {
-      if (showNav) {
-        gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
-        gsap.to(navRef.current, { backdropFilter: 'blur(5px)', duration: 0.2 });
-      } else {
-        gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
-        gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
-      }
-    };
-
-    handleAnimation();
   }, [showNav]);
+
+  // useEffect(() => {
+  //   const navElement = navRef.current;
+
+  //   const handleAnimation = () => {
+  //     if (showNav) {
+  //       gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
+
+  //       // Agregamos una verificación aquí para asegurarnos de que la página se ha desplazado
+  //       // antes de aplicar el efecto de desenfoque.
+  //       if (window.pageYOffset > 0) {
+  //         gsap.to(navRef.current, {
+  //           backdropFilter: 'blur(5px)',
+  //           duration: 0.2
+  //         });
+  //       } else {
+  //         gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
+  //       }
+  //     } else {
+  //       gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
+  //       gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
+  //     }
+  //   };
+
+  //   handleAnimation();
+  // }, [showNav]);
 
   return (
     <Nav ref={navRef} className={showNav ? 'show' : 'hide'}>

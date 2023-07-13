@@ -1,9 +1,12 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import gsap, { Power2 } from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { store } from './components/utils/redux/store';
 import ContactPage from './components/pages/ContactPage';
 import About from './components/pages/AboutPage';
@@ -18,6 +21,9 @@ import Form2 from './assets/form2.webp';
 import Form3 from './assets/form3.webp';
 import ProjectList from './components/main/ProjectsList';
 import Footer from './components/footer/Footer';
+import ProjectDetail from './components/main/ProjectDetail';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function BackgroundNoise() {
   return (
@@ -33,28 +39,104 @@ function App() {
         <Wrapper>
           <BackgroundNoise />
           <Navbar />
-          <ShapesAnimation>
-            <ShapeOne />
-          </ShapesAnimation>
+
+          <Shapes />
 
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/seemore" element={<ProjectList />} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
           </Routes>
         </Wrapper>
       </DarkThemeProvider>
     </ReduxProvider>
   );
 }
-function ShapeOne() {
+function Shapes() {
+  const imageRefs = useRef([]);
+
+  useEffect(() => {
+    const images = imageRefs.current;
+
+    gsap.to(images[0], {
+      rotation: 360,
+      yoyo: true,
+      scale: 2.5,
+      repeat: -1,
+      duration: 15,
+      ease: 'linear',
+      y: '-50%',
+      x: '80%'
+    });
+    const initialAnim = gsap.to(images[1], {
+      rotation: '-=360',
+      duration: 3.5,
+
+      repeat: -1,
+      ease: 'power1.inOut',
+      paused: true // Iniciamos la animación en pausa
+    });
+    setTimeout(() => initialAnim.play(), 100);
+    gsap.to(images[1], {
+      y: '-90%',
+      x: '30%',
+      scrollTrigger: {
+        trigger: '#shape02',
+        start: 'top 30%',
+        end: 'bottom 90%',
+        scrub: true,
+        // Cuando se inicia el ScrollTrigger, pausamos la animación inicial.
+        onEnter: () => initialAnim.pause()
+      },
+      ease: 'power1.inOut'
+    });
+
+    gsap.to(images[2], {
+      rotation: 180,
+      yoyo: true,
+      repeat: -1,
+      duration: 10,
+      ease: 'bounce.out',
+      x: '60%',
+      y: '-80%'
+    });
+
+    gsap.to(images, {
+      x: (i) => `${i * 20 + 50}%`,
+      y: (i) => `${i * 30 + 60}%`,
+      // Se configura ScrollTrigger para sincronizar la animación con la posición de scroll.
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true
+      }
+    });
+  }, []);
+
   return (
-    <LargeContent id="section1">
-      <img src={Form1} alt="form1" />
-      <img src={Form2} alt="form2" />
-      <img src={Form3} alt="form3" />
-    </LargeContent>
+    <ShapesAnimation className="shapesAnimartion">
+      <LargeContent id="section1">
+        <img
+          ref={(el) => (imageRefs.current[0] = el)}
+          src={Form1}
+          alt="form1"
+        />
+        <img
+          ref={(el) => (imageRefs.current[1] = el)}
+          src={Form2}
+          alt="form2"
+          className="shape02"
+        />
+        <img
+          ref={(el) => (imageRefs.current[2] = el)}
+          src={Form3}
+          alt="form3"
+        />
+      </LargeContent>
+    </ShapesAnimation>
   );
 }
 
@@ -82,9 +164,10 @@ const ShapesAnimation = styled.div`
   img {
     position: fixed;
     height: 100vh;
-    opacity: 50%;
+    opacity: 30%;
   }
 `;
+
 const LargeContent = styled.div`
   overflow: hidden;
   height: 100vh;
@@ -112,13 +195,6 @@ const LargeContent = styled.div`
   }
   svg {
     opacity: 0.4;
-  }
-  .shape-two {
-    transform: translate(50rem, -66rem);
-  }
-
-  .shape-three {
-    transform: translate(13rem, -104rem);
   }
 
   #section1 img {
