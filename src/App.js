@@ -39,7 +39,6 @@ function App() {
         <Wrapper>
           <BackgroundNoise />
           <Navbar />
-
           <Shapes />
 
           <Routes>
@@ -47,6 +46,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/seemore" element={<ProjectList />} />
+
             <Route path="/project/:id" element={<ProjectDetail />} />
           </Routes>
         </Wrapper>

@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -17,14 +18,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  const { bodyOverflow, setBodyOverflow, modalcontainerRef, handleCloseModal } =
-    useProjectLogic();
   const navigate = useNavigate();
+
+  const { bodyOverflow, setBodyOverflow, modalcontainerRef, scrollPosition } =
+    useProjectLogic();
+
   const projectHandle = projects.find((project) => project.id === Number(id));
 
   useEffect(() => {
     setBodyOverflow(document.body.style.overflow);
     document.body.style.overflow = 'hidden';
+
     gsap.fromTo(
       modalcontainerRef.current,
       { x: '100%', opacity: 0 },
@@ -33,23 +37,36 @@ export default function ProjectDetail() {
 
     return () => {
       document.body.style.overflow = bodyOverflow;
+      window.scrollTo(0, scrollPosition);
     };
-  }, [modalcontainerRef, bodyOverflow, setBodyOverflow]);
+  }, [modalcontainerRef, bodyOverflow, setBodyOverflow, scrollPosition]);
 
   const handleCloseProject = () => {
-    handleCloseModal();
-    setTimeout(() => {
-      navigate('/'); // Navega de vuelta a la ruta principal
-    }, 1000);
+    gsap.to(modalcontainerRef.current, {
+      x: '100%',
+      opacity: 0,
+      duration: 1,
+      ease: 'power1.in',
+      onComplete: () => {
+        setTimeout(() => {
+          document.body.style.overflow = bodyOverflow;
+          document.documentElement.style.scrollBehavior = 'auto';
+          window.scrollTo(0, scrollPosition);
+          navigate(-1);
+        }, 900);
+      }
+    });
   };
 
   return (
-    <SelectedProjectContainer ref={modalcontainerRef}>
-      <ModalBackground>
-        <CloseButton onClick={handleCloseProject}>X</CloseButton>
-        <img src={projectHandle.img} alt={projectHandle.title} />
-        <p>{projectHandle.title}</p>
-      </ModalBackground>
-    </SelectedProjectContainer>
+    <>
+      <SelectedProjectContainer ref={modalcontainerRef}>
+        <ModalBackground>
+          <CloseButton onClick={handleCloseProject}>X</CloseButton>
+          <img src={projectHandle.img} alt={projectHandle.title} />
+          <p>{projectHandle.title}</p>
+        </ModalBackground>
+      </SelectedProjectContainer>
+    </>
   );
 }

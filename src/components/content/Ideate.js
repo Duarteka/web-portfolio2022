@@ -397,6 +397,7 @@ export default function TextFill() {
 }
 const ContainerHeaderTextForSection = styled.div`
   display: flex;
+  flex-direction: flex;
   position: relative;
   justify-content: space-around;
   height: 45vh;

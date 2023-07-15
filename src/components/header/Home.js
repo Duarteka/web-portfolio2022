@@ -8,6 +8,7 @@ import Footer from '../footer/Footer';
 import ProjectList from '../main/ProjectsList';
 import TextFill from '../content/Ideate';
 import HeaderContent from './Header';
+import Process from '../content/Process';
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
       <ProjectList />
       <TextFill />
       <AboutMeHome />
+      <Process />
       {/* <TextSlide /> */}
       <ContactPage />
       <Footer />

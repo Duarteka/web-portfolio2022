@@ -6,28 +6,31 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import SplitScrollText from '../utils/SplitScrollText';
 import { projects } from '../utils/dataInfo';
 import {
   AfewWordsContainer,
-  CloseButton,
   ImageList,
-  ModalBackground,
   ProjectListHome,
   ProyectListContainer,
-  SelectedProjectContainer,
   TextsContainer
 } from './stylesProjectList';
-import { useProjectLogic } from './useProjectLogic';
+import ProjectDetail from './ProjectDetail';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectList({ children }) {
   const projectsRef = useRef([]);
-  const { modalcontainerRef } = useProjectLogic();
+  const [modalOpen, setModalOpen] = useState(false);
 
+  const openModal = (id) => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   // ANIMACIÓN HOVER  IMAGENES Y TEXTO :
   const handleMouseEnter = (index, id) => {
     const image = projectsRef.current[index].querySelector('img');
@@ -88,7 +91,11 @@ function ProjectList({ children }) {
               handleMouseLeave(index, `textInside-${project.id}`)
             }
           >
-            <Link to={`/project/${project.id}`} key={project.id}>
+            <Link
+              to={`/project/${project.id}`}
+              key={project.id}
+              onClick={() => openModal(project.id)}
+            >
               <ImageList
                 src={project.image}
                 alt={project.title}
@@ -106,6 +113,7 @@ function ProjectList({ children }) {
             </Link>
           </ProjectListHome>
         ))}
+        {modalOpen && <ProjectDetail closeModal={closeModal} />}
       </ProyectListContainer>
     </>
   );

@@ -6,32 +6,23 @@ import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 export const ProyectListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
-  height: 100%;s
-  margin-bottom: 10em;
+  width: 100%;
 
-  .project-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-
-    flex-wrap: wrap;
+  a {
+    text-decoration: none;
+    color: ${textColor};
   }
 `;
 
 export const ProjectListHome = styled.div`
-  min-height: 30vh;
+  min-height: 30vh; // puedes ajustar esto al tamaño deseado
   display: flex;
-  margin: 0;
-  padding: 0;
   position: relative;
   cursor: pointer;
   overflow: hidden;
   align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
+  justify-content: center;
   border-bottom: solid 2px ${textColor};
-
   @media (max-width: 668px) {
     max-height: 30vh;
   }
@@ -46,7 +37,6 @@ export const SelectedProjectContainer = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +47,7 @@ export const SelectedProjectContainer = styled.div`
 export const TextsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  position: absolute;
+
   width: 100vw;
   padding: 0 3rem;
   align-items: center;
@@ -106,15 +96,8 @@ export const ImageList = styled.img`
   object-fit: cover;
   opacity: 0;
   filter: grayscale(100%);
-
   position: absolute;
-  min-height: 40vh;
 `;
-
-// const Link = styled.a`
-//   text-decoration: none;
-//   color: ${textColor};
-// `;
 
 export const ModalBackground = styled.div`
   background-color: ${backgroundColor};
