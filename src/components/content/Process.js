@@ -144,17 +144,13 @@ export function HowIworkCarrussel() {
     ))
   );
   return (
-    <>
-      <TextHeaderSection title="process" id="process" />
-      <SubtitleHeaderSection subtitle="THIS IS MY STEPS, BUT CAN BE WHATYEVER PROJECT OR CLIENT NEED " />
-      <HorizontalSection>
-        <HorizontalScroll>
-          <CardsContainer>
-            <SampleCards />
-          </CardsContainer>
-        </HorizontalScroll>
-      </HorizontalSection>
-    </>
+    <HorizontalSection>
+      <HorizontalScroll>
+        <CardsContainer>
+          <SampleCards />
+        </CardsContainer>
+      </HorizontalScroll>
+    </HorizontalSection>
   );
 }
 export default Process;

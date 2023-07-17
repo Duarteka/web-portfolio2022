@@ -164,7 +164,7 @@ const ShapesAnimation = styled.div`
   img {
     position: fixed;
     height: 100vh;
-    opacity: 30%;
+    opacity: 80%;
   }
 `;
 

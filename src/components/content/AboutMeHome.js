@@ -52,10 +52,13 @@ export const ContainerDescriptionAbout = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  height: 200vh;
+  border-bottom: solid 2px;
+  border-top: solid 2px;
   position: relative;
   width: 100%;
-  //margin: 7rem 0 7rem 0;
+  //margin: 40rem 0 7rem 0;
+  background-color: ${backgroundColor};
   justify-content: center;
 
   p {
@@ -122,17 +125,74 @@ const HeaderAbout = styled.div`
   }
 `;
 
+const Containercircle = styled.div`
+  display: flex;
+  position: relative;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-height: 100%;
+`;
+
+const PortfolioHeader = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: ${textColorBringUp};
+  max-width: 1194.7%;
+  max-height: 100%;
+`;
+
 gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScroll() {
+  const h1Ref = useRef();
+  const containerRef = useRef();
+
+  useEffect(() => {
+    const cero = h1Ref.current;
+    const container = containerRef.current;
+
+    gsap.set(cero, { xPercent: 0, yPercent: 0 });
+
+    gsap.fromTo(
+      cero,
+      {
+        scale: 1, // Cambiar a un valor más pequeño para mantener el encabezado en la vista
+        x: '0%'
+      },
+      {
+        scale: 80,
+        x: '0%',
+        ease: 'power1.inOut',
+        duration: 10, // Cambiar a "0%" para mantener el encabezado centrado
+        scrollTrigger: {
+          trigger: cero, // Cambiar el trigger a la referencia del contenedor
+          start: 'top 80%',
+          end: 'bottom ',
+          markers: true,
+          pin: true, // Mantiene el pin en true pero ahora se aplica al contenedor
+          scrub: 5
+        }
+      }
+    );
+  }, []);
+
   return (
-    <div id="about">
+    <>
       <HeaderTextForSection
         text1="A FELL WORDS ABOUT"
         text2="&"
         text3="LET’S TALK"
       />
-      <ContainerDescriptionAbout>
+      <Containercircle>
+        <PortfolioHeader ref={h1Ref} />
+      </Containercircle>
+
+      <ContainerDescriptionAbout ref={containerRef}>
         <p>
           <span className="fonthightlight">Hey there!</span>
           <br /> I&apos;m Karen, a web designer, currently settled in Madrid. I
@@ -167,11 +227,10 @@ function SmoothScroll() {
         </p>
 
         {/* <p>
-        So go ahead and hire me, and let&apos;s work together to create
-        something great!
-      </p> */}
+    So go ahead and hire me, and let&apos;s work together to create
+    something great!
+  </p> */}
       </ContainerDescriptionAbout>
-
       <EmailContactContainer>
         <EmailContact id="contact">
           <p>
@@ -192,7 +251,7 @@ function SmoothScroll() {
           <AnimationApple />
         </EmailContact>
       </EmailContactContainer>
-    </div>
+    </>
   );
 }
 

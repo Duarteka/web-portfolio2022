@@ -15,6 +15,7 @@ export const ProyectListContainer = styled.div`
 `;
 
 export const ProjectListHome = styled.div`
+  background-color: ${backgroundColor};
   min-height: 30vh; // puedes ajustar esto al tamaño deseado
   display: flex;
   position: relative;

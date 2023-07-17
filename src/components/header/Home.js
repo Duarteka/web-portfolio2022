@@ -6,7 +6,7 @@ import ContactPage from '../pages/ContactPage';
 import AboutMeHome from '../content/AboutMeHome';
 import Footer from '../footer/Footer';
 import ProjectList from '../main/ProjectsList';
-import TextFill from '../content/Ideate';
+import IdeatePrueba from '../content/IdeatePrueba';
 import HeaderContent from './Header';
 import Process from '../content/Process';
 
@@ -15,9 +15,9 @@ function Home() {
     <>
       <HeaderContent />
       <ProjectList />
-      <TextFill />
+      <IdeatePrueba />
       <AboutMeHome />
-      <Process />
+      {/* <Process /> */}
       {/* <TextSlide /> */}
       <ContactPage />
       <Footer />

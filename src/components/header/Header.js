@@ -128,6 +128,8 @@ function HeaderContent() {
 
 const Containerheader = styled.header`
   color: ${textColor};
+  background-color: ${backgroundColor};
+  border-bottom: solid 2px;
   display: flex;
   align-items: center;
   flex-direction: column;

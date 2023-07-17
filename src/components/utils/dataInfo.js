@@ -100,6 +100,8 @@ export const sections = [
     title: 'Ideate',
     image: Ideate,
     alt: 'First image',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.',
 
     textInfiniteh2: [
       { id: 1, text: 'DESIGN THINKING' },
@@ -118,6 +120,8 @@ export const sections = [
     title: 'Design',
     image: Design,
     alt: 'Second image',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.',
 
     textInfiniteh2: [
       { id: 1, text: 'UI /UXDESIGN ' },
@@ -140,6 +144,8 @@ export const sections = [
     title: 'Develop',
     image: Develop,
     alt: 'Third image',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.',
 
     textInfiniteh2: [
       { id: 1, text: 'UNIT TEST' },
