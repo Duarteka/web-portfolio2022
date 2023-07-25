@@ -9,17 +9,19 @@ import ProjectList from '../main/ProjectsList';
 import IdeatePrueba from '../content/IdeatePrueba';
 import HeaderContent from './Header';
 import Process from '../content/Process';
+import DowloadCV from '../content/DowloadCV';
 
 function Home() {
   return (
     <>
       <HeaderContent />
+      <DowloadCV />
       <ProjectList />
       <IdeatePrueba />
       <AboutMeHome />
       {/* <Process /> */}
       {/* <TextSlide /> */}
-      <ContactPage />
+
       <Footer />
     </>
   );

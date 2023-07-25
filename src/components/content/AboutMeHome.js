@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import React, { useRef, useEffect } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ParallaxContainer from '../pruebas/Modal';
 import {
   backgroundColor,
@@ -13,38 +14,94 @@ import {
   textColorBringUpReverse
 } from '../../styled';
 
-import Apple01 from '../../assets/ap01.png';
-
-import GifDanceImage from '../../assets/dancegif.gif';
 import AnimationApple from '../utils/AnimationApple';
 
 import { HeaderTextForSection } from './Ideate';
+import ContactPage from '../pages/ContactPage';
+import { socialMidiaContact } from '../utils/dataInfo';
+import HandPointingCloud from '../../assets/hand-pointing.webp';
 
-const EmailContactContainer = styled.div`
-  display: 100vh;
-  margin-top 15% ;
- 
+const ContainerContactEmail = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
   position: relative;
+  border-top: solid 2px ${backgroundColor};
+  border-bottom: solid 2px ${backgroundColor};
+  background-color: ${textColor};
 `;
 const EmailContact = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
+  width: 100%;
+  .contactTextAndEmail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    position: relative;
+  }
 
-  position: relative;
-  justify-content: center;
-  /margin-top: 5rem;
-
+  h4 {
+    color: ${backgroundColor};
+    border-bottom: solid 2px ${backgroundColor};
+    width: 100%;
+    font-family: 'Acier';
+    padding: 0 2rem 4rem 10rem;
+  }
+  .email {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-top: -4rem;
+  }
+  .contactMe {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  h3 {
+    color: ${backgroundColor};
+    font-weight: 600;
+    font-size: 2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   a {
-    color: ${textColor};
+    color: ${backgroundColor};
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  @media (max-width: 576px) {
+  .email a:before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+
+    transform: scaleX(0);
+    background-color: ${textColorBringUp};
+    transition: transform 0.3s ease-in-out;
   }
 
-  span {
-    border-bottom: solid 0.1em ${textColorBringUp};
+  .email a:hover:before {
+    transform: scaleX(1);
   }
 `;
 
@@ -105,79 +162,97 @@ export const ContainerDescriptionAbout = styled.div`
   }
 `;
 
-const HeaderAbout = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: inline;
-  padding: 0 10rem;
-  position: relative;
-
-  h4 {
-    font-weight: 600;
-    width: 100%;
-  }
-  @media (max-width: 576px) {
-    padding: 0;
-    margin: 0;
-    h4 {
-      margin-left: 5rem;
-    }
-  }
-`;
-
 const Containercircle = styled.div`
   display: flex;
-  position: relative;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
   align-items: center;
   text-align: center;
   max-height: 100%;
+  height: 100vh;
+`;
+const ContentWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
-const PortfolioHeader = styled.div`
-  width: 80px;
-  height: 80px;
+const Circle = styled.div`
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: ${textColorBringUp};
-  max-width: 1194.7%;
-  max-height: 100%;
+  position: absolute;
+  background-color: ${textColor};
 `;
+const TextInsideCircle = styled.div`
+  opacity: 0;
+  color: ${backgroundColor};
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 200vh;
+  border-bottom: solid 2px;
+  border-top: solid 2px;
+  position: relative;
+  width: 100%;
+  //margin: 40rem 0 7rem 0;
 
+  justify-content: center;
+
+  p {
+    font-size: 2vw;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    padding: 0 10vw;
+
+    @media (max-width: 576px) {
+      padding: 0;
+      font-size: 4vw;
+    }
+  }
+`;
 gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScroll() {
-  const h1Ref = useRef();
-  const containerRef = useRef();
+  const ref = useRef(null);
 
   useEffect(() => {
-    const cero = h1Ref.current;
-    const container = containerRef.current;
+    const element = ref.current;
 
-    gsap.set(cero, { xPercent: 0, yPercent: 0 });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element.querySelector('.circleAnimation'),
+        start: 'top 80%',
+        end: '+=100%',
+        scrub: true
+      }
+    });
 
-    gsap.fromTo(
-      cero,
+    tl.fromTo(
+      element.querySelector('#circle'),
       {
-        scale: 1, // Cambiar a un valor más pequeño para mantener el encabezado en la vista
-        x: '0%'
+        scale: 1,
+        y: 20
       },
       {
-        scale: 80,
-        x: '0%',
-        ease: 'power1.inOut',
-        duration: 10, // Cambiar a "0%" para mantener el encabezado centrado
-        scrollTrigger: {
-          trigger: cero, // Cambiar el trigger a la referencia del contenedor
-          start: 'top 80%',
-          end: 'bottom ',
-          markers: true,
-          pin: true, // Mantiene el pin en true pero ahora se aplica al contenedor
-          scrub: 5
-        }
+        y: 0,
+
+        scale: 50,
+        duration: 1,
+        ease: 'none'
       }
+    ).to(
+      element.querySelector('#text'),
+      {
+        opacity: 1,
+        y: -40,
+        ease: 'power1.inOut'
+      },
+      '-=0.1' // Esto ajustará el offset para que la animación de texto comience 0.5s antes de que termine la animación del círculo
     );
   }, []);
 
@@ -188,71 +263,128 @@ function SmoothScroll() {
         text2="&"
         text3="LET’S TALK"
       />
-      <Containercircle>
-        <PortfolioHeader ref={h1Ref} />
-      </Containercircle>
+      <div ref={ref}>
+        <Containercircle className="circleAnimation">
+          <ContentWrapper>
+            <Circle id="circle" />
+            <TextInsideCircle id="text">
+              <p>
+                I&apos;M KAREN, A WEB DESIGNER CURRENTLY SETTLED IN MADRID. I
+                HAVE A PASSION FOR CREATING USER-FRIENDLY WEBSITES♥, WITH A
+                FOCUS ON FRONTEND & UX/UI DESIGN. SO, HOW I CAN HELP YOUR TEAM?
+                why me? WELL, LET&apos;S JUST SAY I&apos;M LIKE A CHAMELEON - I
+                CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
+                CREATE DESIGNS THAT WILL MAKE YOU SAY : &quot;wow, that&apos;s
+                exactly what i was thinking!&quot; (AND LET&apos;S BE HONEST,
+                I&apos;LL PROBABLY DO A LITTLE HAPPY DANCE WHEN THAT HAPPENS ).
+              </p>
+            </TextInsideCircle>
+          </ContentWrapper>
+        </Containercircle>
+      </div>
 
-      <ContainerDescriptionAbout ref={containerRef}>
-        <p>
-          <span className="fonthightlight">Hey there!</span>
-          <br /> I&apos;m Karen, a web designer, currently settled in Madrid. I
-          have a passion for creating user-friendly websites
-          <span className="fonthightlight">♥</span>, with a focus on&nbsp;
-          <span className="borderHightlight">
-            frontend <span className="fonthighlight">&</span> UX/UI design.
-          </span>
-          &nbsp; SO, &nbsp;
-          <span className="borderBottonhightlight">
-            how I can help your team?
-          </span>
-          <br />
-          <span className="fonthightlight">Why me?</span> <br /> Well,
-          let&apos;s just say I&apos;m like a
-          <span className="fonthighlight">
-            <i>chameleon</i>
-          </span>
-          - I CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
-          CREATE DESIGNS THAT WILL MAKE YOU SAY
-          <br />
-          <span className="fonthightlight">
-            &quot;WOW, THAT&apos;S EXACTLY WHAT I WAS THINKING!&quot;
-          </span>
-          <br />
-          (And let&apos;s be honest, I&apos;ll probably do a little happy dance
-          when that happens
-          <span>
-            <img src={GifDanceImage} alt="happy-dance" autoPlay loop />
-          </span>
-          ).
-        </p>
-
-        {/* <p>
-    So go ahead and hire me, and let&apos;s work together to create
-    something great!
-  </p> */}
-      </ContainerDescriptionAbout>
-      <EmailContactContainer>
+      <ContainerContactEmail>
+        <AnimationApple />
         <EmailContact id="contact">
-          <p>
-            So don&rsquo;t be shy and contact me and let&rsquo;s do something
-            great!
-          </p>
-          <h3 className="email">
-            <span>
-              <a
-                style={{ color: textColor }}
-                href="mailto: duarte.karen21@gmail.com"
-              >
-                duarte.karen21@gmail.com
-              </a>
-            </span>
-          </h3>
-          {/* <img src={Apple01} alt="manzana" /> */}
-          <AnimationApple />
+          <div className="contactTextAndEmail">
+            <div className="contactMe">
+              <h4>
+                Contact me and let&rsquo;s <br />
+                do something great!
+              </h4>
+            </div>
+            <div className="email">
+              <h3>
+                <a
+                  style={{ color: textColor }}
+                  href="mailto: duarte.karen21@gmail.com"
+                >
+                  duarte.karen21@gmail.com
+                </a>
+              </h3>
+            </div>
+          </div>
         </EmailContact>
-      </EmailContactContainer>
+      </ContainerContactEmail>
+      <SocialMidiaContact>
+        <div className="containerSocial">
+          <div className="socialList">
+            {socialMidiaContact.map((item) => (
+              <list className="subTitle" key={item.id}>
+                <Link to={item.route} target="_blank" rel="noreferrer">
+                  {item.contact}
+                </Link>{' '}
+              </list>
+            ))}
+          </div>
+          <div className="ciao">
+            <h4>CIAO</h4>
+          </div>
+          <img src={HandPointingCloud} alt="go to top" className="goToTop" />
+        </div>
+      </SocialMidiaContact>
     </>
   );
 }
+const SocialMidiaContact = styled.div`
+  background-color: ${textColor};
+  height: 100%;
+  position: relative;
+  width: 100vw;
+  border-bottom: 2px solid ${backgroundColor};
 
+  .socialList {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 50vw;
+    gap: 2rem;
+    align-self: center;
+  }
+
+  .containerSocial {
+    display: flex;
+    width: 100%;
+  }
+  .socialList,
+  .ciao {
+    flex: 1; // Esto hace que cada contenedor ocupe el 50% del espacio
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ciao {
+    color: ${backgroundColor};
+    border-left: 2px solid ${backgroundColor};
+    position: relative;
+    width: 50vw;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+      font-size: 15rem;
+      font-family: 'Acier';
+    }
+  }
+
+  a {
+    color: ${backgroundColor};
+    display: inline-block;
+    align-self: center;
+    font-size: 2.5rem;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    width: 15%;
+    right: 0;
+    object-fit: cover;
+    transform: translate(1rem, -3rem);
+  }
+`;
 export default SmoothScroll;

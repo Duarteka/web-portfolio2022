@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-cycle
 import styled from 'styled-components';
+import { backgroundColor, textColor } from '../../styled';
 
 export default function Footer() {
   return (
@@ -17,18 +18,18 @@ export default function Footer() {
 }
 const ContainerFooter = styled.div`
   display: flex;
-  height: 100vh;
+  background-color: ${textColor};
   justify-content: center;
-  align-items: baseline;
-  align-content: flex-end;
+  align-content: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  font-weight: 600 !important;
   position: relative;
-  height: 20vh;
+  font-weight: 600 !important;
+  height: 10vh;
+
   p {
     margin: 0 5rem;
+    color: ${backgroundColor}
   }
   @media (max-width: 576px) {
     max-height: 15vh;

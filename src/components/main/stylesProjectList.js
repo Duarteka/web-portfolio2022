@@ -124,10 +124,15 @@ export const AfewWordsContainer = styled.div`
   position: relative;
   justify-content: space-between;
   align-items: center;
-  padding: 15rem 5rem 1rem;
+  width: 100vw;
+  height: 100%;
+  padding: 0 5rem;
+  height: 30vh;
 
-  a {
-    color: ${textColor};
+  img {
+    max-width: 12%;
+    flex: 1%;
+    margin-left: 65rem;
   }
 
   h4 {

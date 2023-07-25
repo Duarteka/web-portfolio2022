@@ -48,7 +48,7 @@ const TextWrapper = styled.div`
   .imageContainer.firstImage img {
     transform: translate(79%, -4%);
     width: 50%;
-    max-width: 30%;
+    max-width: 0%;
     height: auto;
   }
 

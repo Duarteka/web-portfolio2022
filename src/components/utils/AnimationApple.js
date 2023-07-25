@@ -15,38 +15,33 @@ import Ap06 from '../../assets/applePNG/ap06.png';
 import Ap07 from '../../assets/applePNG/ap07.png';
 import Ap08 from '../../assets/applePNG/ap08.png';
 import Ap09 from '../../assets/applePNG/ap09.png';
+import { backgroundColor, textColor } from '../../styled';
 
 gsap.registerPlugin(ScrollTrigger);
-const ImageScrollContainer = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  overflow-y: scroll;
-`;
 
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  position: relative;
+  position: sticky;
   width: 100%;
-  height: 100vh;
-  max-height: 60vh;
+  max-width: 50%;
+  height: 80vh;
+  max-height: 100vh;
   overflow: hidden;
-  margin-top: 5rem;
-  margin-right: 5em;
+  border-right: solid 2px ${backgroundColor};
 `;
 
 const ImageContainer = styled.div`
-  align-items: center;
-  justify-self: center;
   position: absolute;
   top: 0;
   height: 100%;
+  margin-top: 10rem;
+  margin-left: -5rem;
 `;
 
-const Image = styled.img`
+const Image = styled.div`
   position: absolute;
   top: 0;
   opacity: 1;
@@ -56,7 +51,7 @@ const Image = styled.img`
   img {
     background-size: cover;
     position: relative;
-    max-width: auto;
+    max-width: 180%;
     max-height: 100%;
     height: auto;
   }
@@ -124,13 +119,15 @@ export default function AnimationApple() {
     <ImageWrapper>
       <ImageContainer ref={imageContainerRef}>
         {images.map((image, index) => (
-          <Image
-            className="myImage"
-            key={index}
-            ref={(el) => (imageRefs.current[index] = el)}
-            src={image}
-            alt=""
-          />
+          <Image>
+            <img
+              className="myImage"
+              key={index}
+              ref={(el) => (imageRefs.current[index] = el)}
+              src={image}
+              alt=""
+            />
+          </Image>
         ))}
       </ImageContainer>
     </ImageWrapper>

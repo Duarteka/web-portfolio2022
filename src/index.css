@@ -3,11 +3,17 @@
   padding: 0;
   margin: 0;
 }
+@font-face {
+  font-family: 'Acier'; /* Define un nombre para usarlo después */
+  src: url('../public/acierfont/acierdisplay-solid-TRIAL-BF640163e9e508d.otf'); /* Ubicación del archivo de la fuente */
+  font-style: normal;
+  font-weight: 400; /* O el peso que corresponda */
+}
 body {
   overflow-x: hidden;
   display: flex;
   box-sizing: border-box;
-  font-family: 'Oswald', 'Lemonada';
+  font-family: 'Oswald', 'Lemonada', 'Acier';
   min-width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -15,17 +21,13 @@ body {
   max-width: 100vw !important;
 }
 h1 {
-  align-self: right;
-  line-height: 90%;
-  letter-spacing: -0.1em;
+  line-height: 70%;
+  letter-spacing: -0.2rem;
   text-transform: uppercase;
   font-weight: 600;
-  font-family: 'Oswald';
-  font-size: 13rem;
-  cursor: none;
+  font-family: 'Acier';
 }
 img {
-  aspect-ratio: attr(width) / attr(height);
   height: auto;
 }
 h2 {
@@ -48,11 +50,11 @@ h3 {
 }
 h4 {
   text-transform: uppercase;
-  font-size: 1.3rem;
+  font-size: 3rem;
   cursor: none;
 }
 a {
-  cursor: pointer;
+  /* cursor: pointer; */
   text-decoration: none;
   text-transform: uppercase;
 }

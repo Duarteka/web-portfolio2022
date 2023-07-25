@@ -1,16 +1,23 @@
 /* eslint-disable react/no-array-index-key */
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Marquee from 'react-fast-marquee';
-import { backgroundColor, textColor } from '../../styled';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import AnimatedText from './TextFillAnimation';
-import CursorInAnimation from './CursorInAnimation';
 import { sections } from '../utils/dataInfo';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DevelopProcessContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  h1 {
+    font-size: 13rem;
+  }
 
   .containerAll {
     position: sticky;
@@ -42,7 +49,8 @@ const DevelopProcessContainer = styled.div`
   }
 
   .imageContainer.firstImage img {
-    max-width: 60%;
+    width: 68%;
+    //transform: translate(-20rem, 0);
   }
 
   .imageContainer.secondImage img {
@@ -62,14 +70,13 @@ const DevelopProcessContainer = styled.div`
     background-size: cover;
     position: absolute;
     z-index: 1;
-    opacity: 80%;
+    // opacity: 80%;
     margin-top: 10rem;
   }
 
   @media (max-width: 843px) {
     .list h1 {
       letter-spacing: 3px;
-      font-size: 15rem;
     }
   }
 `;
@@ -111,10 +118,11 @@ export default function IdeatePrueba() {
   return (
     <>
       <HeaderTextForSection text1="Process" text2="&" text3="skills" />
-      <div div className="hiddenSection">
+
+      <div>
         <div ref={wrapperRef}>
-          <CursorInAnimation />
           <DevelopProcessContainer>
+            <ProgressBarFunct triggerRef={wrapperRef} />
             {sections.map((section, index) => (
               <div className="containerAll">
                 <div className="toolsaAndImage">
@@ -178,7 +186,7 @@ const ContainerHeaderTextForSection = styled.div`
   flex-direction: flex;
   position: relative;
   justify-content: space-around;
-  height: 45vh;
+  height: 30vh;
   align-items: center;
 
   h3 {
@@ -191,5 +199,52 @@ export function HeaderTextForSection({ text1, text2, text3 }) {
       <h3>{text2}</h3>
       <h3>{text3}</h3>
     </ContainerHeaderTextForSection>
+  );
+}
+
+const StickyContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1; // Asegúrate de que el ProgressBar está sobre otros contenidos
+`;
+const ProgressBar = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+`;
+
+const Progress = styled.div`
+  width: 0;
+  height: 100%;
+  background: ${textColorBringUp};
+`;
+
+function ProgressBarFunct({ triggerRef }) {
+  const progressRef = useRef(null);
+
+  useEffect(() => {
+    const progress = progressRef.current;
+
+    gsap.to(progress, {
+      width: '100%',
+
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 2,
+        smooth: 40
+      }
+    });
+  }, [triggerRef]);
+
+  return (
+    <StickyContainer>
+      <ProgressBar>
+        <Progress ref={progressRef} />
+      </ProgressBar>
+    </StickyContainer>
   );
 }

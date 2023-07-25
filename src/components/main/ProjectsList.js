@@ -18,6 +18,7 @@ import {
   TextsContainer
 } from './stylesProjectList';
 import ProjectDetail from './ProjectDetail';
+import HandPointing from '../../assets/handpointing.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,8 +37,7 @@ function ProjectList({ children }) {
     const image = projectsRef.current[index].querySelector('img');
     gsap.to(`#${id}`, {
       color: '#D34C7F',
-      duration: 0.5,
-      yoyo: true
+      duration: 0.5
     });
     gsap.to(image, {
       duration: 0.7,
@@ -51,7 +51,7 @@ function ProjectList({ children }) {
   const handleMouseLeave = (index, id) => {
     const image = projectsRef.current[index].querySelector('img');
     gsap.to(`#${id}`, {
-      color: '#333',
+      // color: '#333',
       duration: 0.5,
       yoyo: true
     });
@@ -66,11 +66,11 @@ function ProjectList({ children }) {
 
   return (
     <>
-      <AfewWordsContainer id="work">
+      <AfewWordsContainer>
         <h3>Work</h3>
-        <h4>
-          <Link to="/seemore"> See all</Link>
-        </h4>
+        <Link to="/seeall">
+          <img src={HandPointing} alt="hand pointing click to see more" />
+        </Link>
       </AfewWordsContainer>
 
       <ProyectListContainer

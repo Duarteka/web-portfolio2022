@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
@@ -5,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { ArrowdownHeader } from '../icons/Icons';
+import MoonFAce from '../../assets/moon.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,28 +101,33 @@ function HeaderContent() {
       <ListStyled>
         <div className="devs2" ref={refs.devs2}>
           <h1>
-            <span>HELLO,</span>
-            <span> I DESIGN&nbsp; </span>
+            <span>HI,</span>
+            <span> I DESIGN</span>
             <br />
             <span>AND </span>
-            <span>DEVELOP</span>
+            <span>
+              DEVEL{' '}
+              <span>
+                {' '}
+                <img
+                  style={{
+                    maxWidth: '18%',
+                    position: 'absolute',
+                    top: '14vh' /* Esto colocará el elemento en el 20% de la altura de la pantalla desde la parte superior */,
+                    left: '75vw'
+                  }}
+                  src={MoonFAce}
+                  alt="moon face"
+                />
+              </span>
+              &nbsp;<span>P</span>
+            </span>
             <br />
             <span>WEB </span> <span>PAGES</span>
           </h1>
-          <div>
-            <span className="based-in">
-              <h4>Based in Madrid</h4>
-            </span>
-          </div>
+
           <div />
         </div>
-        <ButtonWrapper ref={refs.buttonDownload} className="buttonWrapper">
-          <ButtonDownloadContainer href="#" target="_blank" className="boton">
-            <span>DOWNLOAD CV</span>
-            <span>DOWNLOAD CV</span>
-          </ButtonDownloadContainer>
-        </ButtonWrapper>
-        <ArrowAnimationHeader />
       </ListStyled>
     </Containerheader>
   );
@@ -131,29 +138,28 @@ const Containerheader = styled.header`
   background-color: ${backgroundColor};
   border-bottom: solid 2px;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   flex-direction: column;
   align-content: center;
   text-transform: uppercase;
   height: 100vh;
   width: 100%;
   position: relative;
-  overflow: none;
   flex: 0 0 auto;
-  margin-bottom: 5em;
-  padding-top: 10vh;
-
+   
+   
   
  
-  .based-in {
+  .basedinmadrid{
     color: ${textColorBringUp};
     display: flex;
+    
     justify-content: flex-end;
-    margin-top: 2rem;
-   
+    flex-direction: row;
   }
 
-  
+
 
   h4 {
     @media (max-width: 768px) {
@@ -161,7 +167,7 @@ const Containerheader = styled.header`
       align-self: center;
     }
 
-    
+
   }
 
   h1 {
@@ -179,10 +185,16 @@ const ListStyled = styled.div`
     perspective: 50vw;
     position: relative;
     max-width: 100%;
-    padding: 0 6vw;
+    padding: 0 3vw;
+
+    h1 {
+      font-size: 16.3em;
+      text-align: center;
+      white-space: nowrap;
+    }
 
     @media (max-width: 668px) {
-      padding: 0 4vw;
+      // padding: 0 4vw;
     }
   }
 
@@ -209,7 +221,7 @@ const ButtonDownloadContainer = styled.a`
   text-decoration: none;
   font-weight: 600;
   font-size: 18px;
-  letter-spacing: 0.05em;
+
   transition-delay: 0.6s;
   overflow: hidden;
   border-radius: 25px;
@@ -245,12 +257,12 @@ const ButtonDownloadContainer = styled.a`
 
   div {
     position: relative;
-    top: 6px;
+
     width: 100%;
-    height: 26px;
+    //height: 26px;
     text-transform: uppercase;
     overflow: hidden;
-    border: solid 2px ${backgroundColor};
+    // border: solid 2px ${backgroundColor};
   }
 
   span {

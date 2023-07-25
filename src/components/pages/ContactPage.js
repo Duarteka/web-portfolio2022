@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { socialMidiaContact } from '../utils/dataInfo';
-import { textColor, textColorBringUp } from '../../styled';
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { Slide } from '../slideAnimation/Slide';
 import {
   SubtitleHeaderSection,
@@ -51,9 +51,11 @@ const ContactEmail = styled.div`
 const ContainerContact = styled.div`
   height: 100%;
   width: 100vw;
-  position: relative;
+  position: sticky;
   padding: 0 2rem;
   margin-top: -5rem;
+  background-color: ${textColor};
+ 
   
 
   .containerSocialmidia {
@@ -61,27 +63,30 @@ const ContainerContact = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: row;
+    
   }
 
   span {
     height: 2px;
     width: 100%;
-    color: ${textColor};
+    color: ${backgroundColor};
     border-bottom: solid 2px;
   }
   .socialNameTitle {
     margin: 2rem 2rem;
+    color: ${backgroundColor};
   }
 
   .subTitle {
     align-items: center;
     margin: 2rem 5rem;
     justify-content: flex-start;
+    
   }
 
   a {
     text-decoration: none;
-    color: ${textColor};
+    color: ${backgroundColor};
   }
 
   @media (max-width: 576px) {

@@ -40,29 +40,13 @@ function Navbar(props) {
   const scrollY = useRef(window.pageYOffset);
 
   useEffect(() => {
-    const prevScrollY = window.pageYOffset;
-
     const handleScroll = () => {
       const currentScrollY = window.pageYOffset;
-      const isScrollingUp = currentScrollY < scrollY.current;
+      const isScrollingUp = currentScrollY < (scrollY.current || 0);
 
       setShowNav(isScrollingUp || currentScrollY === 0);
 
       scrollY.current = currentScrollY;
-
-      const navElement = navRef.current;
-
-      if (showNav) {
-        gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
-      } else {
-        gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
-      }
-
-      if (currentScrollY > 0) {
-        gsap.to(navRef.current, { backdropFilter: 'blur(5px)', duration: 0.2 });
-      } else {
-        gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -70,6 +54,22 @@ function Navbar(props) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+  }, [showNav]);
+
+  useEffect(() => {
+    const navElement = navRef.current;
+
+    if (showNav) {
+      gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
+    } else {
+      gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
+    }
+
+    if (scrollY.current > 0) {
+      gsap.to(navRef.current, { backdropFilter: 'blur(5px)', duration: 0.2 });
+    } else {
+      gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
+    }
   }, [showNav]);
 
   // useEffect(() => {
@@ -140,6 +140,7 @@ const Nav = styled.nav`
   z-index: 20;
   cursor: pointer;
   position: fixed;
+  top: 0;
 
   @media (max-width: 576px) {
     margin: 0;
