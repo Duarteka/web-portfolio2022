@@ -60,7 +60,7 @@ const noise = keyframes`
 }
 `;
 export const TextureBackground = styled.div`
-  position: relative;
+  position: absolute;
 
   img {
     z-index: -1;
@@ -82,7 +82,7 @@ export const TextureBackground = styled.div`
     pointer-events: none;
     user-select: none;
     background-image: url('https://i.ibb.co/p3nbZvS/background-Texture.jpg');
-    opacity: 0.05;
+    opacity: 0.07;
     animation: ${noise} 8s steps(10) infinite;
   }
 `;
