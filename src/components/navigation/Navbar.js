@@ -3,34 +3,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-scroll';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { gsap } from 'gsap';
+import { Link } from 'react-router-dom';
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { TOGGLE_DARKTHEME } from '../utils/redux/actions';
 import { MoonLight } from '../icons/Icons';
 
-// function Burger() {
-//   const [open, setOpen] = useState(false);
-//   const toggle = () => setOpen(!open);
-//   const hide = () => setOpen(false);
-
-//   return (
-//     <>
-//       <StyledBurger open={open} onClick={toggle}>
-//         <Menus open={open} />
-//         <Menus open={open} />
-//         <Menus open={open} />
-//       </StyledBurger>
-//       {/* <RightNav open={open} hide={hide} /> */}
-//     </>
-//   );
-// }
-
 function Navbar(props) {
   const dispatch = useDispatch();
   const toggledarktheme = () => dispatch({ type: TOGGLE_DARKTHEME });
+  const isSpecialComponentVisible = useSelector(
+    (state) => state.preferences.isSpecialComponentVisible
+  );
+
+  const [isTop, setIsTop] = useState(true);
 
   const navRef = useRef(null);
 
@@ -45,6 +33,7 @@ function Navbar(props) {
       const isScrollingUp = currentScrollY < (scrollY.current || 0);
 
       setShowNav(isScrollingUp || currentScrollY === 0);
+      setIsTop(currentScrollY === 0);
 
       scrollY.current = currentScrollY;
     };
@@ -72,55 +61,23 @@ function Navbar(props) {
     }
   }, [showNav]);
 
-  // useEffect(() => {
-  //   const navElement = navRef.current;
-
-  //   const handleAnimation = () => {
-  //     if (showNav) {
-  //       gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
-
-  //       // Agregamos una verificación aquí para asegurarnos de que la página se ha desplazado
-  //       // antes de aplicar el efecto de desenfoque.
-  //       if (window.pageYOffset > 0) {
-  //         gsap.to(navRef.current, {
-  //           backdropFilter: 'blur(5px)',
-  //           duration: 0.2
-  //         });
-  //       } else {
-  //         gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
-  //       }
-  //     } else {
-  //       gsap.to(navElement, { y: '-100%', duration: 0.5, ease: 'power2.out' });
-  //       gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
-  //     }
-  //   };
-
-  //   handleAnimation();
-  // }, [showNav]);
-
   return (
-    <Nav ref={navRef} className={showNav ? 'show' : 'hide'}>
+    <Nav
+      ref={navRef}
+      isTop={isTop}
+      className={showNav ? 'show' : 'hide'}
+      isSpecialComponentVisible={isSpecialComponentVisible}
+    >
       <Logo>
-        <Link activeClass="active" to="header" spy smooth>
-          Karen Duarte
-        </Link>
+        <Link to="/">Karen Duarte</Link>
       </Logo>
 
       <ul>
         <li>
-          <Link to="work" spy smooth>
-            Projects
-          </Link>
+          <Link to="/seemore">Projects</Link>
         </li>
         <li>
-          <Link to="about" spy smooth>
-            About
-          </Link>
-        </li>
-        <li>
-          <Link to="contact" spy smooth>
-            Contact
-          </Link>
+          <Link to="/about">About</Link>
         </li>
       </ul>
       <Link to="/" onClick={toggledarktheme}>
@@ -141,6 +98,11 @@ const Nav = styled.nav`
   cursor: pointer;
   position: fixed;
   top: 0;
+  border-bottom: solid 2px
+    ${(props) => (props.isTop ? textColor : backgroundColor)};
+  background-color: ${(props) =>
+    props.isTop ? backgroundColor : 'transparent'};
+  transition: ease 0.1s;
 
   @media (max-width: 576px) {
     margin: 0;
@@ -161,7 +123,8 @@ const Nav = styled.nav`
   }
 
   a {
-    color: ${textColor};
+    color: ${(props) =>
+      props.isSpecialComponentVisible ? backgroundColor : textColor};
     padding: 0 2rem;
     cursor: pointer;
   }
@@ -195,13 +158,5 @@ const Logo = styled.div`
 
   @media (max-width: 576px) {
     padding: 0;
-  }
-`;
-
-const LogoContainer = styled.div`
-  z-index: 9999;
-  display: inline-flex;
-  widht: auto;
-  @media (max-width: 768px) {
   }
 `;

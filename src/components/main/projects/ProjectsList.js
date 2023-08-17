@@ -8,8 +8,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import SplitScrollText from '../utils/SplitScrollText';
-import { projects } from '../utils/dataInfo';
+import SplitScrollText from '../../utils/SplitScrollText';
+import { projects } from '../../utils/dataInfo';
 import {
   AfewWordsContainer,
   ImageList,
@@ -18,59 +18,34 @@ import {
   TextsContainer
 } from './stylesProjectList';
 import ProjectDetail from './ProjectDetail';
-import HandPointing from '../../assets/handpointing.webp';
+import HandPointing from '../../../assets/handpointing.webp';
+import { animateHoverEnter, animateHoverLeave } from './animationsHoverProj';
+import useModal from './useModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectList({ children }) {
   const projectsRef = useRef([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const openModal = (id) => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const { modalOpen, openModal, closeModal } = useModal();
+
   // ANIMACIÓN HOVER  IMAGENES Y TEXTO :
   const handleMouseEnter = (index, id) => {
-    const image = projectsRef.current[index].querySelector('img');
-    gsap.to(`#${id}`, {
-      color: '#D34C7F',
-      duration: 0.5
-    });
-    gsap.to(image, {
-      duration: 0.7,
-      opacity: 1,
-      y: 0,
-      scale: 1.2,
-      ease: 'power2.out'
-    });
+    animateHoverEnter(projectsRef.current[index], `textInside-${id}`);
   };
 
   const handleMouseLeave = (index, id) => {
-    const image = projectsRef.current[index].querySelector('img');
-    gsap.to(`#${id}`, {
-      // color: '#333',
-      duration: 0.5,
-      yoyo: true
-    });
-    gsap.to(image, {
-      duration: 0.7,
-      opacity: 0,
-      y: '100%',
-      ease: 'power2.out',
-      scale: 1
-    });
+    animateHoverLeave(projectsRef.current[index], `textInside-${id}`);
   };
 
   return (
     <>
       <AfewWordsContainer>
         <h3>Work</h3>
-        <Link to="/seeall">
+        <Link to="/seemore">
           <img src={HandPointing} alt="hand pointing click to see more" />
         </Link>
+        <p>see all</p>
       </AfewWordsContainer>
 
       <ProyectListContainer
@@ -92,9 +67,9 @@ function ProjectList({ children }) {
             }
           >
             <Link
-              to={`/project/${project.id}`}
-              key={project.id}
-              onClick={() => openModal(project.id)}
+              to={`/project/${project.name}`}
+              key={project.name}
+              onClick={() => openModal(project.name)}
             >
               <ImageList
                 src={project.image}

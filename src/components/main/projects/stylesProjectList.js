@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
-import { backgroundColor, textColor, textColorBringUp } from '../../styled';
+import { backgroundColor, textColor, textColorBringUp } from '../../../styled';
 
 // project list HOME --------------------------
 
@@ -24,6 +25,7 @@ export const ProjectListHome = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: solid 2px ${textColor};
+
   @media (max-width: 668px) {
     max-height: 30vh;
   }
@@ -32,17 +34,17 @@ export const ProjectListHome = styled.div`
   }
 `;
 export const SelectedProjectContainer = styled.div`
-  position: fixed;
+  position: sticky;
   opacity: 0;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  overflow: hidden;
+  overflow-y: auto;
   transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
 `;
 export const TextsContainer = styled.div`
@@ -101,22 +103,46 @@ export const ImageList = styled.img`
 `;
 
 export const ModalBackground = styled.div`
-  background-color: ${backgroundColor};
-  height: 100vh;
+  // background-color: ${backgroundColor};
+  height: auto;
   width: 100vw;
-  overflow-y: auto;
+
+  h1 {
+    font-size: 10rem;
+  }
+  .imageModalOpenHeader {
+    width: 100vw;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  .imageModalOpenHeader img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const CloseButton = styled.div`
+  // top: 5%;
+  // right: 5%;
+  // background-color: transparent;
+  // color: white;
+  // border: none;
+  // font-size: 2em;
+  // cursor: pointer;
   position: absolute;
-  top: 5%;
-  right: 5%;
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 2em;
-  cursor: pointer;
-  color: ${textColor};
+
+  img {
+    width: 80px;
+  }
+
+  .closeBoton {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+  }
 `;
 
 export const AfewWordsContainer = styled.div`
@@ -124,7 +150,7 @@ export const AfewWordsContainer = styled.div`
   position: relative;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   padding: 0 5rem;
   height: 30vh;
@@ -150,10 +176,14 @@ export const AfewWordsContainer = styled.div`
 export const ProyectListcontainerSeeMore = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  padding: 0 5rem;
+  padding: 2rem 10rem;
+  background-color: ${backgroundColor};
+  position: relative;
+  border-bottom: solid 2px;
+  border-top: solid 2px;
 
   .project-list {
     height: 100%;
@@ -174,6 +204,7 @@ export const TextsContainerSeeMore = styled.div`
   padding: 0;
   height: 100%;
   width: 100%;
+  color: ${textColor};
 `;
 export const ProjectListHomeSeeMore = styled.div`
   min-height: 50vh;

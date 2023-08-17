@@ -54,8 +54,10 @@ export const navLinks = [
 export const projects = [
   {
     id: 1,
+    name: 'chaoscosmos',
     title: 'Chaos cosmos',
     image: project1,
+    images: [project1, project3, project5],
     link: '/project1',
     rol: 'development, ux',
     number: '01',
@@ -64,8 +66,10 @@ export const projects = [
   },
   {
     id: 2,
+    name: 'mediterranean',
     title: 'Mediterranean',
     image: project3,
+    images: [project1, project3, project5],
     link: '/project2',
     rol: ' design development, ux',
     number: '02',
@@ -74,8 +78,10 @@ export const projects = [
   },
   {
     id: 3,
+    name: 'coffeshop',
     title: 'Coffe Shop',
     image: project5,
+    images: [project1, project3, project5],
     link: '/project3',
     rol: 'development, ux',
     number: '03',
@@ -84,8 +90,10 @@ export const projects = [
   },
   {
     id: 4,
+    name: 'designportfolio',
     title: 'Design Portfolio',
     image: 'https://picsum.photos/id/40/1920/1080',
+    images: [project1, project3, project5],
     link: '/project4',
     rol: 'development, ux',
     number: '04',

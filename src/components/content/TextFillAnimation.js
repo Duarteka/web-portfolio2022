@@ -25,12 +25,14 @@ const TextWrapper = styled.div`
       width: 100%;
       position: relative;
       display: inline-block;
+      font-family: 'Oswald';
       font-weight: bold;
       line-height: 2;
-      letter-spacing: -1px;
+      letter-spacing: -5px;
       overflow: hidden;
       color: transparent;
       -webkit-text-stroke: 2px ${textColor};
+
       z-index: 2;
 
       .outer {

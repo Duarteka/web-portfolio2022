@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import React, { useRef } from 'react';
 import { useLoader, useFrame } from '@react-three/fiber';
-import '../../../shaders/wobble';
+import '../../shaders/wobble';
 
 const { innerWidth: width } = window;
 const multiplier = {

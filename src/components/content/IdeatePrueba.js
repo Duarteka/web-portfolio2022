@@ -227,9 +227,8 @@ function ProgressBarFunct({ triggerRef }) {
   useEffect(() => {
     const progress = progressRef.current;
 
-    gsap.to(progress, {
+    const st = gsap.to(progress, {
       width: '100%',
-
       scrollTrigger: {
         trigger: triggerRef.current,
         start: 'top top',
@@ -238,6 +237,7 @@ function ProgressBarFunct({ triggerRef }) {
         smooth: 40
       }
     });
+    return () => st.revert();
   }, [triggerRef]);
 
   return (

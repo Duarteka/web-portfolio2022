@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { gsap } from 'gsap';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import React, { useRef, useEffect } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import ParallaxContainer from '../pruebas/Modal';
 import {
   backgroundColor,
@@ -15,7 +16,6 @@ import {
 } from '../../styled';
 
 import AnimationApple from '../utils/AnimationApple';
-
 import { HeaderTextForSection } from './Ideate';
 import ContactPage from '../pages/ContactPage';
 import { socialMidiaContact } from '../utils/dataInfo';
@@ -67,6 +67,9 @@ const EmailContact = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
+    h4 {
+      font-size: 3rem;
+    }
   }
   h3 {
     color: ${backgroundColor};
@@ -186,6 +189,7 @@ const Circle = styled.div`
   position: absolute;
   background-color: ${textColor};
 `;
+
 const TextInsideCircle = styled.div`
   opacity: 0;
   color: ${backgroundColor};
@@ -193,21 +197,23 @@ const TextInsideCircle = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 200vh;
-  border-bottom: solid 2px;
-  border-top: solid 2px;
+  height: 250vh;
+
   position: relative;
   width: 100%;
+
   //margin: 40rem 0 7rem 0;
 
   justify-content: center;
 
   p {
-    font-size: 2vw;
-    line-height: 1.5;
-    letter-spacing: 0.05em;
+    font-size: 1.5vw;
+    line-height: 2;
+    letter-spacing: 0.1em;
     font-weight: 400;
     padding: 0 10vw;
+    text-align: left;
+    transition: ease-in 2s;
 
     @media (max-width: 576px) {
       padding: 0;
@@ -215,10 +221,46 @@ const TextInsideCircle = styled.div`
     }
   }
 `;
-gsap.registerPlugin(ScrollTrigger);
+
+const blinkanimation = gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScroll() {
   const ref = useRef(null);
+  const dispatch = useDispatch();
+  const refChangeColorNav = useRef();
+
+  useEffect(() => {
+    // Almacenamos el valor actual de la referencia en una variable local
+    const currentRef = refChangeColorNav.current;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Aquí se detecta si el componente está visible en la pantalla
+        if (entry.isIntersecting) {
+          // Si el componente es visible, cambia el estado a true
+          dispatch({ type: 'TOGGLE_SPECIAL_COMPONENT', payload: true });
+        } else {
+          // Si el componente no es visible, cambia el estado a false
+          dispatch({ type: 'TOGGLE_SPECIAL_COMPONENT', payload: false });
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0
+      }
+    );
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     const element = ref.current;
@@ -252,12 +294,13 @@ function SmoothScroll() {
         y: -40,
         ease: 'power1.inOut'
       },
-      '-=0.1' // Esto ajustará el offset para que la animación de texto comience 0.5s antes de que termine la animación del círculo
+      '-=0.5' // Esto ajustará el offset para que la animación de texto comience 0.5s antes de que termine la animación del círculo
     );
+    return () => tl.revert();
   }, []);
 
   return (
-    <>
+    <div>
       <HeaderTextForSection
         text1="A FELL WORDS ABOUT"
         text2="&"
@@ -269,21 +312,24 @@ function SmoothScroll() {
             <Circle id="circle" />
             <TextInsideCircle id="text">
               <p>
-                I&apos;M KAREN, A WEB DESIGNER CURRENTLY SETTLED IN MADRID. I
-                HAVE A PASSION FOR CREATING USER-FRIENDLY WEBSITES♥, WITH A
-                FOCUS ON FRONTEND & UX/UI DESIGN. SO, HOW I CAN HELP YOUR TEAM?
-                why me? WELL, LET&apos;S JUST SAY I&apos;M LIKE A CHAMELEON - I
-                CAN ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
-                CREATE DESIGNS THAT WILL MAKE YOU SAY : &quot;wow, that&apos;s
-                exactly what i was thinking!&quot; (AND LET&apos;S BE HONEST,
-                I&apos;LL PROBABLY DO A LITTLE HAPPY DANCE WHEN THAT HAPPENS ).
+                I&apos;M KAREN, A WEB DESIGNER WITH HAVE A PASSION FOR CREATING
+                USER-FRIENDLY WEBSITES♥, I AM SPECIALIZED IN ON FRONTEND & UX/UI
+                DESIGN. <br />
+                SO, HOW I CAN HELP YOUR TEAM? why me? WELL,
+                <br /> LET&apos;S JUST SAY I&apos;M LIKE A CHAMELEON, I CAN
+                ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
+                CREATE DESIGNS THAT WILL MAKE YOU SAY:
+                <br /> &quot;wow, that&apos;s exactly what i was thinking!&quot;
+                <br />
+                (AND LET&apos;S BE HONEST, I&apos;LL PROBABLY DO A LITTLE HAPPY
+                DANCE WHEN THAT HAPPENS).
               </p>
             </TextInsideCircle>
           </ContentWrapper>
         </Containercircle>
       </div>
 
-      <ContainerContactEmail>
+      <ContainerContactEmail ref={refChangeColorNav}>
         <AnimationApple />
         <EmailContact id="contact">
           <div className="contactTextAndEmail">
@@ -318,14 +364,17 @@ function SmoothScroll() {
             ))}
           </div>
           <div className="ciao">
-            <h4>CIAO</h4>
+            <h4>Tchau</h4>
           </div>
-          <img src={HandPointingCloud} alt="go to top" className="goToTop" />
+          <Link to="/">
+            <img src={HandPointingCloud} alt="go to top" className="goToTop" />
+          </Link>
         </div>
       </SocialMidiaContact>
-    </>
+    </div>
   );
 }
+
 const SocialMidiaContact = styled.div`
   background-color: ${textColor};
   height: 100%;

@@ -5,123 +5,166 @@ import styled from 'styled-components';
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import HandUp from '../../assets/hand-pointing.webp';
 import { Slide } from '../slideAnimation/Slide';
-import { animateHeadingTwo } from '../../styled';
+import { backgroundColor, textColor } from '../../styled';
+import BlodeMe from '../../assets/blondeshort.webp';
 
-const behaviour = ({ perm }) => {
-  if (perm) {
-    return 'play none none none';
-  }
-  return 'restart none none reverse';
-};
-const toId = (str) => str.replace(' ', '-');
-const animation = ({ v, perm, i }) => ({
-  y: -20,
-  opacity: 1,
-  duration: perm ? 3 : 1,
-  delay: perm ? i * 2 : 0,
-  scrollTrigger: {
-    trigger: `#${toId(v)}`,
-    start: '20px 70%',
-    end: '100% 30%',
-    scrub: !perm,
-
-    toggleActions: behaviour({ perm })
-  }
-});
-
-function Headline({ className }) {
+function Headline() {
   return (
-    <div className="headline-container" style={{ overflow: 'hidden' }}>
-      <p className={className}>
-        I’M KAREN, A JUNIOR FRONT END DEVELOPER BORN IN BRAZIL AND RAISED IN
-        CHILE, CURRENTLY LIVING IN MADRID . MY EXPERIENCE INCLUDES,
-        ILLUSTRATION, BRANDING, DESIGNING WEBSITES FOR FOCUSED IN CREATING MICRO
-        ANIMATIONS AND UX INTERACTION
+    <ContentContainer className="headline-container">
+      <p>
+        &quot;A design isn’t finished until somebody is using it... Design must
+        be used, touched, heard, felt. Only then can you understand whether it’s
+        good or bad. Only then can you appreciate and understand its true
+        purpose.&quot; -
       </p>
-    </div>
+    </ContentContainer>
   );
 }
 
 export default function About() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const text = [
-    { v: 'ABOUT ', align: 'left', perm: true },
-
-    { v: 'ME', align: 'left', perm: true },
-
-    {
-      v: 'im karen i ',
-      align: 'left'
-    }
-  ];
-
-  useEffect(() => {
-    text.forEach(({ v, perm }, index) => {
-      gsap.to(`#${toId(v)}`, animation({ v, perm, i: index }));
-    });
-  }, [text]);
-
-  const Header = styled.h1`
-    line-height: 84px;
-    font-size: 70px;
-    text-transform: uppercase;
-    widht: 100%;
-    heigth: 100%;
-  `;
-
   return (
     <>
-      <Slide>
-        <AboutContainer className="aboutHeader">
-          <h1>
-            About<span>me</span>
-          </h1>
-        </AboutContainer>
-      </Slide>
-      <section className="headings-section">
-        <Headline className="heading heading-two" />
+      <AboutMeHeader className="aboutHeader">
+        <h1>who i&apos;am</h1>
+      </AboutMeHeader>
 
-        <p>
-          The reason I started creative coding was because I saw some amazing
-          websites and felt like I wanted to do that too, so I started with
-          basic CSS, HTML and of course JavaScript. So in 2019 i graduated from
-          masters degree in web design and development with high marks. I am now
-          hard at work on WEBGL and similar libraries.
-        </p>
-      </section>
+      <ContentContainer>
+        <Quote>
+          <p>
+            &quot;A design isn’t finished until somebody is using it... Design
+            must be used, touched, heard, felt. Only then can you understand
+            whether it’s good or bad. Only then can you appreciate and
+            understand its true purpose&quot;.-{' '}
+            <p className="bottomQuote">
+              about design process said by Brenda Laurel
+            </p>
+          </p>
+
+          <img src={BlodeMe} alt="self of me" />
+        </Quote>
+        <PhotoContainer className="photome">
+          <TextsAboutMe>
+            <div>
+              <h3>A STORY</h3>
+              <p>
+                FRONT-END DEVELOPER WITH A MULTICULTURAL BACKGROUND; BORN IN
+                BRAZIL, RAISED IN CHILE, AND CURRENTLY LIVE IN MADRID. I HAVE A
+                KEEN ATTENTION TO DETAIL AND A STRONG FOCUS ON UNDERSTANDING
+                USER NEEDS TO SOLVE PROBLEMS EFFECTIVELY. MY SKILLS EXTEND TO
+                ILLUSTRATION, AND WEBSITE DESIGN AND PROGRAMMING WEBSITE, WHERE
+                I SPECIALIZE IN CREATING ENGAGING USER EXPERIENCES THROUGH THE
+                USE OF MICRO-ANIMATIONS.
+              </p>
+            </div>
+            <div>
+              <h3>WHY AND HOW </h3>
+              <p>
+                THE REASON I STARTED CREATIVE CODING WAS BECAUSE I SAW SOME
+                AMAZING WEBSITES AND FELT LIKE I WANTED TO DO THAT TOO, SO IN
+                2022 I GRADUATED FROM MASTERS DEGREE IN WEB DESIGN AND
+                DEVELOPMENT WITH HIGH MARKS IN CEI DESIGN SCHOOL. I AM NOW HARD
+                AT WORK ON WEBGL AND SIMILAR LIBRARIES.
+              </p>
+            </div>
+            <div>
+              <h3>CREATIVE PROCESS</h3>
+              <p>
+                DISCOVER: LEARN AND UNDERSTAND ABOUT THE PROBLEM. ANALIZE:
+                CREATE AND THINK ABOUT DIFFERENT IDEAS. CREATE: BUILD AND
+                IMPROVE THE FINAL IDEA.
+              </p>
+            </div>
+            <div>
+              <h3>CONTACT</h3>
+              <p>DUARTE.KAREN21@GMAIL.COM</p>
+              <p>LINKEDIN</p>
+            </div>
+            <div className="intouch">
+              <h3>LET’S DO SOMENTHING GREAT TOGETHER!</h3>
+              <img src={HandUp} alt="go to top" className="handGoToTop" />
+            </div>
+          </TextsAboutMe>{' '}
+        </PhotoContainer>
+      </ContentContainer>
     </>
   );
 }
 
-const AboutContainer = styled.div`
-  height: 100vh;
-  display: grid;
-  align-items: center;
+const ContentContainer = styled.div`
   position: relative;
 
-  p {
-    text-align: justify;
-    padding: 0 4%;
+  height: 100%;
+  width: 100vw;
+  background-color: ${backgroundColor};
+
+  .bottomQuote {
+    font-size: 0.7rem !important;
+    text-align: left;
+  }
+  .intouch {
+    display: flex;
   }
 
-  span {
-    font-size: 9rem;
-    margin: 0;
-    font-family: 'Lemonada';
-    top: 0;
-    text-transform: lowercase;
+  .handGoToTop {
+    max-width: 30%;
+    align-self: center;
   }
-  h3 {
-    font-weight: 100;
-    font-size: 3rem;
-    margin: 0;
-    padding: 0 10%;
-    text-align: right;
+`;
+const AboutMeHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  padding-top: 10vh;
+  padding-right: 5rem;
+  height: 40vh;
+
+  h1 {
+    font-size: 10em;
   }
+`;
+const Quote = styled.div`
+  display: flex;
+  width: 100vw;
+  border: solid 2px;
+  border: solid 2px;
+
+  p {
+    font-size: 2vw;
+    line-height: 2;
+    max-width: 70%;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    text-align: left;
+    text-transform: uppercase;
+    align-self: center;
+    padding: 0 3rem;
+  }
+  img {
+    max-width: 50%;
+    max-height: 10%;
+    object-fit: cover;
+  }
+`;
+const TextsAboutMe = styled.div`
+  border-left: solid 2px;
+  max-width: 50vw;
+
+  div {
+    border-bottom: solid 2px;
+    padding: 5rem;
+  }
+
+  p {
+    width: 100vw;
+  }
+`;
+
+const PhotoContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
 `;

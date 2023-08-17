@@ -19,9 +19,10 @@ import Navbar from './components/navigation/Navbar';
 import Form1 from './assets/form1.webp';
 import Form2 from './assets/form2.webp';
 import Form3 from './assets/form3.webp';
-import ProjectList from './components/main/ProjectsList';
+
 import Footer from './components/footer/Footer';
-import ProjectDetail from './components/main/ProjectDetail';
+import ProjectDetail from './components/main/projects/ProjectDetail';
+import { ProjectsPage } from './components/pages/ProjectsPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +46,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/about" element={<About />} />
-            <Route path="/seemore" element={<ProjectList />} />
+            <Route path="/seemore" element={<ProjectsPage />} />
 
-            <Route path="/project/:id" element={<ProjectDetail />} />
+            <Route path="/project/:name" element={<ProjectDetail />} />
           </Routes>
         </Wrapper>
       </DarkThemeProvider>
@@ -72,7 +73,7 @@ function Shapes() {
     });
     const initialAnim = gsap.to(images[1], {
       rotation: '-=360',
-      duration: 3.5,
+      duration: 30,
 
       repeat: -1,
       ease: 'power1.inOut',
@@ -80,7 +81,7 @@ function Shapes() {
     });
     setTimeout(() => initialAnim.play(), 100);
     gsap.to(images[1], {
-      y: '-90%',
+      y: '90%',
       x: '30%',
       scrollTrigger: {
         trigger: '#shape02',
@@ -164,7 +165,7 @@ const ShapesAnimation = styled.div`
   img {
     position: fixed;
     height: 100vh;
-    opacity: 80%;
+    opacity: 40%;
   }
 `;
 

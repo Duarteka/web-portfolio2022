@@ -1,29 +1,45 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { projects } from '../utils/dataInfo';
+import { projects } from '../../utils/dataInfo';
 import {
   CloseButton,
   ModalBackground,
   SelectedProjectContainer
 } from './stylesProjectList';
 
-import { useProjectLogic } from './useProjectLogic';
+import BeeClose from '../../../assets/bee.webp';
+
+import { useProjectLogic } from '../useProjectLogic';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectDetail() {
-  const { id } = useParams();
+  const { name } = useParams();
   const navigate = useNavigate();
+
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
 
   const { bodyOverflow, setBodyOverflow, modalcontainerRef, scrollPosition } =
     useProjectLogic();
 
-  const projectHandle = projects.find((project) => project.id === Number(id));
+  const projectHandle = projects.find(
+    (project) => project.name === String(name)
+  );
+  const handleMouseMove = (event) => {
+    setButtonPosition({ x: event.clientX, y: event.clientY });
+  };
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    // Limpiar en el desmontaje del componente
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   useEffect(() => {
     setBodyOverflow(document.body.style.overflow);
@@ -61,10 +77,32 @@ export default function ProjectDetail() {
   return (
     <>
       <SelectedProjectContainer ref={modalcontainerRef}>
+        {' '}
+        <CloseButton
+          onClick={handleCloseProject}
+          style={{
+            position: 'fixed',
+            left: `${buttonPosition.x}px`,
+            top: `${buttonPosition.y}px`
+          }}
+        >
+          <div className="closeBoton">
+            <img src={BeeClose} alt="Close" />
+            <p>Close</p>
+          </div>
+        </CloseButton>
         <ModalBackground>
-          <CloseButton onClick={handleCloseProject}>X</CloseButton>
-          <img src={projectHandle.img} alt={projectHandle.title} />
-          <p>{projectHandle.title}</p>
+          <div className="imageModalOpenHeader">
+            <img src={projectHandle.image} alt={projectHandle.title} />
+          </div>
+          <h1>{projectHandle.title}</h1>
+          {projectHandle.images.map((image, index) => (
+            <img
+              key={projectHandle.id}
+              src={image}
+              alt={`${projectHandle.title} ${index}`}
+            />
+          ))}
         </ModalBackground>
       </SelectedProjectContainer>
     </>

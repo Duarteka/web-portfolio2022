@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { gsap } from 'gsap';
+import { BackgroundColor } from 'styled-icons/foundation';
 import { Slide } from '../slideAnimation/Slide';
 import HorizontalScroll from '../utils/horizontalscroll';
 import {
@@ -72,6 +73,9 @@ const container = document.querySelector('.backgroundChangecolor');
 function Process() {
   const text = useRef({ value: 1 });
   const color = useRef({ value: 1 });
+
+  const horizontalContainerRef = useRef(null);
+
   useEffect(() => {
     gsap
       .timeline({
@@ -109,7 +113,7 @@ function Process() {
           scrollTrigger: {
             trigger: '.backgroundChangecolor',
             end: `xPercent: -100 *${container}`,
-            pin: true,
+
             scrub: true
           }
         }
@@ -161,6 +165,13 @@ const HorizontalSection = styled.section`
   height: 100%;
   max-height: 100%;
   border-radius: 2rem;
+  background-color: ${BackgroundColor};
+
+  @(max-width: 568px) and (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+  }
 `;
 const CardsContainer = styled.div`
   position: relative;
@@ -175,13 +186,13 @@ const CardsContainer = styled.div`
     font-family: Lemonada;
     font-size: 3rem;
     text-transform: lowercase;
-    color: ${textColorBringUpReverse};
+    color: ${textColor};
 
     padding: 2rem;
   }
   p {
     margin: 2rem 5rem;
-    color: ${backgroundColor};
+    color: ${textColor};
     font-size: 1rem;
     text-transform: uppercase;
   }

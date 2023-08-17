@@ -1,31 +1,17 @@
+/* eslint-disable no-console */
+/* eslint-disable import/named */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import gsap from 'gsap';
+import { useDispatch, useSelector } from 'react-redux';
+import theme from 'styled-theming';
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 
-const DowloadCVBasedIn = styled.div`
-  display: flex;
-  align-items: center;
-  height: 30vh;
-  width: 100vw;
-  border-center: solid 2px;
-  border-bottom: solid 2px;
-  position: relative;
-  justify-content: space-between;
-  background-color: ${backgroundColor};
+import { TOGGLE_DARKTHEME } from '../utils/redux/actions';
 
-  .basedin {
-    margin-right: 17rem;
-    color: ${textColorBringUp};
-  }
-
-  .borderCenter {
-    width: 2px;
-    background-color: ${textColor};
-    height: 30vh;
-    transform: translate(50px, 0px);
-  }
-`;
 const ButtonWrapper = styled.div`
   width: 100%;
   margin-left: 17rem;
@@ -131,25 +117,162 @@ const ButtonDownloadContainer = styled.a`
     }
   }
 `;
+
+const getTextColorOnHover = theme('theme', {
+  light: '#F9F5E7'
+});
+
 export default function DowloadCV() {
+  const overlay = useRef();
+
+  const dispatch = useDispatch();
+  const toggledarktheme = () => dispatch({ type: TOGGLE_DARKTHEME });
+
+  const darkThemeEnabled = useSelector(
+    (state) => state.preferences.darkThemeEnabled
+  );
+
+  const [isMouseOver, setIsMouseOver] = useState();
+
+  useLayoutEffect(() => {
+    gsap.set(overlay.current, { x: '100%' });
+  }, []);
+
+  const textColorOnHover = darkThemeEnabled ? '#373737' : '#F9F5E7';
+  const textColorInitial = darkThemeEnabled ? '#F9F5E7' : '#373737';
+
+  const onMouseEnter = () => {
+    gsap.to(overlay.current, {
+      x: 0,
+      duration: 0.3,
+      ease: 'power2.inOut',
+      color: 'yellow'
+    });
+
+    setIsMouseOver(true);
+
+    console.log(onMouseEnter, 'sale');
+  };
+
+  const onMouseLeave = () => {
+    gsap
+      .timeline()
+      .to(overlay.current, {
+        x: '-100%',
+        duration: 0.3,
+        ease: 'power2.inOut'
+      })
+      .to(overlay.current, {
+        opacity: 0,
+        duration: 0.1
+      })
+      .to(overlay.current, {
+        x: '100%',
+        duration: 0,
+        delay: 0.1
+      })
+      .to(overlay.current, {
+        opacity: 1,
+        duration: 0,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          setIsMouseOver(false); // Restaurar el estado del mouse después de la animación
+        }
+      });
+
+    console.log(onMouseLeave, 'sale');
+  };
+
   return (
     <DowloadCVBasedIn>
-      <div>
-        <ButtonWrapper className="buttonWrapper">
-          <div>
-            <ButtonDownloadContainer href="#" target="_blank" className="boton">
-              <span>DOWNLOAD CV</span>
-              <span>DOWNLOAD CV</span>
-            </ButtonDownloadContainer>
-          </div>
-        </ButtonWrapper>
-      </div>
+      <DowloadCVButton onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <div className="downloadCV">
+          <div className="colorFilled" ref={overlay} />
+          <h3
+            className={isMouseOver ? 'textColorOnHover' : ''}
+            style={{ color: isMouseOver ? textColorOnHover : textColorInitial }}
+          >
+            <span>Download CV</span>
+          </h3>
+        </div>
+      </DowloadCVButton>
       <div className="borderCenter" />
-      <div className="basedin">
-        <span>
-          <h4>Based in Madrid</h4>
-        </span>
-      </div>
+      <EmailtoHeader>
+        <div className="emailHeader">
+          <h3>duarte.karen@dev.com</h3>
+        </div>
+      </EmailtoHeader>
     </DowloadCVBasedIn>
   );
 }
+
+const DowloadCVBasedIn = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100vw;
+  border-bottom: solid 2px;
+  position: relative;
+  background-color: ${backgroundColor};
+
+  @media (max-width: 668px) and (max-width: 992px) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 668px) {
+    flex-direction: column;
+  }
+
+  .borderCenter {
+    display: flex;
+    width: 2px;
+    background-color: ${textColor};
+    height: auto;
+  }
+  .colorFilled {
+    background-color: ${textColor};
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 30px;
+    top: 0;
+    left: 0;
+  }
+`;
+
+const DowloadCVButton = styled.div`
+  width: calc(50vw - 1px); // Para compensar el borde central de 2px
+  position: relative;
+
+  h3 {
+    position: absolute;
+  }
+  transition: color 0.3s ease;
+
+  .downloadCV {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 5rem 0;
+    height: 100%;
+    overflow: hidden;
+  }
+`;
+
+const EmailtoHeader = styled.div`
+  width: calc(50vw - 1px); // De nuevo, compensamos el borde central
+
+  .emailHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
+    height: 100%;
+    width: 100%;
+    color: ${textColorBringUp};
+  }
+`;
