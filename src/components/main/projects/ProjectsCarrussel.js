@@ -1,26 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-undef */
 /* eslint-disable prefer-template */
 /* eslint-disable no-unused-vars */
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useInView } from 'react-intersection-observer';
 import { projects } from '../../utils/dataInfo';
-
 import { AfewWordsContainer } from './stylesProjectList';
-
-import SplitScrollText from '../../utils/SplitScrollText';
-import { backgroundColor, textColor } from '../../../styled';
+import { backgroundColor, textColor, textColorBringUp } from '../../../styled';
 import HandPointing from '../../../assets/handpointing.webp';
 import AnimatedInViewComponent from '../../content/BlinkAnimation';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HandPointingcontainer = styled.div`
   display: flex;
   width: 100vw;
-  background-color: ${backgroundColor};
+  // background-color: ${backgroundColor};
   color: ${textColor};
   position: relative;
   align-items: flex-start;
@@ -34,37 +36,6 @@ const HandPointingcontainer = styled.div`
     object-fit: cover;
   }
 `;
-gsap.registerPlugin(ScrollTrigger);
-
-// const ProjectCards = React.memo(({ projectList }) => (
-//   <CardContainerCarrousel>
-//     <AfewWordsContainer>
-//       <h3>Work</h3>
-//     </AfewWordsContainer>
-
-//     {projects.map((project, index) => (
-//       <StyledProjectCard key={project.id} className="card-project-carrousel">
-//         <Link to={`/project/${project.name}`}>
-//           <div id={`textInside-${project.id}`}>
-//             <div className="projectName">
-//               <p>{project.number}</p>
-//
-//             </div>
-//             <p className="projDescriptionHome">{project.rol} </p>
-//           </div>
-//         </Link>
-//       </StyledProjectCard>
-//     ))}
-//     <Link to="/seemore">
-//       <div className="hand-pointing">
-//         <AnimatedInViewComponent>
-//           <img src={HandPointing} alt="hand pointing click to see more" />
-//           <p>see all</p>
-//         </AnimatedInViewComponent>
-//       </div>
-//     </Link>
-//   </CardContainerCarrousel>
-// ));
 
 const ContainerCarrousel = styled.div`
   width: ${projects.length * 80}vw;
@@ -77,46 +48,78 @@ const ContainerCarrousel = styled.div`
 `;
 
 const Panel = styled.section`
-  width: 80vw;
+  width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   border-left: solid 2px;
   text-align: center;
-  color: ${textColor};
+  color: ${backgroundColor};
   position: relative;
   box-sizing: border-box;
-  padding: 100px;
+  //padding: 100px;
+  //margin: 0 2rem;
+  overflow: hidden;
+
+  .textProjectSesionHome {
+    display: flex; 
+    justify-content: flex-start;
+    z-index: 1;
+    position: relative;
+    background-color: ${textColor};
+    width: 100%;
+    padding 3rem 3rem;
+    border-top: solid 2px;
+    align-items: flex-end;
+    justify-content: space-between;
+    
+    p{
+      color: ${textColorBringUp};
+      font-size: 2em;
+      font-weight: 700
+
+    }
+    h2{
+      font-size: 6em;
+      cursor: pointer;
+
+    }
+    h4{
+      font-size: 2.5em;
+      font-weight: 200;
+     
+    }
+
+
+  }
+  .titleAndNumber{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
 
   img {
-    object-fit: cover;
-  }
-  img.modal-image {
-    opacity: 0;
-  }
-  img.modal-image {
-    width: 30%;
-    height: 30%;
+    width: 100%;
+    height: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: grayscale(120%) brightness(110%);
+  }
+
+  img.modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    //transition: opacity 0.3s ease;
   }
 `;
 
-const ContainerScrollTogether = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-`;
 export default function ProjectCards({ projectList }) {
   const app = useRef(null);
   const containerRefCarrousel = useRef(null);
   const sectionsRef = useRef([]);
-
   const imgRefs = useRef([]);
 
   useLayoutEffect(() => {
@@ -136,74 +139,99 @@ export default function ProjectCards({ projectList }) {
       });
     }, app);
 
+    // imgRefs.current.forEach((img, i) => {
+    //   gsap.to(img, {
+    //     scale: 2, // o cualquier otro valor o cálculo que necesites
+    //     scrollTrigger: {
+    //       trigger: img,
+    //       scrub: 0.1
+    //     }
+    //   });
+    // });
+
     return () => ctx.revert();
   }, [sectionsRef]);
 
   const handleMouseEnter = (index) => {
-    const image = sectionsRef.current[index].querySelector('.modal-image');
-    gsap.to(image, {
-      opacity: 1,
-      duration: 0.3,
-      x: 0,
-      y: 0,
-
-      ease: 'Elastic.easeOut(0.25)'
-    });
-    gsap.to(image, {
-      opacity: 1,
-      duration: 0.3
-    });
-  };
-
-  const handleMouseMove = (e, index) => {
-    const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left - 50; // -50 para desplazar un poco la imagen
-    const y = e.clientY - rect.top - 50;
-
-    const image = imgRefs.current[index];
-    gsap.set(image, {
-      x,
-      y,
-      ease: 'Power3.easeOut'
+    gsap.to(imgRefs.current[index], {
+      scale: 1.2,
+      duration: 0.5,
+      ease: 'power2.out',
+      scrub: 3
     });
   };
 
   const handleMouseLeave = (index) => {
-    const image = sectionsRef.current[index].querySelector('.modal-image');
-    gsap.to(image, {
-      opacity: 0, // No la ocultamos completamente
-      x: 0,
-      y: 0,
-
-      ease: 'Elastic.easeOut(0.25)',
-      duration: 0.3
+    gsap.to(imgRefs.current[index], {
+      scale: 1,
+      duration: 0.3,
+      ease: 'power2.out',
+      scrub: 3
     });
   };
+
+  // useLayoutEffect(() => {
+  //   const panels = containerRefCarrousel.current.querySelectorAll('.panel');
+
+  //   panels.forEach((panel, index) => {
+  //     const image = panel.querySelector('.modal-image');
+
+  //     panel.addEventListener('mouseenter', () => {
+  //       gsap.to(image, {
+  //         scale: 1,
+  //         opacity: 1,
+
+  //         duration: 0.3,
+
+  //         ease: 'power2.out'
+  //       });
+  //     });
+
+  //     panel.addEventListener('mouseleave', () => {
+  //       gsap.to(image, {
+  //         scale: 1,
+  //         opacity: 0,
+
+  //         duration: 0.3,
+  //         ease: 'power2.out'
+  //       });
+  //     });
+  //   });
+  // }, []);
 
   return (
     <div ref={app}>
       <AfewWordsContainer>
         <h3>TAKE A LOOK AT MY WORK</h3>
       </AfewWordsContainer>
-      <ContainerCarrousel ref={containerRefCarrousel}>
+      <ContainerCarrousel
+        ref={containerRefCarrousel}
+        className="containerCarrousel"
+      >
         {projects.map((section, i) => (
-          <Link to={`/project/${section.name}`}>
+          <Link to={`/project/${section.name}`} key={section.id}>
             <Panel
-              key={section.id}
               className={`panel ${section.id}`}
               ref={(el) => (sectionsRef.current[i] = el)}
-              onMouseEnter={() => handleMouseEnter(i)}
-              onMouseMove={(e) => handleMouseMove(e, i)}
-              onMouseLeave={() => handleMouseLeave(i)}
             >
+              <div className="textProjectSesionHome">
+                <div className="titleAndNumber">
+                  <p>{section.number}</p>
+                  <h2 id={`textInside-${section.id}`}>{section.title}</h2>
+                </div>
+
+                <h4>{section.rol}</h4>
+              </div>
+
               <img
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={() => handleMouseLeave(i)}
                 ref={(el) => (imgRefs.current[i] = el)}
                 src={section.image}
                 alt={section.title}
-                className="modal-image"
+                key={i}
+                className="imageCarrusselHomeProjects"
               />
-              <h2 id={`textInside-${section.id}`}>{section.title}</h2>
-              {section.rol}
             </Panel>
           </Link>
         ))}

@@ -5,12 +5,12 @@ import React, { useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import gsap, { Power2 } from 'gsap';
+import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { store } from './components/utils/redux/store';
 import ContactPage from './components/pages/ContactPage';
 import About from './components/pages/AboutPage';
-import BackgroundTexture from './assets/backgroundTexture.jpg';
+import BackgroundTexture from './assets/backgroundTexture.webp';
 import DarkThemeProvider from './components/utils/redux/DarkThemeProvider';
 import Home from './components/header/Home';
 import { backgroundColor, textColor, TextureBackground } from './styled';
@@ -20,7 +20,6 @@ import Form1 from './assets/form1.webp';
 import Form2 from './assets/form2.webp';
 import Form3 from './assets/form3.webp';
 
-import Footer from './components/footer/Footer';
 import ProjectDetail from './components/main/projects/ProjectDetail';
 import { ProjectsPage } from './components/pages/ProjectsPage';
 
@@ -38,7 +37,7 @@ function App() {
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
-          <BackgroundNoise />
+          {/* <BackgroundNoise /> */}
           <Navbar />
           <Shapes />
 
@@ -129,7 +128,7 @@ function Shapes() {
           ref={(el) => (imageRefs.current[1] = el)}
           src={Form2}
           alt="form2"
-          className="shape02"
+          id="shape02"
         />
         <img
           ref={(el) => (imageRefs.current[2] = el)}

@@ -6,7 +6,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HandUp from '../../assets/hand-pointing.webp';
-import { Slide } from '../slideAnimation/Slide';
+import { Slide, Trail } from '../slideAnimation/Slide';
 import { backgroundColor, textColor } from '../../styled';
 import BlodeMe from '../../assets/blondeshort.webp';
 
@@ -27,7 +27,9 @@ export default function About() {
   return (
     <>
       <AboutMeHeader className="aboutHeader">
-        <h1>who i&apos;am</h1>
+        <Trail>
+          <h1>who i&apos;am</h1>
+        </Trail>
       </AboutMeHeader>
 
       <ContentContainer>
@@ -116,7 +118,7 @@ const AboutMeHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  flex-direction: row;
+
   position: relative;
   padding-top: 10vh;
   padding-right: 5rem;
@@ -124,6 +126,8 @@ const AboutMeHeader = styled.div`
 
   h1 {
     font-size: 10em;
+    font-size: 7.5rem;
+    height: 110vh;
   }
 `;
 const Quote = styled.div`

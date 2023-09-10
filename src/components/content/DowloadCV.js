@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-console */
 /* eslint-disable import/named */
 /* eslint-disable import/extensions */
@@ -12,111 +13,20 @@ import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 
 import { TOGGLE_DARKTHEME } from '../utils/redux/actions';
 
-const ButtonWrapper = styled.div`
-  width: 100%;
-  margin-left: 17rem;
-`;
-const ButtonDownloadContainer = styled.a`
-  position: relative;
-  width: 100%;
-  max-width: 260px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transform: translate3d(0px, 0%, 0px);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 18px;
-
-  transition-delay: 0.6s;
-  overflow: hidden;
-  border-radius: 25px;
-  border: solid 2px ${textColor};
-  margin: 0;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: ${textColor};
-    border-radius: 50% 50% 0 0;
-    transform: translateY(100%) scaleY(0.5);
-    transition: all 0.6s ease;
-    border: solid 2px ${textColor};
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: ${backgroundColor};
-    border-radius: 0;
-    transform: translateY(0) scaleY(1);
-    transition: all 0.6s ease;
-  }
-
-  span {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    width: 100%;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.6s ease;
-
-    &:first-child {
-      color: ${backgroundColor};
-      transform: translateY(60px);
-    }
-
-    &:last-child {
-      transform: translateY(-20px);
-
-      color: ${textColor};
-      transform: translateY(0);
-    }
-  }
-
-  &:hover {
-    background: ${backgroundColor};
-    transition: background 0.2s linear;
-    transition-delay: 0.6s;
-
-    &:after {
-      border-radius: 0 0 50% 50%;
-      transform: translateY(-100%) scaleY(0.5);
-      transition-delay: 0;
-    }
-
-    &:before {
-      border-radius: 0;
-      transform: translateY(0) scaleY(1);
-      transition-delay: 0.6;
-    }
-
-    span {
-      &:first-child {
-        transform: translateY(0);
-      }
-
-      &:last-child {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-    }
-  }
-`;
+const onButtonClick = () => {
+  // using Java Script method to get PDF file
+  fetch('DuarteCVFrontendDev.pdf').then((response) => {
+    response.blob().then((blob) => {
+      // Creating new object of PDF file
+      const fileURL = window.URL.createObjectURL(blob);
+      // Setting various property values
+      const alink = document.createElement('a');
+      alink.href = fileURL;
+      alink.download = 'DuarteCVFrontendDev.pdf';
+      alink.click();
+    });
+  });
+};
 
 const getTextColorOnHover = theme('theme', {
   light: '#F9F5E7'
@@ -145,13 +55,12 @@ export default function DowloadCV() {
     gsap.to(overlay.current, {
       x: 0,
       duration: 0.3,
-      ease: 'power2.inOut',
-      color: 'yellow'
+      ease: 'power2.easeIn'
     });
 
     setIsMouseOver(true);
 
-    console.log(onMouseEnter, 'sale');
+    // console.log(onMouseEnter, 'entra');
   };
 
   const onMouseLeave = () => {
@@ -160,12 +69,12 @@ export default function DowloadCV() {
       .to(overlay.current, {
         x: '-100%',
         duration: 0.3,
-        ease: 'power2.inOut'
+        ease: 'power2.easeOut'
       })
-      .to(overlay.current, {
-        opacity: 0,
-        duration: 0.1
-      })
+      // .to(overlay.current, {
+      //   opacity: 0,
+      //   duration: 10
+      // })
       .to(overlay.current, {
         x: '100%',
         duration: 0,
@@ -177,54 +86,78 @@ export default function DowloadCV() {
         ease: 'power2.inOut',
         onComplete: () => {
           setIsMouseOver(false); // Restaurar el estado del mouse después de la animación
+          // console.log(onMouseEnter, 'sale');
         }
       });
-
-    console.log(onMouseLeave, 'sale');
   };
 
   return (
-    <DowloadCVBasedIn>
-      <DowloadCVButton onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <div className="downloadCV">
-          <div className="colorFilled" ref={overlay} />
-          <h3
-            className={isMouseOver ? 'textColorOnHover' : ''}
-            style={{ color: isMouseOver ? textColorOnHover : textColorInitial }}
-          >
-            <span>Download CV</span>
-          </h3>
-        </div>
-      </DowloadCVButton>
-      <div className="borderCenter" />
-      <EmailtoHeader>
-        <div className="emailHeader">
-          <h3>duarte.karen@dev.com</h3>
-        </div>
-      </EmailtoHeader>
-    </DowloadCVBasedIn>
+    <>
+      <DowloadCVBasedIn>
+        <DowloadCVButton
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          <div className="downloadCV">
+            <div className="colorFilled" ref={overlay} />
+            <button onClick={onButtonClick}>
+              <h3
+                className={isMouseOver ? 'textColorOnHover' : ''}
+                style={{
+                  color: isMouseOver ? textColorOnHover : textColorInitial
+                }}
+              >
+                Download CV
+              </h3>
+            </button>
+          </div>
+        </DowloadCVButton>
+        <div className="borderCenter" />
+        <EmailtoHeader>
+          <div className="emailHeader">
+            <a
+              style={{ color: textColor }}
+              href="mailto: duarte.karen21@gmail.com"
+            >
+              duarte.karen21@dev.com
+            </a>
+          </div>
+        </EmailtoHeader>
+      </DowloadCVBasedIn>
+
+      {/* <DowloadCVBasedInResponsive>
+        <DowloadCVButtonResponsive>
+          <div className="downloadCVResponsive">
+            <button onClick={onButtonClick}>
+              <h3>Download CV</h3>
+            </button>
+          </div>
+        </DowloadCVButtonResponsive>
+
+        <EmailtoHeaderResponsive>
+          <div className="emailHeaderResponsive">
+            <a
+              style={{ color: textColor }}
+              href="mailto: duarte.karen21@gmail.com"
+            >
+              duarte.karen21@dev.com
+            </a>
+          </div>
+        </EmailtoHeaderResponsive>
+      </DowloadCVBasedInResponsive> */}
+    </>
   );
 }
 
 const DowloadCVBasedIn = styled.div`
   display: flex;
   height: 100%;
+  max-height: 20vh;
   width: 100vw;
   border-bottom: solid 2px;
+  border-top: solid 2px;
   position: relative;
   background-color: ${backgroundColor};
-
-  @media (max-width: 668px) and (max-width: 992px) {
-    flex-direction: column;
-  }
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-
-  @media (max-width: 668px) {
-    flex-direction: column;
-  }
 
   .borderCenter {
     display: flex;
@@ -233,7 +166,9 @@ const DowloadCVBasedIn = styled.div`
     height: auto;
   }
   .colorFilled {
+    display: flex;
     background-color: ${textColor};
+
     width: 100%;
     height: 100%;
     position: absolute;
@@ -246,11 +181,17 @@ const DowloadCVBasedIn = styled.div`
 const DowloadCVButton = styled.div`
   width: calc(50vw - 1px); // Para compensar el borde central de 2px
   position: relative;
+  transition: color 0.3s ease;
 
   h3 {
-    position: absolute;
+    position: relative;
   }
-  transition: color 0.3s ease;
+
+  @media (max-width: 668px) and (max-width: 992px) {
+    h3 {
+      //color: ${backgroundColor}!important;
+    }
+  }
 
   .downloadCV {
     display: flex;
@@ -265,7 +206,7 @@ const DowloadCVButton = styled.div`
 
 const EmailtoHeader = styled.div`
   width: calc(50vw - 1px); // De nuevo, compensamos el borde central
-
+  text-transform: uppercase;
   .emailHeader {
     display: flex;
     align-items: center;
@@ -276,3 +217,9 @@ const EmailtoHeader = styled.div`
     color: ${textColorBringUp};
   }
 `;
+
+const DowloadCVButtonResponsive = styled.div``;
+
+const DowloadCVBasedInResponsive = styled.div``;
+
+const EmailtoHeaderResponsive = styled.div``;

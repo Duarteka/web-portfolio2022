@@ -12,6 +12,7 @@ import Ideate from '../../assets/ideate.webp';
 import Design from '../../assets/design.webp';
 import Develop from '../../assets/develop.webp';
 import InfiniteTextFrame from '../utils/InfiniteTextFrame';
+import { Trail } from '../slideAnimation/Slide';
 
 const TextWrapper = styled.div`
   height: 300vh;
@@ -86,7 +87,7 @@ const TextWrapper = styled.div`
     align-items: center;
     text-align: center;
     height: 100vh;
-    position: relative;
+
     cursor: none;
 
     .list h1 {
@@ -399,7 +400,7 @@ const ContainerHeaderTextForSection = styled.div`
   display: flex;
   flex-direction: flex;
   position: relative;
-  justify-content: space-around;
+  justify-content: center;
   height: 45vh;
   align-items: center;
 
@@ -409,9 +410,15 @@ const ContainerHeaderTextForSection = styled.div`
 export function HeaderTextForSection({ text1, text2, text3 }) {
   return (
     <ContainerHeaderTextForSection>
-      <h3>{text1}</h3>
-      <h3>{text2}</h3>
-      <h3>{text3}</h3>
+      <Trail>
+        <h2>{text1}</h2>
+      </Trail>
+      <Trail>
+        <h3>{text2}</h3>
+      </Trail>
+      <Trail>
+        <h3>{text3}</h3>
+      </Trail>
     </ContainerHeaderTextForSection>
   );
 }

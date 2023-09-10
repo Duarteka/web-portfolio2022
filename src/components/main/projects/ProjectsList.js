@@ -8,6 +8,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import styled from 'styled-components';
 import SplitScrollText from '../../utils/SplitScrollText';
 import { projects } from '../../utils/dataInfo';
 import {
@@ -41,13 +42,8 @@ function ProjectList({ children }) {
   return (
     <>
       <AfewWordsContainer>
-        <h3>Work</h3>
-        <Link to="/seemore">
-          <img src={HandPointing} alt="hand pointing click to see more" />
-        </Link>
-        <p>see all</p>
+        <h3>TAKE A LOOK AT MY WORK</h3>
       </AfewWordsContainer>
-
       <ProyectListContainer
         // ref={projectListRef}
         className="projectListContainer"
@@ -88,10 +84,41 @@ function ProjectList({ children }) {
             </Link>
           </ProjectListHome>
         ))}
+
         {modalOpen && <ProjectDetail closeModal={closeModal} />}
-      </ProyectListContainer>
+      </ProyectListContainer>{' '}
+      <Link to="/seemore">
+        <SeeMorecontainer>
+          <div className="handPointing">
+            <img src={HandPointing} alt="hand pointing click to see more" />
+            <p>see all</p>
+          </div>
+        </SeeMorecontainer>
+      </Link>
     </>
   );
 }
 
 export default ProjectList;
+const SeeMorecontainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+  width: 100vw;
+
+  .handPointing {
+    display: flex;
+
+    align-items: center;
+  }
+
+  img {
+    width: auto;
+    max-width: 35%;
+    height: auto;
+    position: relative;
+  }
+`;

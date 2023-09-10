@@ -1,13 +1,40 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/no-array-index-key */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Marquee from 'react-fast-marquee';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Trail } from '../slideAnimation/Slide';
+
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import AnimatedText from './TextFillAnimation';
 import { sections } from '../utils/dataInfo';
+
+function decodeHtml(html) {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = html;
+  return txt.value;
+}
+
+function wrapKeywordsInStrong(text) {
+  const keywords = [
+    'WHAT GOALS',
+    'how I can integrate ',
+    'what is it is purpose',
+    'brand attributes',
+    'gradually expand, evolve, or completely change during the design process',
+    'I will work with schedules and to-do lists',
+    'more work',
+    'the information architecture of the website is laid out',
+    'deliverable',
+    'I will use React to build and run the components',
+    'adaptable'
+  ];
+  const regex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'gi');
+  return text.replace(regex, '<strong>$1</strong>');
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,6 +117,11 @@ const TextLoop = styled.div`
   max-height: 100%;
   overflow-y: hidden;
 
+  @media (max-width: 480px) {
+    min-width: 100%;
+    background-color: red;
+  }
+
   h2 {
     margin: 0 5rem;
     padding: 2rem 9;
@@ -100,7 +132,20 @@ const TextLoop = styled.div`
 `;
 
 export default function IdeatePrueba() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function getClassByIndex(index) {
     switch (index) {
@@ -117,70 +162,191 @@ export default function IdeatePrueba() {
 
   return (
     <>
-      <HeaderTextForSection text1="Process" text2="&" text3="skills" />
+      {/* <HeaderTextForSection text1="Process" text2="&" text3="skills" /> */}
+      <TrailIdeateSection>
+        <Trail>
+          <h2>HOW I TAKE MY TIME AND TEST MY SKILLS</h2>
+        </Trail>
+      </TrailIdeateSection>
 
       <div>
         <div ref={wrapperRef}>
-          <DevelopProcessContainer>
-            <ProgressBarFunct triggerRef={wrapperRef} />
-            {sections.map((section, index) => (
-              <div className="containerAll">
-                <div className="toolsaAndImage">
-                  <div className={`imageContainer ${getClassByIndex(index)}`}>
-                    <div className="imagesProcess">
+          {!isMobile ? (
+            <DevelopProcessContainer>
+              <ProgressBarFunct triggerRef={wrapperRef} />
+              {sections.map((section, index) => (
+                <div className="containerAll" key={section.id}>
+                  <div className="toolsaAndImage">
+                    <div className={`imageContainer ${getClassByIndex(index)}`}>
+                      <div className="imagesProcess">
+                        <img
+                          key={section.id}
+                          className="imageSection"
+                          src={section.image}
+                          alt=""
+                        />
+                      </div>
+                      <TextLoop>
+                        <Marquee
+                          gradient={false}
+                          speed={80}
+                          pauseOnHover
+                          pauseOnClick
+                          delay={0}
+                          play
+                          direction="left"
+                        >
+                          {section.textInfiniteh2.map((item) => (
+                            <div key={item.id}>
+                              <h2>{item.text}</h2>
+                            </div>
+                          ))}
+                        </Marquee>
+                        <Marquee
+                          gradient={false}
+                          speed={50}
+                          pauseOnHover
+                          pauseOnClick
+                          delay={0}
+                          play
+                          direction="right"
+                        >
+                          {section.textInfiniteh3.map((item) => (
+                            <div key={item.id}>
+                              <h3>{item.text}</h3>
+                            </div>
+                          ))}
+                        </Marquee>
+                      </TextLoop>
+                    </div>
+                  </div>
+                  <div className="animatedtextansdescrip">
+                    <AnimatedText text={section.title} textColor={textColor} />
+
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: wrapKeywordsInStrong(
+                          decodeHtml(section.description)
+                        )
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </DevelopProcessContainer>
+          ) : (
+            <DevelopProcessContainerMobile>
+              {sections.map((section, index) => (
+                <div className="containerAllMobile" key={section.id}>
+                  <div className="titleAndImageContainer">
+                    <AnimatedText text={section.title} textColor={textColor} />
+                    <div className="imagesProcessMobile">
                       <img
                         key={section.id}
-                        className="imageSection"
+                        className="imageSectionMobile"
                         src={section.image}
                         alt=""
                       />
                     </div>
-                    <TextLoop>
-                      <Marquee
-                        gradient={false}
-                        speed={80}
-                        pauseOnHover
-                        pauseOnClick
-                        delay={0}
-                        play
-                        direction="left"
-                      >
-                        {section.textInfiniteh2.map((item) => (
-                          <div key={item.id}>
-                            <h2>{item.text}</h2>
-                          </div>
-                        ))}
-                      </Marquee>
-                      <Marquee
-                        gradient={false}
-                        speed={50}
-                        pauseOnHover
-                        pauseOnClick
-                        delay={0}
-                        play
-                        direction="right"
-                      >
-                        {section.textInfiniteh3.map((item) => (
-                          <div key={item.id}>
-                            <h3>{item.text}</h3>
-                          </div>
-                        ))}
-                      </Marquee>
-                    </TextLoop>
                   </div>
+                  <div className="animatedtextansdescripMobile">
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: wrapKeywordsInStrong(
+                          decodeHtml(section.description)
+                        )
+                      }}
+                    />
+                  </div>
+
+                  <div className="textLoop">
+                    <Marquee
+                      gradient={false}
+                      speed={30}
+                      pauseOnHover
+                      pauseOnClick
+                      delay={0}
+                      play
+                      direction="left"
+                    >
+                      {section.textInfiniteh2.map((item) => (
+                        <div key={item.id}>
+                          <h2>{item.text}</h2>
+                        </div>
+                      ))}
+                    </Marquee>
+                    <Marquee
+                      gradient={false}
+                      speed={30}
+                      pauseOnHover
+                      pauseOnClick
+                      delay={0}
+                      play
+                      direction="right"
+                    >
+                      {section.textInfiniteh3.map((item) => (
+                        <div key={item.id}>
+                          <h3>{item.text}</h3>
+                        </div>
+                      ))}
+                    </Marquee>
+                  </div>
+                  <div
+                    className={`imageContainerMobile ${getClassByIndex(index)}`}
+                  />
                 </div>
-                <div className="animatedtextansdescrip">
-                  <AnimatedText text={section.title} textColor={textColor} />
-                  <p>{section.description}</p>
-                </div>
-              </div>
-            ))}
-          </DevelopProcessContainer>
+              ))}
+            </DevelopProcessContainerMobile>
+          )}
         </div>
       </div>
     </>
   );
 }
+
+const DevelopProcessContainerMobile = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  padding: 0;
+  background-color: ${backgroundColor};
+
+  h1 {
+    font-size: 7.7rem;
+  }
+  img {
+    margin: 0;
+    padding: 0;
+    max-width: 50%;
+    position: absolute;
+    transform: translate(-140px, -169px);
+  }
+
+  .textLoop {
+    margin-top: 5rem;
+    h3 {
+      margin-right: 5rem;
+      font-size: 0.8rem;
+    }
+    h2 {
+      margin-right: 5rem;
+    }
+  }
+
+  .titleAndImageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .containerAllMobile {
+    border-top: solid 1px;
+    padding: 0 2rem;
+  }
+  .containerAllMobile:last-child {
+    border-bottom: solid 1px;
+  }
+`;
+
 const ContainerHeaderTextForSection = styled.div`
   display: flex;
   flex-direction: flex;
@@ -248,3 +414,12 @@ function ProgressBarFunct({ triggerRef }) {
     </StickyContainer>
   );
 }
+
+const TrailIdeateSection = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 5rem;
+`;

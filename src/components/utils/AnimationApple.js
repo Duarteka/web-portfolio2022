@@ -31,6 +31,13 @@ const ImageWrapper = styled.div`
   max-height: 100vh;
   overflow: hidden;
   border-right: solid 2px ${backgroundColor};
+
+  @media (max-width: 768px) {
+    min-width: 100%;
+    height: 60vh;
+
+    background-color: ${textColor};
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -39,6 +46,12 @@ const ImageContainer = styled.div`
   height: 100%;
   margin-top: 10rem;
   margin-left: -5rem;
+
+  @media (max-width: 768px) {
+    margin-top: 3rem;
+    margin-left: -8rem;
+    background-color: ${textColor};
+  }
 `;
 
 const Image = styled.div`
@@ -119,7 +132,7 @@ export default function AnimationApple() {
     <ImageWrapper>
       <ImageContainer ref={imageContainerRef}>
         {images.map((image, index) => (
-          <Image>
+          <Image key={index}>
             <img
               className="myImage"
               key={index}

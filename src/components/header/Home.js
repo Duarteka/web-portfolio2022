@@ -14,6 +14,9 @@ import DowloadCV from '../content/DowloadCV';
 import ProjectsCarrussel from '../main/projects/ProjectsCarrussel';
 import HorizontalScroll from '../content/horizontal-scroll';
 
+import BackgroundMorphing from '../pruebas/BackgroundMorphing';
+import AboutDesign from '../content/AboutDesign';
+
 function Home() {
   const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 });
   const isTabletOrMobile = useMediaQuery({ maxDeviceWidth: 1224 });
@@ -21,9 +24,12 @@ function Home() {
   return (
     <>
       <HeaderContent />
-      <DowloadCV />
-      {isDesktopOrLaptop && <ProjectsCarrussel />}
-      {isTabletOrMobile && <ProjectList />}
+
+      {/* {isDesktopOrLaptop && <ProjectsCarrussel />}
+      {isTabletOrMobile && <ProjectList />} */}
+      {/* <BackgroundMorphing /> */}
+      <ProjectsCarrussel />
+      <AboutDesign />
       <IdeatePrueba />
       <AboutMeHome />
 

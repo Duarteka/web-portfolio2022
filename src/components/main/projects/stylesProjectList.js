@@ -141,19 +141,24 @@ export const CloseButton = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
   }
 `;
 
 export const AfewWordsContainer = styled.div`
   display: flex;
   position: relative;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   padding: 0 5rem;
   height: 30vh;
+
+  h4{
+    font-family: "Acier";
+    font-size: 8em;
+  }
 
   img {
     max-width: 12%;
@@ -162,12 +167,12 @@ export const AfewWordsContainer = styled.div`
   }
 
   h4 {
+    font
     font-weight: 200;
     opacity: 0.8;
   }
   @media (max-width: 576px) {
     padding: 0;
-    margin-top: 10rem;
   }
 `;
 

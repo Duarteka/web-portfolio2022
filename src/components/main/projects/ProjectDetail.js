@@ -43,7 +43,7 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     setBodyOverflow(document.body.style.overflow);
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
 
     gsap.fromTo(
       modalcontainerRef.current,
@@ -96,6 +96,8 @@ export default function ProjectDetail() {
             <img src={projectHandle.image} alt={projectHandle.title} />
           </div>
           <h1>{projectHandle.title}</h1>
+          <p>{projectHandle.description}</p>
+          <h4>{projectHandle.rol}</h4>
           {projectHandle.images.map((image, index) => (
             <img
               key={projectHandle.id}
