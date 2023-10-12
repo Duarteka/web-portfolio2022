@@ -80,14 +80,14 @@ export default function ProjectDetail() {
         {' '}
         <CloseButton
           onClick={handleCloseProject}
-          style={{
-            position: 'fixed',
-            left: `${buttonPosition.x}px`,
-            top: `${buttonPosition.y}px`
-          }}
+          // style={{
+          //   position: 'fixed',
+          //   left: `${buttonPosition.x}px`,
+          //   top: `${buttonPosition.y}px`
+          // }}
         >
           <div className="closeBoton">
-            <img src={BeeClose} alt="Close" />
+            {/* <img src={BeeClose} alt="Close" /> */}
             <p>Close</p>
           </div>
         </CloseButton>
@@ -98,13 +98,16 @@ export default function ProjectDetail() {
           <h1>{projectHandle.title}</h1>
           <p>{projectHandle.description}</p>
           <h4>{projectHandle.rol}</h4>
-          {projectHandle.images.map((image, index) => (
+          {/* {projectHandle.images.map((image, index) => (
             <img
               key={projectHandle.id}
               src={image}
               alt={`${projectHandle.title} ${index}`}
             />
-          ))}
+          ))} */}
+          <div className="commingSoon">
+            <h1>coming soon</h1>
+          </div>
         </ModalBackground>
       </SelectedProjectContainer>
     </>

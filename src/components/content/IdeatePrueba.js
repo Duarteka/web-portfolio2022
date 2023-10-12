@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/no-array-index-key */
 
@@ -11,6 +12,7 @@ import { Trail } from '../slideAnimation/Slide';
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import AnimatedText from './TextFillAnimation';
 import { sections } from '../utils/dataInfo';
+import AboutDesign from './AboutDesign';
 
 function decodeHtml(html) {
   const txt = document.createElement('textarea');
@@ -41,6 +43,7 @@ gsap.registerPlugin(ScrollTrigger);
 const DevelopProcessContainer = styled.div`
   display: flex;
   flex-direction: column;
+  // margin-top: -15rem;
 
   h1 {
     font-size: 13rem;
@@ -72,7 +75,8 @@ const DevelopProcessContainer = styled.div`
     flex-direction: column;
     align-items: center;
     max-width: 50%;
-    margin-top: 5rem;
+    //margin-top: 5rem;
+    padding: 0 2rem;
   }
 
   .imageContainer.firstImage img {
@@ -163,13 +167,12 @@ export default function IdeatePrueba() {
   return (
     <>
       {/* <HeaderTextForSection text1="Process" text2="&" text3="skills" /> */}
-      <TrailIdeateSection>
-        <Trail>
-          <h2>HOW I TAKE MY TIME AND TEST MY SKILLS</h2>
-        </Trail>
-      </TrailIdeateSection>
+      {/* <TrailIdeateSection>
+       
+      </TrailIdeateSection> */}
 
       <div>
+        {/* <AboutDesign /> */}
         <div ref={wrapperRef}>
           {!isMobile ? (
             <DevelopProcessContainer>
@@ -323,6 +326,7 @@ const DevelopProcessContainerMobile = styled.div`
   }
 
   .textLoop {
+    overflow: hidden;
     margin-top: 5rem;
     h3 {
       margin-right: 5rem;
@@ -341,6 +345,7 @@ const DevelopProcessContainerMobile = styled.div`
   .containerAllMobile {
     border-top: solid 1px;
     padding: 0 2rem;
+    margin-top: 10rem;
   }
   .containerAllMobile:last-child {
     border-bottom: solid 1px;
@@ -374,11 +379,11 @@ const StickyContainer = styled.div`
   z-index: 1; // Asegúrate de que el ProgressBar está sobre otros contenidos
 `;
 const ProgressBar = styled.div`
-  position: sticky;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 3px;
+  height: 4px;
 `;
 
 const Progress = styled.div`
@@ -419,7 +424,13 @@ const TrailIdeateSection = styled.div`
   position: relative;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-direction: row;
-  margin-bottom: 5rem;
+  flex-direction: column;
+
+  background-color: ${backgroundColor};
+
+  h2 {
+    height: 100%;
+  }
 `;

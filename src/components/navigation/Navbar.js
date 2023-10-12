@@ -62,33 +62,39 @@ function Navbar(props) {
   }, [showNav]);
 
   return (
-    <Nav
-      ref={navRef}
-      isTop={isTop}
-      className={showNav ? 'show' : 'hide'}
-      isSpecialComponentVisible={isSpecialComponentVisible}
-    >
-      <Logo>
-        <Link to="/">Karen Duarte</Link>
-      </Logo>
+    <div className="navBar">
+      {' '}
+      <Nav
+        ref={navRef}
+        isTop={isTop}
+        className={showNav ? 'show' : 'hide'}
+        isSpecialComponentVisible={isSpecialComponentVisible}
+      >
+        <Logo>
+          <Link to="/">Karen Duarte</Link>
+        </Logo>
 
-      <ul>
-        <li>
-          <Link to="/seemore">Projects</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
-      <Link to="/" onClick={toggledarktheme}>
-        <MoonLight />
-      </Link>
-    </Nav>
+        <ul>
+          <li>
+            <Link to="/seemore">Projects</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+        <Link to="/" onClick={toggledarktheme}>
+          <MoonLight />
+        </Link>
+      </Nav>
+    </div>
   );
 }
 export default Navbar;
 
 const Nav = styled.nav`
+  .navBar {
+    position: absolute;
+  }
   display: flex;
   align-items: center;
   width: 100vw;

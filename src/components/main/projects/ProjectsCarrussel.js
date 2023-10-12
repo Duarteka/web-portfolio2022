@@ -5,12 +5,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable prefer-template */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useInView } from 'react-intersection-observer';
 import { projects } from '../../utils/dataInfo';
 import { AfewWordsContainer } from './stylesProjectList';
 import { backgroundColor, textColor, textColorBringUp } from '../../../styled';
@@ -22,18 +21,19 @@ gsap.registerPlugin(ScrollTrigger);
 const HandPointingcontainer = styled.div`
   display: flex;
   width: 100vw;
-  // background-color: ${backgroundColor};
   color: ${textColor};
   position: relative;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-end;
-  height: 50%;
-  border-bottom: solid 2px;
-  padding: 5rem 5rem;
+  height: 100%;
+  padding: 5rem 7rem;
 
   img {
-    max-width: 10vw;
+    max-width: 15vw;
     object-fit: cover;
+  }
+  h4 {
+    transform: translate(5rem, -2rem);
   }
 `;
 
@@ -59,8 +59,6 @@ const Panel = styled.section`
   color: ${backgroundColor};
   position: relative;
   box-sizing: border-box;
-  //padding: 100px;
-  //margin: 0 2rem;
   overflow: hidden;
 
   .textProjectSesionHome {
@@ -200,50 +198,54 @@ export default function ProjectCards({ projectList }) {
   // }, []);
 
   return (
-    <div ref={app}>
-      <AfewWordsContainer>
-        <h3>TAKE A LOOK AT MY WORK</h3>
-      </AfewWordsContainer>
-      <ContainerCarrousel
-        ref={containerRefCarrousel}
-        className="containerCarrousel"
-      >
-        {projects.map((section, i) => (
-          <Link to={`/project/${section.name}`} key={section.id}>
-            <Panel
-              className={`panel ${section.id}`}
-              ref={(el) => (sectionsRef.current[i] = el)}
-            >
-              <div className="textProjectSesionHome">
-                <div className="titleAndNumber">
-                  <p>{section.number}</p>
-                  <h2 id={`textInside-${section.id}`}>{section.title}</h2>
+    <>
+      <div ref={app}>
+        <AfewWordsContainer>
+          <h3>TAKE A LOOK AT MY WORK</h3>
+        </AfewWordsContainer>
+        <ContainerCarrousel
+          ref={containerRefCarrousel}
+          className="containerCarrousel"
+        >
+          {projects.map((section, i) => (
+            <Link to={`/project/${section.name}`} key={section.id}>
+              <Panel
+                className={`panel ${section.id}`}
+                ref={(el) => (sectionsRef.current[i] = el)}
+              >
+                <div className="textProjectSesionHome">
+                  <div className="titleAndNumber">
+                    <p>{section.number}</p>
+                    <h2 id={`textInside-${section.id}`}>{section.title}</h2>
+                  </div>
+
+                  <h4>{section.rol}</h4>
                 </div>
 
-                <h4>{section.rol}</h4>
-              </div>
-
-              <img
-                onMouseEnter={() => handleMouseEnter(i)}
-                onMouseLeave={() => handleMouseLeave(i)}
-                ref={(el) => (imgRefs.current[i] = el)}
-                src={section.image}
-                alt={section.title}
-                key={i}
-                className="imageCarrusselHomeProjects"
-              />
-            </Panel>
-          </Link>
-        ))}
-      </ContainerCarrousel>
-      <Link to="/seemore">
-        <HandPointingcontainer className="hand-pointingSeeALL">
-          <AnimatedInViewComponent>
-            <img src={HandPointing} alt="hand pointing click to see more" />
-            <h4>see all</h4>
-          </AnimatedInViewComponent>
-        </HandPointingcontainer>
-      </Link>
-    </div>
+                <img
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={() => handleMouseLeave(i)}
+                  ref={(el) => (imgRefs.current[i] = el)}
+                  src={section.image}
+                  alt={section.title}
+                  key={i}
+                  className="imageCarrusselHomeProjects"
+                />
+              </Panel>
+            </Link>
+          ))}
+        </ContainerCarrousel>
+      </div>
+      <HandPointingcontainer className="hand-pointingSeeALL">
+        <AnimatedInViewComponent>
+          <div className="seeAllContainer">
+            <Link to="/animationtest">
+              <img src={HandPointing} alt="hand pointing click to see more" />
+              <h4>see all</h4>
+            </Link>
+          </div>
+        </AnimatedInViewComponent>
+      </HandPointingcontainer>
+    </>
   );
 }

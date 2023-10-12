@@ -11,14 +11,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger, Power2 } from 'gsap/all';
 import styled from 'styled-components';
 
-import WomanFace from '../../assets/womanFace.jpg';
-import CloudNoise from '../../assets/geo.jpg';
+import WomanFace from '../../assets/womanFace.webp';
+import CloudNoise from '../../assets/geo.webp';
 
 import { backgroundColor, textColorBringUp } from '../../styled';
 import '../utils/imageFadeMaterial';
 
-import SmileFacePng from '../../assets/iconsmileyLight.png';
-import SmileFacePngDark from '../../assets/iconSmileyDark.png';
+import SmileFacePng from '../../assets/iconsmileyLight.webp';
+import SmileFacePngDark from '../../assets/iconsmileyLight.png';
 import { useSelector } from 'react-redux';
 import { TextureLoader, MathUtils } from 'three';
 
@@ -136,7 +136,7 @@ function Building() {
         pin: true,
         scrub: 0.2,
         start: 'bottom bottom',
-        end: '+=1001',
+        end: '+=1500',
         markers: false,
         onLeave: exitTimeline,
         onEnter: enterTimeline,

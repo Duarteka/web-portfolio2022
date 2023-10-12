@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
+
 import { backgroundColor, textColor, textColorBringUp } from '../../../styled';
 
 // project list HOME --------------------------
@@ -121,27 +122,49 @@ export const ModalBackground = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  .commingSoon {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: ${backgroundColor};
+    border: solid 2px ${textColorBringUp};
+
+    h1 {
+      color: ${textColorBringUp};
+    }
+  }
 `;
 
 export const CloseButton = styled.div`
-  // top: 5%;
-  // right: 5%;
-  // background-color: transparent;
-  // color: white;
-  // border: none;
-  // font-size: 2em;
-  // cursor: pointer;
-  position: absolute;
+  top: 5%;
+  right: 15%;
+  background-color: transparent;
+  color: ${backgroundColor};
 
+  font-size: 2em;
+  cursor: pointer;
+  position: fixed;
+
+  p {
+    border: solid 1px;
+    width: 100%;
+    height: 100%;
+    background-color: ${textColor};
+    position: sticky;
+  }
   img {
     width: 80px;
   }
 
   .closeBoton {
+    position: fixed;
     display: flex;
     align-items: center;
     flex-direction: column;
-    position: fixed;
   }
 `;
 

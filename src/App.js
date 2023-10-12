@@ -1,12 +1,13 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+
 import { store } from './components/utils/redux/store';
 import ContactPage from './components/pages/ContactPage';
 import About from './components/pages/AboutPage';
@@ -22,6 +23,18 @@ import Form3 from './assets/form3.webp';
 
 import ProjectDetail from './components/main/projects/ProjectDetail';
 import { ProjectsPage } from './components/pages/ProjectsPage';
+import ModalBienvenida from './components/content/ModalBienvenida';
+import AnimationTests from './components/pruebas/AnimationTests';
+
+export function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,19 +46,29 @@ function BackgroundNoise() {
   );
 }
 function App() {
+  const [showModal, setShowModal] = useState(true);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
           {/* <BackgroundNoise /> */}
-          <Navbar />
-          <Shapes />
+          <div>
+            {showModal && <ModalBienvenida onClose={handleCloseModal} />}
 
+            <Navbar />
+            <Shapes />
+          </div>{' '}
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/seemore" element={<ProjectsPage />} />
+            <Route path="/animationtest" element={<AnimationTests />} />
 
             <Route path="/project/:name" element={<ProjectDetail />} />
           </Routes>

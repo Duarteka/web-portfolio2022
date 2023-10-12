@@ -115,12 +115,14 @@ export default function DowloadCV() {
         <div className="borderCenter" />
         <EmailtoHeader>
           <div className="emailHeader">
-            <a
-              style={{ color: textColor }}
-              href="mailto: duarte.karen21@gmail.com"
-            >
-              duarte.karen21@dev.com
-            </a>
+            <h5>
+              <a
+                style={{ color: textColor }}
+                href="mailto: duarte.karen21@gmail.com"
+              >
+                hi_frontend@duarteka.eu
+              </a>
+            </h5>
           </div>
         </EmailtoHeader>
       </DowloadCVBasedIn>

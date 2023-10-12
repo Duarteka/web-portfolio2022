@@ -10,12 +10,12 @@ import { useIntersection } from '../utils/useIntersection';
 
 const TrailMain = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  //width: 100%;
+  // height: 100%;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  //justify-content: center;
+  //align-items: center;
 `;
 
 const TrailText = styled(a.div)`

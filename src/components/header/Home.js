@@ -16,6 +16,7 @@ import HorizontalScroll from '../content/horizontal-scroll';
 
 import BackgroundMorphing from '../pruebas/BackgroundMorphing';
 import AboutDesign from '../content/AboutDesign';
+import { TextAppears } from '../content/Presentation';
 
 function Home() {
   const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 });
@@ -30,6 +31,7 @@ function Home() {
       {/* <BackgroundMorphing /> */}
       <ProjectsCarrussel />
       <AboutDesign />
+
       <IdeatePrueba />
       <AboutMeHome />
 

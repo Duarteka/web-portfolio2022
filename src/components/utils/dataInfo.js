@@ -11,21 +11,21 @@ import project4 from '../../assets/project4.webp';
 export const socialMidiaContact = [
   {
     id: 1,
-    contact: 'Discord',
+    contact: 'Linkedin',
     socialMidiaName: 'Kapi#8423',
-    route: 'https://discord.gg/tP3mH56w'
+    ruta: 'https://www.linkedin.com/in/duarte-karen/'
   },
   {
     id: 3,
     contact: 'Behance',
     socialMidiaName: 'karenduarte21',
-    route: 'https://www.behance.net/karenduarte21'
+    ruta: 'https://www.behance.net/karenduarte21'
   },
   {
     id: 4,
     contact: 'Github',
     socialMidiaName: 'DuarteKa',
-    route: 'https://github.com/Duarteka'
+    ruta: 'https://github.com/Duarteka'
   }
   // {
   //   id: 5,
@@ -137,7 +137,7 @@ export const sections = [
       { id: 1, text: 'UI/HTML5 ' },
       { id: 2, text: 'WIREFRAMING' },
       { id: 3, text: 'PROTOTYPING' },
-      { id: 3, text: 'CMS' }
+      { id: 4, text: 'CMS' }
     ],
     textInfiniteh3: [
       { id: 1, text: 'ANTDESIGN' },

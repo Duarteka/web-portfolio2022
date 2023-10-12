@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { gsap } from 'gsap';
 
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import React, { useRef, useEffect, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { useInView } from 'react-intersection-observer';
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 
 import AnimationApple from '../utils/AnimationApple';
@@ -14,6 +15,34 @@ import { HeaderTextForSection } from './Ideate';
 import { socialMidiaContact } from '../utils/dataInfo';
 import { Trail } from '../slideAnimation/Slide';
 
+import KarenAboutMeHome from '../../assets/KarenFINAL-50.jpg';
+import AnimatedInViewComponent from './BlinkAnimation';
+import { TextAppears } from './Presentation';
+import { TextKaraoke } from './KaraokeText';
+
+const lookHereAnin = keyframes`
+from {
+  transform: scale(1);
+  transform-origin: center center;
+  animation-timing-function: ease-out;
+}
+10% {
+  transform: scale(0.91);
+  animation-timing-function: ease-in;
+}
+17% {
+  transform: scale(0.98);
+  animation-timing-function: ease-out;
+}
+33% {
+  transform: scale(0.87);
+  animation-timing-function: ease-in;
+}
+45% {
+  transform: scale(1);
+  animation-timing-function: ease-out;
+}
+`;
 const Containercircle = styled.div`
   display: flex;
   justify-content: center;
@@ -34,9 +63,11 @@ const ContentWrapper = styled.div`
 const Circle = styled.div`
   width: 40px;
   height: 40px;
+  backface-visibility: hidden;
   border-radius: 50%;
   position: absolute;
   background-color: ${textColor};
+  filter: brightness(1);
 `;
 
 const TextInsideCircle = styled.div`
@@ -46,21 +77,59 @@ const TextInsideCircle = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 250vh;
-
+  height: 100vh;
   position: relative;
   width: 100%;
-
-  //margin: 40rem 0 7rem 0;
-
   justify-content: center;
 
+  .textParagraph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .imageNaimation {
+    position: relative;
+    cursor: pointer;
+    width: 100%; // Esto es el 100% del ancho de su contenedor padre
+    height: 100%;
+    border-bottom: solid 2px ${textColorBringUp};
+  }
+  .lookHere p {
+    opacity: 0; 
+    1.5s ease-in-out infinite both;
+  }
+  .imageNaimation::after {
+    content: '';
+    background-image: url(${KarenAboutMeHome}); // Cambia a la URL de tu imagen
+    width: 50vw; // Ajusta según el tamaño que desees
+    height: 100vh; // Ajusta según el tamaño que desees
+    position: absolute;
+    background-size: cover; // Esto hará que la imagen cubra completamente el contenedor sin perder su aspecto
+    background-repeat: no-repeat; // Esto previene que la imagen se repita si es más pequeña que el contenedor
+    background-position: center;
+    top: 100%; // Sitúa la imagen justo debajo del texto
+    //left: 50%;
+    // transform: translateX(-50%) scale(0);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    object-fit: cover;
+  }
+
+  .imageNaimation:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
   p {
-    font-size: 1.5vw;
-    line-height: 2;
+    font-size: 2vw;
+    line-height: 1.5;
     letter-spacing: 0.1em;
-    font-weight: 400;
-    padding: 0 10vw;
+    font-weight:200;
+    max-width: 60%;
     text-align: left;
     transition: ease-in 2s;
 
@@ -239,9 +308,13 @@ const SocialMidiaContact = styled.div`
 `;
 
 function SmoothScroll() {
-  const ref = useRef(null);
+  const refContainer = useRef(null);
   const dispatch = useDispatch();
   const refChangeColorNav = useRef();
+
+  const [ref, inView] = useInView({
+    threshold: 0.8 // Se activa cuando al menos el 10% del elemento está en vista
+  });
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -279,9 +352,10 @@ function SmoothScroll() {
   }, [dispatch]);
 
   useEffect(() => {
-    const element = ref.current;
+    const element = refContainer.current;
 
     const tl = gsap.timeline({
+      // paused: true,
       scrollTrigger: {
         trigger: element.querySelector('.circleAnimation'),
         start: 'top 80%',
@@ -307,40 +381,56 @@ function SmoothScroll() {
       element.querySelector('#text'),
       {
         opacity: 1,
-        y: -100,
+        y: 100,
         ease: 'power1.inOut'
       },
       '-=0.5' // Esto ajustará el offset para que la animación de texto comience 0.5s antes de que termine la animación del círculo
     );
+    // if (inView) {
+    //   tl.to(element.querySelector('.lookHere'), {
+    //     opacity: 1,
+    //     duration: 2,
+    //     yoyo: true,
+    //     repeat: 1,
+    //     ease: 'power1.inOut'
+    //   });
+    // }
+
+    // tl.play(); // Iniciar la animación
     return () => tl.revert();
-  }, []);
+  }, [inView]);
 
   return (
     <div>
       <HeaderTextForSection text1="A QUICK INTRODUCTION ABOUT MYSELF" />
 
-      <div ref={ref}>
+      <div ref={refContainer}>
         <Containercircle className="circleAnimation">
           <ContentWrapper>
             <Circle id="circle" />
             <TextInsideCircle id="text">
-              <p>
-                I&apos;M KAREN, A WEB DESIGNER WITH HAVE A PASSION FOR CREATING
-                USER-FRIENDLY WEBSITES♥, I AM SPECIALIZED IN ON FRONTEND & UX/UI
-                DESIGN. <br />
-                SO, HOW I CAN HELP YOUR TEAM? why me? WELL,
-                <br /> LET&apos;S JUST SAY I&apos;M LIKE A CHAMELEON, I CAN
-                ADAPT TO ANY STYLE THAT SUITS YOUR PROJECTS. MY GOAL IS TO
-                CREATE DESIGNS THAT WILL MAKE YOU SAY:
-                <br /> &quot;wow, that&apos;s exactly what i was thinking!&quot;
-                <br />
-                (AND LET&apos;S BE HONEST, I&apos;LL PROBABLY DO A LITTLE HAPPY
-                DANCE WHEN THAT HAPPENS).
-              </p>
+              <div className="textParagraph">
+                <p>
+                  I&apos;M
+                  <span className="imageNaimation ">
+                    <span> KAREN</span>
+                    {/* className="lookHere" */}
+                  </span>
+                  ,A WEB DESIGNER WITH A PASSION FOR CREATING USER-FRIENDLY
+                  WEBSITES&hearts;, I AM SPECIALIZED IN FRONTEND &amp; UX/UI
+                  DESIGN. With 3 years of experience, I&apos;m dedicated to
+                  crafting websites that users and clients appreciate. Now,
+                  I&apos;m looking for a new opportunity where my frontend
+                  skills can make a genuine impact in digital experiences.
+                  <br /> Ready when you are!
+                </p>
+              </div>
             </TextInsideCircle>
           </ContentWrapper>
         </Containercircle>
+        {/* <TextAppears /> */}
       </div>
+
       {!isMobile ? (
         <>
           <ContainerContactEmail ref={refChangeColorNav}>
@@ -361,7 +451,7 @@ function SmoothScroll() {
                       style={{ color: textColor }}
                       href="mailto: duarte.karen21@gmail.com"
                     >
-                      duarte.karen21@gmail.com
+                      hi_frontend@duarteka.eu
                     </a>
                   </h5>
                 </div>
@@ -373,9 +463,9 @@ function SmoothScroll() {
               <div className="socialList">
                 {socialMidiaContact.map((item) => (
                   <list className="subTitle" key={item.id}>
-                    <Link to={item.route} target="_blank" rel="noreferrer">
+                    <a href={item.ruta} target="_blank" rel="noreferrer">
                       {item.contact}
-                    </Link>{' '}
+                    </a>
                   </list>
                 ))}
               </div>
@@ -400,7 +490,7 @@ function SmoothScroll() {
             </Trail>
             <div className="email">
               <a href="mailto: duarte.karen21@gmail.com">
-                <h5> duarte.karen21@gmail.com </h5>
+                <h5>hi_frontend@duarteka.eu </h5>
               </a>
             </div>
             <AnimationApple />
@@ -410,9 +500,9 @@ function SmoothScroll() {
             <div className="socialListRESPONSIVE">
               {socialMidiaContact.map((item) => (
                 <list className="subTitle" key={item.id}>
-                  <Link to={item.route} target="_blank" rel="noreferrer">
+                  <a href={item.route} target="_blank" rel="noreferrer">
                     {item.contact}
-                  </Link>
+                  </a>
                 </list>
               ))}
             </div>
