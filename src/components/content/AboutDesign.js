@@ -3,67 +3,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Trail } from '../slideAnimation/Slide';
 import WomanTongueHome from '../../assets/funnyface.webp';
 import { backgroundColor, textColor } from '../../styled';
-import contournTextAnimation from '../../assets/TextContorn.png';
+import TextSlide from './TextSlide';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutDesign() {
-  const circleRotationRef = useRef(null);
   const funnyFaceRef = useRef(null);
 
-  useEffect(() => {
-    const tween = gsap
-      .to(circleRotationRef.current, {
-        rotation: '+=1440',
-        duration: 360,
-        ease: 'none',
-        repeat: -1
-      })
-      .totalProgress(0.5);
-
-    ScrollTrigger.create({
-      trigger: circleRotationRef.current,
-      start: 'center center',
-      end: '+=1000',
-      onUpdate: ({ getVelocity }) => {
-        const velocity = getVelocity();
-        const timeScale = velocity > 1 ? 10 : -10;
-
-        gsap.to(tween, {
-          duration: 0,
-          timeScale
-        });
-      }
-    });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: funnyFaceRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 5
-      }
-    });
-
-    // Aquí es donde agregas tus animaciones al timeline
-    tl.to(funnyFaceRef.current, {
-      scale: 1.2,
-      duration: 5,
-      ease: 'power1.out'
-    });
-  }, []);
   return (
     <ContainerAboutDesign>
       <ImageContainer>
-        <div className="overlayText">
-          <h2> ABOUT WORK PROCESS</h2>
-          <h2 className="outline"> ABOUT WORK PROCESS</h2>
-          <h2> ABOUT WORK PROCESS</h2>
-          <h2 className="outline"> ABOUT WORK PROCESS</h2>
-        </div>
+        <div className="overlayText" />
+        <TextSlide />
         <div className="funnyFaceContainer">
           <img
             ref={funnyFaceRef}
@@ -84,7 +37,7 @@ const ContainerAboutDesign = styled.div`
   align-content: center;
   width: 100vw;
   flex-direction: center;
-  border-top: solid 2px;
+
   background-color: ${backgroundColor};
   position: relative;
 
@@ -102,13 +55,11 @@ const ContainerAboutDesign = styled.div`
 const ImageContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   flex: 1;
-  border-left: solid 2px;
+  justify-content: center;
   max-width: 100%;
   height: 100%;
-  position: relative;
-  z-index: 5;
+  z-index: 1;
   position: relative;
   display: flex;
   align-items: center;
@@ -122,8 +73,6 @@ const ImageContainer = styled.div`
 
   .imageFunnyFace {
     width: 100%;
-
-    //object-fit: cover;
   }
 
   .overlayText {
@@ -133,21 +82,11 @@ const ImageContainer = styled.div`
     align-self: center;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 20;
     color: ${backgroundColor};
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.2);
-
-    h2 {
-      margin: 0;
-      font-family: 'Oswald';
-      font-weight: 700;
-      font-size: 11.2vw;
-      letter-spacing: -9px;
-      white-space: nowrap;
-      overflow: hidden;
-      border-bottom: solid 2px;
-    }
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: hidden;
   }
   @media (max-width: 768px) {
     .overlayText h2 {

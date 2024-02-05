@@ -9,7 +9,7 @@ import {
   TransitionState
 } from '@steveeeie/react-page-transition';
 import { Link, NavLink } from 'react-router-dom';
-import HorizontalScroll from './horizontalscroll';
+// import HorizontalScroll from '../content/';
 
 const Main = styled.main``;
 
@@ -87,12 +87,12 @@ export default function Proyects() {
   return (
     <>
       <HorizontalSection>
-        <HorizontalScroll>
+        {/* <HorizontalScroll>
           <CardsContainer>
             <h2> Proyects </h2>
             <SampleCards />
           </CardsContainer>
-        </HorizontalScroll>{' '}
+        </HorizontalScroll>{' '} */}
         <Link
           style={{
             display: 'flex',
@@ -105,8 +105,8 @@ export default function Proyects() {
         </Link>
       </HorizontalSection>
 
-      {/* <div className="containerProjects">
-        {proyects.map((item) =>
+      <div className="containerProjects">
+        {projects.map((item) =>
           item.id <= 5 ? (
             <div className="proyects" key={item.id}>
               <h3>{item.title}</h3>
@@ -119,7 +119,7 @@ export default function Proyects() {
         )}
       </div>
       <div className="containerProjectsRow">
-        {proyects.map((item) =>
+        {projects.map((item) =>
           item.id > 5 ? (
             <div className="proyects" key={item.id}>
               <h3>{item.title}</h3>
@@ -130,7 +130,7 @@ export default function Proyects() {
             </div>
           ) : null
         )}
-      </div> */}
+      </div>
     </>
   );
 }

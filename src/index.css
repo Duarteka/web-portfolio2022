@@ -31,7 +31,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.9em;
+  /* font-size: 2.9em; */
   font-weight: 700;
   text-transform: uppercase;
   /* transition: color 0.375s cubic-bezier(0.16, 1, 0.3, 1); */
@@ -42,12 +42,13 @@ h2 {
 }
 
 h4 {
-  font-size: 1.3em;
+  font-size: 1.6em;
+}
+h3 {
+  text-transform: uppercase;
 }
 a {
   cursor: pointer;
-  text-decoration: none;
-  color: unset;
   text-decoration: none;
 }
 p {
@@ -97,20 +98,13 @@ input[type='reset'] {
   }
 }
 
-.text-slide-container {
-  display: grid;
-  margin: -10rem 0;
-  border-top: 1px solid;
-  overflow-x: hidden;
-}
-
 .containerCarrousel {
   font-size: 0.5em;
   height: 50%;
   object-fit: fill;
 }
 .containerCarrousel img {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 /* Pantallas pequeñas */

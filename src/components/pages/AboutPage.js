@@ -2,16 +2,14 @@
 /* eslint-disable no-unused-vars */
 import styled, { css, keyframes } from 'styled-components';
 
-import React, { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Triller } from 'styled-icons/simple-icons';
+import React, { useEffect } from 'react';
+
 import { useInView } from 'react-intersection-observer';
-import HandUp from '../../assets/hand-pointing.webp';
-import { Slide, Trail } from '../slideAnimation/Slide';
-import { backgroundColor, textColor } from '../../styled';
-import BlodeMe from '../../assets/blondeshort.jpg';
-import KarenFinal from '../../assets/KarenFINAL-8.jpg';
+import { useSelector } from 'react-redux';
+import { Trail } from '../slideAnimation/Slide';
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
+import KarenFinal from '../../assets/KarenFINAL2-9.jpg';
+import Footer from '../footer/Footer';
 
 const enterImage = keyframes`
 0% {
@@ -42,247 +40,125 @@ export default function About() {
     triggerOnce: true,
     threshold: 0.1
   });
+
   return (
     <>
-      <AboutMeHeader className="aboutHeader">
-        <Trail>
-          <h1>who i&apos;am</h1>
-        </Trail>
-      </AboutMeHeader>
-
-      <AboutContainer className="aboutContainer">
-        <Quote className="quoteAndPhoto">
-          <div className="quoteText">
-            <Trail>
-              <p>
-                &quot;A design isn’t finished until somebody is using it...
-                Design must be used, touched, heard, felt. Only then can you
-                understand whether it’s good or bad. Only then can you
-                appreciate and understand its true purpose&quot;.-
-              </p>
-            </Trail>
-            <Trail>
-              <p className="bottomQuote">
-                about design process said by <strong>Brenda Laurel</strong>
-              </p>
-            </Trail>
+      <AboutContainer className="aboutContainer" isMainPage={false}>
+        <p className="available">available to work</p>
+        <h4>Karen Duarte.</h4>
+        <TextIntro>
+          <div className="text1">
+            <h4>
+              I AM A FRONT-END DEVELOPER WITH A MULTICULTURAL
+              <br /> BACKGROUND; BORN IN BRAZIL, RAISED IN CHILE, AND <br />{' '}
+              CURRENTLY LIVE IN MADRID. I HAVE A KEEN <br />
+              ATTENTION TO DETAIL AND A STRONG FOCUS <br /> ON UNDERSTANDING
+              USER NEEDS
+              <br /> TO SOLVE PROBLEMS EFFECTIVELY.
+            </h4>
           </div>
+          <div className="text2">
+            <p>
+              MY SKILLS EXTEND TO ILLUSTRATION, AND WEBSITE DESIGN AND
+              PROGRAMMING WEBSITE, WHERE I SPECIALIZE IN CREATING ENGAGING USER
+              EXPERIENCES THROUGH THE USE OF MICRO-ANIMATIONS.
+            </p>
+          </div>
+        </TextIntro>
 
-          <FadeIn className="photome" ref={ref} inView={inView}>
-            <img src={KarenFinal} alt="me" />
-          </FadeIn>
-        </Quote>
-        <PhotoContainer>
-          <TextsAboutMe>
-            <div className="borderDiv">
-              <Trail>
-                <h3>A STORY</h3>
-              </Trail>
-              <Trail>
-                <p>
-                  FRONT-END DEVELOPER WITH A MULTICULTURAL BACKGROUND; BORN IN
-                  BRAZIL, RAISED IN CHILE, AND CURRENTLY LIVE IN MADRID. I HAVE
-                  A KEEN ATTENTION TO DETAIL AND A STRONG FOCUS ON UNDERSTANDING
-                  USER NEEDS TO SOLVE PROBLEMS EFFECTIVELY. MY SKILLS EXTEND TO
-                  ILLUSTRATION, AND WEBSITE DESIGN AND PROGRAMMING WEBSITE,
-                  WHERE I SPECIALIZE IN CREATING ENGAGING USER EXPERIENCES
-                  THROUGH THE USE OF MICRO-ANIMATIONS.
-                </p>
-              </Trail>
-            </div>
-            <div className="borderDiv">
-              <Trail>
-                <h3>WHY AND HOW </h3>
-              </Trail>
-              <Trail>
-                <p>
-                  THE REASON I STARTED CREATIVE CODING WAS BECAUSE I SAW SOME
-                  AMAZING WEBSITES AND FELT LIKE I WANTED TO DO THAT TOO, SO IN
-                  2022 I GRADUATED FROM MASTERS DEGREE IN WEB DESIGN AND
-                  DEVELOPMENT WITH HIGH MARKS IN CEI DESIGN SCHOOL. I AM NOW
-                  HARD AT WORK ON WEBGL AND SIMILAR LIBRARIES.
-                </p>
-              </Trail>
-            </div>
-            <div className="borderDiv">
-              <Trail>
-                <h3>CREATIVE PROCESS</h3>
-              </Trail>
-              <Trail>
-                <p>
-                  <strong>DISCOVER:</strong> LEARN AND UNDERSTAND ABOUT THE
-                  PROBLEM.
-                  <br />
-                  <strong>ANALIZE:</strong> CREATE AND THINK ABOUT DIFFERENT
-                  IDEAS. <br />
-                  <strong>CREATE:</strong> BUILD AND IMPROVE THE FINAL IDEA.
-                  <br />
-                </p>
-              </Trail>
-            </div>
-            <div className="borderDiv">
-              <Trail>
-                <h3>CONTACT</h3>
-              </Trail>
-              <Trail>
-                <p>DUARTE.KAREN21@GMAIL.COM</p>
-              </Trail>
-              <Trail>
-                <p>LINKEDIN</p>
-              </Trail>
-            </div>
-            <div className="intouch">
+        <ImageMeContainer>
+          <img src={KarenFinal} alt="me" />
+        </ImageMeContainer>
+
+        <p>
+          THE REASON I STARTED CREATIVE CODING WAS BECAUSE I SAW SOME AMAZING
+          WEBSITES AND FELT LIKE I WANTED TO DO THAT TOO, SO IN 2022 I GRADUATED
+          FROM MASTERS DEGREE IN WEB DESIGN AND DEVELOPMENT WITH HIGH MARKS IN
+          CEI DESIGN SCHOOL. I AM NOW HARD AT WORK ON WEBGL AND SIMILAR
+          LIBRARIES.
+        </p>
+        <div>
+          <Trail>
+            <h3 className="title">CONTACT</h3>
+          </Trail>
+          <Trail>
+            <p>DUARTE.KAREN21@GMAIL.COM</p>
+          </Trail>
+          <Trail>
+            <p>LINKEDIN</p>
+          </Trail>
+          <Trail>
+            <p>BEHANCE</p>
+          </Trail>
+        </div>
+        {/* <div className="intouch">
               <Trail>
                 <h3>HIRE ME :)</h3>
               </Trail>
               <img src={HandUp} alt="go to top" className="handGoToTop" />
-            </div>
-          </TextsAboutMe>
-        </PhotoContainer>
+            </div> */}
       </AboutContainer>
+      <Footer footerBackgroundColor={backgroundColor} />
     </>
   );
 }
-const PhotoContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-
-  @media screen and (max-width: 668px) {
-    align-items: center;
-  }
-`;
 const AboutContainer = styled.div`
+  padding-right: 20rem;
+  padding-left: 20rem;
+  padding-top: 30vh;
   position: relative;
   height: 100%;
   width: 100vw;
   background-color: ${backgroundColor};
 
-  .bottomQuote {
-    font-size: 0.7rem !important;
-    text-align: left;
-    margin-top: 2em;
-  }
-  .intouch {
-    display: flex;
-  }
-
   .handGoToTop {
     max-width: 30%;
     align-self: center;
   }
-`;
-const AboutMeHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 
-  position: relative;
-  padding-top: 10vh;
-  padding-right: 5rem;
-  height: 40vh;
-
-  h1 {
-    font-size: 10em;
-    font-size: 7.5rem;
-    height: 110vh;
+  .available {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    font-family: 'Acier';
+    font-size: 0.8rem;
+    margin-bottom: 5rem;
+    color: ${textColorBringUp};
   }
 `;
-const Quote = styled.div`
+const TextIntro = styled.div`
   display: flex;
-  width: 100vw;
-  border: solid 2px;
+  padding 2rem 0;
+  font-weight: 200; 
 
-  .quoteText,
-  .photome {
-    flex: 1;
-  }
-  .containerQuoteAndPhoto {
-    display: flex;
-    justify-content: center;
-  }
+  .text1 {
+    max-width: 100%;
 
-  .quoteText {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    justify-self: center;
-
-    p {
-      margin-left: 2rem;
-      max-width: 90%;
+    h4{
+      line-height: 33px;
     }
+
   }
-  .quoteText p {
-    //font-size: 2vw;
-    line-height: 1.6;
-    // max-width: 70%;
-    align-self: flex-start;
-    justify-self: center;
-    //padding: 0 5rem;
-    width: 100%;
+  .text2 {
+    font-size:0.6rem;
+    max-width: 40%;
+    margin-top: 15%;
+    margin-left: 4%;
+   
   }
-  .photome {
-    max-widht: 50vw;
-    filter: grayscale(80%);
-  }
+`;
+
+const ImageMeContainer = styled.div`
+  widht: 100%;
+  filter: grayscale(80%);
+
   img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
-    min-height: 100vh;
+    max-height: 90%;
     object-fit: cover;
-  }
-  .bottomQuote {
-    padding: 0;
-  }
-  @media screen and (max-width: 668px) {
-    flex-direction: column-reverse;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .quoteText {
-      width: 100vw;
-      align-self: center;
-      margin: 4rem 5rem 5rem 8rem;
-
-      p {
-        line-height: 1.3;
-        margin: 0;
-      }
-    }
-  }
-`;
-const TextsAboutMe = styled.div`
-  @media screen and (max-width: 668px) {
-    max-width: 100vw;
-  }
-  border-left: solid 2px;
-  max-width: 50vw;
-
-  .borderDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: solid 2px;
-    height: 400px;
-
-    p {
-      padding: 0 3rem;
-      font-size: 1em;
-    }
-    h3 {
-      padding: 0 3rem;
-    }
-
-    @media screen and (max-width: 668px) {
-      padding: 0;
-    }
-    p {
-      padding: 0 2rem;
-    }
-    h3 {
-      padding: 0 2rem;
-    }
+    border-radius: 40px;
   }
 `;

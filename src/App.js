@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as ReduxProvider, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -47,18 +47,22 @@ function BackgroundNoise() {
 }
 function App() {
   const [showModal, setShowModal] = useState(true);
+  const location = useLocation();
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  useEffect(() => {
+    dispatch({ type: 'TOGGLE_SPECIAL_COMPONENT', payload: false });
+  }, [dispatch, location]);
   return (
     <ReduxProvider store={store}>
       <DarkThemeProvider>
         <Wrapper>
-          {/* <BackgroundNoise /> */}
+          <BackgroundNoise />
           <div>
             {showModal && <ModalBienvenida onClose={handleCloseModal} />}
-
             <Navbar />
             <Shapes />
           </div>{' '}

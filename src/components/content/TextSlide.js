@@ -3,89 +3,100 @@
 import React, { useEffect } from 'react';
 import gsap from 'gsap';
 import styled from 'styled-components';
+import { backgroundColor } from '../../styled';
 
 export default function TextSlide() {
   useEffect(() => {
-    const animateTextSlide = () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.text-slide-container',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.text-slide-container',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 2
+      }
+    });
 
-      tl.to('.text-slide-one', {
-        xPercent: -100
-      }).to(
-        '.text-slide-two',
-        {
-          xPercent: 100
-        },
-        0
-      );
-    };
-    animateTextSlide();
+    // Aquí se animan tanto el texto principal como el secundario
+    tl.to('.text-slide-one', {
+      xPercent: -20,
+      duration: 1
+    }).to(
+      '.text-slide-two',
+      {
+        xPercent: 20,
+        duration: 1
+      },
+      0
+    );
   }, []);
 
   return (
     <SectionTextSlide className="text-slide-container">
-      <h2 className="text-slide text-slide-one">
-        ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio 2022 ✵ &#32; Karen
-        Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio 2022 ✵ &#32;
-        Karen Portfolio ✵ Karen Portfolio 2022 ✵&#32; Karen Portfolio 2022 ✵
-        &#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio
-        2022 ✵ &#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen
-        Portfolio 2022 ✵&#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32;
-        Karen Portfolio 2022 ✵ &#32; Karen Portfolio
-      </h2>
-      <MiddleText />
-    </SectionTextSlide>
-  );
-}
-
-function MiddleText() {
-  return (
-    <SectionTextSlide
-      className="text-slide text-slide-two"
-      style={{ position: 'relative', height: '100%' }}
-    >
-      <h2 className="text-slide" style={{ borderBottom: '1px solid' }}>
-        ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio 2022 ✵ &#32; Karen
-        Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio 2022 ✵ &#32;
-        Karen Portfolio ✵ Karen Portfolio 2022 ✵&#32; Karen Portfolio 2022 ✵
-        &#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen Portfolio
-        2022 ✵ &#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32; Karen
-        Portfolio 2022 ✵&#32; Karen Portfolio ✵ Karen Portfolio 2022 ✵ &#32;
-        Karen Portfolio 2022 ✵ &#32; Karen Portfolio
-      </h2>
-      <h2
-        className="text-slide"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '-100%',
-          borderBottom: '1px solid',
-          borderTop: 'solid 1px'
-        }}
-      >
-        available to work ✵ available to work ✵ available to work ✵ available to
-        work ✵ available to work ✵ available to work ✵ available to work ✵
-        available to work ✵ available to work ✵ available to work ✵
-      </h2>
+      <div className="text-container">
+        <h2 className="text-slide text-slide-one">
+          ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+          ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+          &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK
+          PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT
+          WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+        </h2>
+      </div>
+      <div className="text-container">
+        <h2 className="text-slide text-slide-two">
+          ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+          ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+          &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK
+          PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT
+          WORK PROCESS &#32; ABOUT WORK PROCESS &#32; ABOUT WORK PROCESS
+        </h2>
+      </div>
     </SectionTextSlide>
   );
 }
 
 const SectionTextSlide = styled.section`
+  position: absolute;
+  width: 100%; // Ocupa todo el ancho
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  .text-container {
+    white-space: nowrap;
+    overflow: hidden;
+
+    .text-slide {
+      display: inline-block; // O cualquier otro estilo necesario
+      font-size: 11.2vw;
+      margin: 0;
+    }
+  }
+
   .text-slide {
+    display: inline-block;
+    position: relative;
     white-space: nowrap;
     line-height: 120%;
     margin: 0;
     text-transform: uppercase;
-    min-width: 300%;
-    font-size: 4rem !important;
+    width: 100%;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: 'Acier';
+    font-weight: 700;
+    font-size: 20vw !important;
+    letter-spacing: -9px;
+    white-space: nowrap;
+    overflow: hidden;
+    color: ${backgroundColor};
+    width: 100%;
+    height: 100%;
+    opacity: 95%;
   }
 
   @media (max-width: 668px) {

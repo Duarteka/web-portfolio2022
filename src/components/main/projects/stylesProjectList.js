@@ -171,16 +171,16 @@ export const CloseButton = styled.div`
 export const AfewWordsContainer = styled.div`
   display: flex;
   position: relative;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-end;
   width: 100%;
   height: 100%;
   padding: 0 5rem;
   height: 30vh;
 
-  h4{
-    font-family: "Acier";
-    font-size: 8em;
+  h4 {
+    font-family: 'Acier';
+    font-size: 4em;
   }
 
   img {
@@ -189,11 +189,6 @@ export const AfewWordsContainer = styled.div`
     margin-left: 65rem;
   }
 
-  h4 {
-    font
-    font-weight: 200;
-    opacity: 0.8;
-  }
   @media (max-width: 576px) {
     padding: 0;
   }

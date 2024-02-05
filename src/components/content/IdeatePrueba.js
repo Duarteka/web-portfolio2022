@@ -75,8 +75,9 @@ const DevelopProcessContainer = styled.div`
     flex-direction: column;
     align-items: center;
     max-width: 50%;
-    //margin-top: 5rem;
+    max-height: 100%;
     padding: 0 2rem;
+    //background-color: blue;
   }
 
   .imageContainer.firstImage img {

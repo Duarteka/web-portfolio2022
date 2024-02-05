@@ -98,12 +98,12 @@ const TextInsideCircle = styled.div`
     border-bottom: solid 2px ${textColorBringUp};
   }
   .lookHere p {
-    opacity: 0; 
-    1.5s ease-in-out infinite both;
+    opacity: 0;
+    animation: 1.5s ease-in-out infinite both;
   }
   .imageNaimation::after {
     content: '';
-    background-image: url(${KarenAboutMeHome}); // Cambia a la URL de tu imagen
+    background-image: url(${KarenAboutMeHome});
     width: 50vw; // Ajusta según el tamaño que desees
     height: 100vh; // Ajusta según el tamaño que desees
     position: absolute;
@@ -128,7 +128,7 @@ const TextInsideCircle = styled.div`
     font-size: 2vw;
     line-height: 1.5;
     letter-spacing: 0.1em;
-    font-weight:200;
+    font-weight: 200;
     max-width: 60%;
     text-align: left;
     transition: ease-in 2s;
@@ -386,15 +386,15 @@ function SmoothScroll() {
       },
       '-=0.5' // Esto ajustará el offset para que la animación de texto comience 0.5s antes de que termine la animación del círculo
     );
-    // if (inView) {
-    //   tl.to(element.querySelector('.lookHere'), {
-    //     opacity: 1,
-    //     duration: 2,
-    //     yoyo: true,
-    //     repeat: 1,
-    //     ease: 'power1.inOut'
-    //   });
-    // }
+    if (inView) {
+      tl.to(element.querySelector('.lookHere'), {
+        opacity: 1,
+        duration: 2,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut'
+      });
+    }
 
     // tl.play(); // Iniciar la animación
     return () => tl.revert();
@@ -413,8 +413,7 @@ function SmoothScroll() {
                 <p>
                   I&apos;M
                   <span className="imageNaimation ">
-                    <span> KAREN</span>
-                    {/* className="lookHere" */}
+                    <span className="lookHere"> KAREN</span>
                   </span>
                   ,A WEB DESIGNER WITH A PASSION FOR CREATING USER-FRIENDLY
                   WEBSITES&hearts;, I AM SPECIALIZED IN FRONTEND &amp; UX/UI
@@ -471,7 +470,7 @@ function SmoothScroll() {
               </div>
               {/* THAUK */}
               <div className="ciao">
-                <h4>Tchau</h4>
+                <h4>ciao</h4>
               </div>
             </div>
           </SocialMidiaContact>

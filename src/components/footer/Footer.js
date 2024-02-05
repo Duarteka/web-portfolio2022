@@ -1,18 +1,25 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 // eslint-disable-next-line import/no-cycle
 import styled from 'styled-components';
-import { backgroundColor, textColor } from '../../styled';
+
+import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import HandPointingCloud from '../../assets/hand-pointing.webp';
 import AnimatedInViewComponent from '../content/BlinkAnimation';
 
-export default function Footer() {
+export default function Footer({ footerBackgroundColor }) {
   return (
     <footer>
-      <ContainerFooter>
+      <ContainerFooter backgroundColor={footerBackgroundColor}>
         <p>
           Design and <br />
-          developed by <strong>Karen Duarte</strong>
+          developed by{' '}
+          <strong>
+            <span className="karenduarteFooter">Karen Duarte</span>
+          </strong>
         </p>
         <p> </p>
         <p>© 2023 </p>{' '}
@@ -27,14 +34,25 @@ export default function Footer() {
 }
 const ContainerFooter = styled.div`
   display: flex;
-  background-color: ${textColor};
+  background-color: ${(props) => props.backgroundColor || textColor};
   justify-content: center;
   align-content: center;
   flex-direction: column;
   width: 100%;
   position: relative;
   font-weight: 600 !important;
-  height: 20vh;
+  height: 22vh;
+
+  footer{
+    border-top: solid 2px;
+  }
+
+
+
+  .karenduarteFooter{
+    color: ${textColorBringUp};
+    font-weight: 200;
+  }
 
   img {
     position: absolute;

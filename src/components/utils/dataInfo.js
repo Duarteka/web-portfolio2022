@@ -97,7 +97,7 @@ export const projects = [
     image: project4,
     images: [project1, project3, project5, project4],
     link: '/project4',
-    rol: 'development, ux',
+    rol: 'development,ux',
     number: '04',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus molestie, erat iaculis cursus feugiat, dolor lectus pharetra massa, cursus tempor lectus diam malesuada turpis. Morbi dolor odio, malesuada in dictum ut, elementum non lacus.'

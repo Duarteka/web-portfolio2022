@@ -101,14 +101,14 @@ export default function DowloadCV() {
           <div className="downloadCV">
             <div className="colorFilled" ref={overlay} />
             <button onClick={onButtonClick}>
-              <h3
+              <h5
                 className={isMouseOver ? 'textColorOnHover' : ''}
                 style={{
                   color: isMouseOver ? textColorOnHover : textColorInitial
                 }}
               >
-                Download CV
-              </h3>
+                DOWNLOAD CV
+              </h5>
             </button>
           </div>
         </DowloadCVButton>

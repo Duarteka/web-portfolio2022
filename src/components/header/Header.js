@@ -32,6 +32,8 @@ function HeaderContent() {
   const moonHeaderRef = useRef(null);
   const overlay = useRef();
 
+  const isModalOpen = useSelector((state) => state.preferences.isModalOpen);
+
   const dispatch = useDispatch();
   const toggledarktheme = () => dispatch({ type: TOGGLE_DARKTHEME });
 
@@ -47,6 +49,7 @@ function HeaderContent() {
   const textColorOnHover = darkThemeEnabled ? '#373737' : '#F9F5E7';
   const textColorInitial = darkThemeEnabled ? '#F9F5E7' : '#373737';
 
+  // animacion dowload CV
   const onMouseEnter = () => {
     gsap.to(overlay.current, {
       x: 0,
@@ -86,30 +89,31 @@ function HeaderContent() {
         }
       });
   };
-
+  // animacion modal pagina inicial
   useEffect(() => {
-    const spansAnimationSlide = containerRef.current.children; // Obtener los hijos del contenedor (los elementos <span>)
-
-    gsap.fromTo(
-      spansAnimationSlide,
-      {
-        opacity: 0,
-        x: (i) => (i + 1) * 50
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        stagger: 0.4,
-        ease: 'back.out(1)',
-        scrollTrigger: {
-          start: 'top 80%',
-          marks: true
+    if (!isModalOpen) {
+      const spansAnimationSlide = containerRef.current.children; // Obtener los hijos del contenedor (los elementos <span>)
+      gsap.fromTo(
+        spansAnimationSlide,
+        {
+          opacity: 0,
+          x: (i) => (i + 1) * 50
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          stagger: 0.4,
+          ease: 'back.out(1)',
+          scrollTrigger: {
+            start: 'top 80%',
+            marks: true
+          }
         }
-      }
-    );
-  }, []);
-
+      );
+    }
+  }, [isModalOpen]);
+  // animacion luna en moviviento
   useEffect(() => {
     gsap.to(moonHeaderRef.current.querySelector('img'), {
       y: 200,
@@ -201,6 +205,7 @@ const Containerheader = styled.header`
   position: relative;
   min-width: 100%;
   padding-top: 5rem;
+  text-transform: uppercase;
 
   .sectionHeroSpanAnimation {
     margin-top: 10vh;
@@ -279,6 +284,7 @@ const DowloadCVButton = styled.div`
 
   h3 {
     position: relative;
+    text-transform: uppercase;
   }
 
   @media (max-width: 668px) and (max-width: 992px) {
@@ -300,7 +306,7 @@ const DowloadCVButton = styled.div`
 
 const EmailtoHeader = styled.div`
   width: calc(50vw - 1px); // De nuevo, compensamos el borde central
-  text-transform: uppercase;
+
   .emailHeader {
     display: flex;
     align-items: center;

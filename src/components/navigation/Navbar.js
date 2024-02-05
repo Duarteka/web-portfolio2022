@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
@@ -6,7 +8,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { gsap } from 'gsap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { backgroundColor, textColor, textColorBringUp } from '../../styled';
 import { TOGGLE_DARKTHEME } from '../utils/redux/actions';
 import { MoonLight } from '../icons/Icons';
@@ -18,6 +20,9 @@ function Navbar(props) {
     (state) => state.preferences.isSpecialComponentVisible
   );
 
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   const [isTop, setIsTop] = useState(true);
 
   const navRef = useRef(null);
@@ -26,6 +31,8 @@ function Navbar(props) {
 
   const [showNav, setShowNav] = useState(true);
   const scrollY = useRef(window.pageYOffset);
+  const getNavLinkText = (path, text) =>
+    currentPath === path ? `[ ${text} ]` : text;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +54,8 @@ function Navbar(props) {
 
   useEffect(() => {
     const navElement = navRef.current;
+    console.log('isSpecialComponentVisible:', isSpecialComponentVisible);
+    console.log('isTop en navbar:', isTop);
 
     if (showNav) {
       gsap.to(navElement, { y: 0, duration: 0.5, ease: 'power2.out' });
@@ -59,7 +68,7 @@ function Navbar(props) {
     } else {
       gsap.to(navRef.current, { backdropFilter: 'none', duration: 0.2 });
     }
-  }, [showNav]);
+  }, [showNav, isSpecialComponentVisible, isTop]);
 
   return (
     <div className="navBar">
@@ -71,20 +80,23 @@ function Navbar(props) {
         isSpecialComponentVisible={isSpecialComponentVisible}
       >
         <Logo>
-          <Link to="/">Karen Duarte</Link>
+          <Link to="/">{getNavLinkText('/', 'Karen Duarte')}</Link>
         </Logo>
 
         <ul>
           <li>
-            <Link to="/seemore">Projects</Link>
+            <Link to="/seemore">
+              {' '}
+              {getNavLinkText('/seemore', 'Projects')}{' '}
+            </Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about">{getNavLinkText('/about', 'About')}</Link>
           </li>
         </ul>
-        <Link to="/" onClick={toggledarktheme}>
+        <button onClick={toggledarktheme}>
           <MoonLight />
-        </Link>
+        </button>
       </Nav>
     </div>
   );
